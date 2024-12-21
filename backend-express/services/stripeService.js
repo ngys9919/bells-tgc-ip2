@@ -27,8 +27,10 @@ async function createCheckoutSession(userId, orderItems, orderId) {
         payment_method_types: ['card'],
         line_items: lineItems,
         mode: 'payment',
-        success_url: `https://www.google.com`,
-        cancel_url: `https://www.yahoo.com`,
+        // success_url: `https://www.google.com`,
+        // cancel_url: `https://www.yahoo.com`,
+        success_url: `${process.env.SERVER_URL}?success=true`,
+        cancel_url: `${process.env.SERVER_URL}?canceled=true`,
         metadata: {            
             userId: userId,
             orderId: orderId

@@ -4,9 +4,14 @@ const router = express.Router();
 const orderService = require('../services/orderService');
 const checkoutService = require('../services/checkoutService');
 const UserAuth = require('../middleware/UserAuth');
+const logHttpUrl = require('../middleware/HttpUrl');
 // make sure to import Stripe after all the other require
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+// Apply the logHttpUrl middleware to all routes
+router.use(logHttpUrl);
+
+// Apply the UserAuth middleware to router.post route only
 router.post('/', UserAuth, async (req, res) => {
     try {
         const session = await checkoutService.checkout(req.user.userId);

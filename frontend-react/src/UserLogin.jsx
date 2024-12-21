@@ -4,12 +4,15 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useLocation } from 'wouter';
 import { useFlashMessage } from './FlashMessageStore';
-import { useJwt } from './UserStore';
+import { useJwt, useLoginUsername, usePreviousLoginUser } from './UserStore';
 
 function UserLogin() {
+
   const [, setLocation] = useLocation();
   const { showMessage } = useFlashMessage();
   const { setJwt } = useJwt();
+  const { setLoginUsername } = useLoginUsername();
+  const { setPreviousLoginUser } = usePreviousLoginUser();
 
   const initialValues = {
     email: '',
@@ -30,9 +33,15 @@ function UserLogin() {
       setJwt(response.data.token); // Store the JWT
       actions.setSubmitting(false);
       showMessage('Login successful!', 'success');
+      document.getElementById("loginlogout").innerHTML = "Logout";
+      console.log(response.data.username);
+      setLoginUsername(response.data.username);
+      setPreviousLoginUser(response.data.username);
       setLocation('/');
     } catch (error) {
       console.error('Login error:', error);
+      showMessage('Login error!', 'error');
+      document.getElementById("loginlogout").innerHTML = "Login";
       actions.setErrors({ submit: error.response.data.message });      
       actions.setSubmitting(false);
     }
@@ -57,7 +66,7 @@ function UserLogin() {
 
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <Field type="password" id="password" name="password" className="form-control" />
+                <Field type="password" id="password" name="password" className="form-control" autoComplete="on"/>
                 <ErrorMessage name="password" component="div" className="text-danger" />
               </div>
 

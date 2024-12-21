@@ -23,8 +23,22 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 
 // Basic Route
+
+// https://<server url>/
+// https://<server url>/?success=true
+// https://<server url>/?canceled=true
+
 app.get('/', (req, res) => {
-  res.json({ message: "Welcome to the API" });
+  let { success, canceled } = req.query;
+
+  if (success == 'true') {
+    res.json({ message: "Stripe transaction is successful!" });
+  } else if (canceled == 'true') {
+    res.json({ message: "Stripe transaction is canceled!" });
+  } else {
+    res.json({ message: "Welcome to the API" });
+  }
+  
 });
 
 // Start the server

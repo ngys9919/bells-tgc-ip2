@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const cartService = require('../services/cartService');
 const authenticateToken = require('../middleware/UserAuth');
+const logHttpUrl = require('../middleware/HttpUrl');
+
+// Apply logHttpUrl middleware to all routes
+router.use(logHttpUrl);
 
 // Apply the authenticateToken middleware to all routes
 router.use(authenticateToken);

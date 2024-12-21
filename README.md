@@ -18,12 +18,31 @@ Industry Project: **Full-Stack Development**
 **BELLS-TGC-IP2 Directory (Sources Root)**
 :README.md
 
+* img directory
+: ebookstore-home.png
+: ebookstore-products-allproducts.png
+: ebookstore-products-popularitems.png
+: ebookstore-products-newarrivals.png
+: ebookstore-items-viewoptions.png
+: ebookstore-register.png
+: ebookstore-login.png
+: ebookstore-logout.png
+: ebookstore-cart-empty.png
+: ebookstore-cart-withitems.png
+: ebookstore-checkout-stripe.png
+: books-C-POST.png
+: books-R-GET.png
+: books-U-PUT.png
+: books-D-DELETE.png
+
 >>> MySQL Framework
 * database-mysql directory
 : schema.sql
 : data.sql
-: ecommerce-EER-diagram.png
-: database-ecommerce-EER-diagram.mwb
+: m8-ebookstore-ER-diagram.png
+: m8-ebookstore-LS-diagram.png
+: mysql-ebookstore-EER-diagram.png
+: database-ebookstore-EER-diagram.mwb
 
 >>> Vite+React Framework
 * frontend-react directory
@@ -40,8 +59,14 @@ Industry Project: **Full-Stack Development**
 
 > public Folder (public)
 : vite.svg
-: featured.json
-: products.json
+: bells_icon.ico
+: bestsellers.json
+: books-popular.json
+: books-newarrivals.json
+: books.json
+: authors.json
+: publishers.json
+: related.json
 
 > src Folder (source code)
 : App.css
@@ -49,24 +74,39 @@ Industry Project: **Full-Stack Development**
 : index.css
 : main.jsx
 : styles.css
+: startbootstrap.css
 : HomePage.jsx
 : Navbar.jsx
+: ProductPopularPage.jsx
+: ProductNewArrivalsPage.jsx
 : ProductPage.jsx
 : ProductCard.jsx
+: ItemPage.jsx
+: ItemCard.jsx
 : RegisterPage.jsx
 : UserLogin.jsx
+: UserLogout.jsx
 : ShoppingCart.jsx
 : FlashMessageStore.js
 : UserStore.js
 : CartStore.js
+: ItemStore.js
 
 
 > assets sub-folder (assets)
 : react.svg
+: pexels-collection-of-books-photos.jpeg
+* bookstore directory
+: amazon-thomas-more-utopia.jpg
+: amazon-jane-austen-pride-and-prejudice.jpg
+: amazon-george-eliot-silas-marner.jpg
+: amazon-lincoln-child-1-deep-storm.jpg
+: amazon-lincoln-child-4-the-forgotten-room.jpg
+: amazon-lincoln-child-6-chrysalis.jpg
 
-> html-css-bootstrap Folder
-: index.html
-: styles.css
+> startbootstrap Folder
+* startbootstrap-shop-homepage-gh-pages directory
+* startbootstrap-shop-item-gh-pages directory
 
 >>> NodeJS/Express Framework
 * backend-express directory
@@ -89,6 +129,8 @@ Industry Project: **Full-Stack Development**
 
 > middleware Folder
 : UserAuth.js
+: HttpUrl.js
+: StatusCode.js
 
 > services Folder
 : userService.js
@@ -107,7 +149,7 @@ Industry Project: **Full-Stack Development**
 <!-- Heading level 1 -->
 # Project Guide
 
-The website is deployed using [GitHub Pages][1] so that it is available via a public web address.
+
 
 <!-- Heading level 4 -->
 #### The url for the portfolio project is here:

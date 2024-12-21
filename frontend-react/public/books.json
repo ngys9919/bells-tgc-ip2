@@ -1,0 +1,87 @@
+[
+    {
+      "id": 1,
+      "isbn_10": "9780486295831",
+      "isbn_13": "978-0486295831",
+      "bookTitle": "Utopia",
+      "pageCount": 96,
+      "priceTag": 10.30,
+      "image": "https://ucarecdn.com/a3d6914f-7490-4cad-8d5d-292f42676d68/amazonthomasmoreutopia.jpg",
+      "format": "Paperback",
+      "promotion": "",
+      "badge": "",
+      "discount": 0,
+      "review": 4
+    },
+    {
+      "id": 2,
+      "isbn_10": "9354406904",
+      "isbn_13": "978-9354406904",
+      "bookTitle": "Silas Marner",
+      "pageCount": 216,
+      "priceTag": 13.60,
+      "image": "https://ucarecdn.com/276a4dc1-c19f-45ff-abc0-922aad038687/amazongeorgeeliotsilasmarner.jpg",
+      "format":"Paperback",
+      "promotion": "Special Item",
+      "badge": "Sale",
+      "discount": 0.15,
+      "review": 3
+    },
+    {
+      "id": 3,
+      "isbn_10": "0553213105",
+      "isbn_13": "978-0486295831",
+      "bookTitle": "Pride and Prejudice",
+      "pageCount": 352,
+      "priceTag": 9.64,
+      "image": "https://ucarecdn.com/f351d7db-3abf-4a0d-9501-afbda5c60fe7/amazonjaneaustenprideandprejudice.jpg",
+      "format":"Mass Market Paperback",
+      "promotion": "Sale Item",
+      "badge": "Sale",
+      "discount": 0.2,
+      "review": 5
+    },
+    {
+      "id": 4,
+      "isbn_10": "030794672X",
+      "isbn_13": "978-0307946720",
+      "bookTitle": "Deep Storm: 1",
+      "pageCount":384,
+      "priceTag": 30.16,
+      "image": "https://ucarecdn.com/cd92181b-4293-488c-bdf5-ac30a30e5484/amazonlincolnchild1deepstorm.jpg",
+      "format": "Hardcover",
+      "promotion": "Popular Item",
+      "badge": "",
+      "discount": 0,
+      "review": 2
+    },
+    {
+      "id": 5,
+      "isbn_10": "0307473759",
+      "isbn_13": "978-0307473752",
+      "bookTitle": "The Forgotten Room: 4",
+      "pageCount": 400,
+      "priceTag": 17.83,
+      "image": "https://ucarecdn.com/def6f109-87d1-4a54-9724-eda51bce2557/amazonlincolnchild4theforgottenroom.jpg",
+      "format":"Mass Market Paperback",
+      "promotion": "Popular Item",
+      "badge": "",
+      "discount": 0,
+      "review": 0
+    },
+    {
+      "id": 6,
+      "isbn_10": "0525562486",
+      "isbn_13": "978-0525562481",
+      "bookTitle": "Chrysalis: A Thriller: 6",
+      "pageCount":336,
+      "priceTag": 21.80,
+      "image": "https://ucarecdn.com/5a21c6da-34b4-4bfe-a5b1-d34e95ed895d/amazonlincolnchild6chrysalis.jpg",
+      "format": "Paperback",
+      "promotion": "Popular Item",
+      "badge": "",
+      "discount": 0,
+      "review": 5
+    }
+  ]
+  

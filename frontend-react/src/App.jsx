@@ -2,15 +2,25 @@ import React, { useEffect } from 'react';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
 import ProductPage from './ProductPage';
+import ProductsPopularPage from './ProductPopularPage';
+import ProductsNewArrivalsPage from './ProductNewArrivalsPage';
+import ItemPage from './ItemPage';
 import RegisterPage from './RegisterPage';
 import ShoppingCart from './ShoppingCart';
 import { Route, Switch } from 'wouter';
 import { useFlashMessage } from './FlashMessageStore';
 // make sure to import `UserLogin.jsx` after the other imports
 import UserLogin from "./UserLogin";
+import UserLogout from "./UserLogout";
+
+// Core theme CSS (includes Bootstrap)
+import './startbootstrap.css';
+// our own style sheet
 import './styles.css';
+// import './App.css'
 
 function App() {
+
   const { getMessage, clearMessage  } = useFlashMessage();
   const flashMessage = getMessage();
 
@@ -39,16 +49,19 @@ function App() {
       <Switch>
         <Route path="/" component={HomePage} />
         <Route path="/products" component={ProductPage} />
+        <Route path="/productsPopular" component={ProductsPopularPage} />
+        <Route path="/productsNewArrivals" component={ProductsNewArrivalsPage} />
+        <Route path="/items" component={ItemPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={UserLogin} />
+        <Route path="/logout" component={UserLogout} />
         <Route path="/cart" component={ShoppingCart} />
       </Switch>
 
-      <footer className="bg-dark text-white text-center py-3">
-        <div className="container">
-          <p>&copy; 2023 E-Shop. All rights reserved.</p>
-        </div>
-      </footer>
+      {/* Footer */}
+      <footer className="py-5 bg-dark">
+    <div className="container"><p className="m-0 text-center text-white">Copyright &copy; e-BookStore 2024</p></div>
+</footer>
     </>
   );
 }

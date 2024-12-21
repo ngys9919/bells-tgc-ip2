@@ -1,0 +1,31 @@
+[
+    {
+      "id": 1,
+      "isbn_10": "9780486295831",
+      "isbn_13": "978-0486295831",
+      "bookTitle": "Utopia",
+      "pageCount": 96,
+      "priceTag": 10.30,
+      "image": "https://ucarecdn.com/a3d6914f-7490-4cad-8d5d-292f42676d68/amazonthomasmoreutopia.jpg",
+      "format": "Paperback",
+      "promotion": "",
+      "badge": "",
+      "discount": 0,
+      "review": 4
+    },
+    {
+      "id": 3,
+      "isbn_10": "0553213105",
+      "isbn_13": "978-0486295831",
+      "bookTitle": "Pride and Prejudice",
+      "pageCount": 352,
+      "priceTag": 9.64,
+      "image": "https://ucarecdn.com/f351d7db-3abf-4a0d-9501-afbda5c60fe7/amazonjaneaustenprideandprejudice.jpg",
+      "format":"Mass Market Paperback",
+      "promotion": "Sale Item",
+      "badge": "Sale",
+      "discount": 0.2,
+      "review": 5
+    }
+  ]
+  
