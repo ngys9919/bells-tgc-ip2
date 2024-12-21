@@ -20,9 +20,9 @@ function ItemsPage() {
 
   const [, setLocation] = useLocation();
 
-  const { getLoginUsername } = useLoginUsername();
-
-  const loginUsername = getLoginUsername();
+  const { getCurrentLoginUsername } = useLoginUsername();
+    
+  const  loginUsername = getCurrentLoginUsername();
 
   useEffect(() => {
     const fetchRelatedItems = async () => {
@@ -43,7 +43,7 @@ function ItemsPage() {
   }, []);
 
   const handleAddToCart = () => {
-    if ((loginUsername === "Guest") || (loginUsername === "null")) {
+    if (loginUsername === "Guest") {
       showMessage('Please login first!', 'info');
       setLocation('/login');
       // <Link href="/login"></Link>

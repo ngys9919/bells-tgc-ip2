@@ -12,9 +12,9 @@ import './App.css'
 function HomePage() {
   const { showMessage } = useFlashMessage();
 
-  const { getLoginUsername } = useLoginUsername();
-
-  const loginUsername = getLoginUsername();
+  const { getCurrentLoginUsername } = useLoginUsername();
+  
+  const  loginUsername = getCurrentLoginUsername();
 
   const [featuredProducts, setFeaturedProducts] = useState([]);
 

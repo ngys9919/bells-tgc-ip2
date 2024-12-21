@@ -1,10 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useCart } from './CartStore';
 import { useJwt } from './UserStore';
 import { useFlashMessage } from './FlashMessageStore';
 import axios from 'axios';
+import { useLoginUsername } from './UserStore';
 
 const ShoppingCart = () => {
+  const isFirstRender = useRef(true); // Track first render
+
+  const { getCurrentLoginUsername } = useLoginUsername();
+      
+  const  loginUsername = getCurrentLoginUsername();
+  // console.log(loginUsername);
+
   // const { cart, getCartTotal, modifyQuantity, removeFromCart, setCartContent } = useCart();
   // Get functions and state from the cart store
   const {
@@ -16,8 +24,9 @@ const ShoppingCart = () => {
     deleteCartItem,
     // removeFromCart,
     fetchCart,
+    resetCartContent,
     isLoading,
-    // setCartContent
+    updateCart,
   } = useCart();
 
   const { showMessage } = useFlashMessage();
@@ -25,6 +34,14 @@ const ShoppingCart = () => {
   const cart = getCart(); // Retrieve cart from the store
 
   const { getJwt } = useJwt();
+
+  // Set cart to empty for Guest
+  useEffect(() => {
+    if (loginUsername === "Guest") { 
+      resetCartContent([]);
+      return; // Only for Guest
+    }
+  }, [loginUsername]);
 
   // Fetch the cart data when the component mounts
   useEffect(() => {
@@ -54,6 +71,16 @@ const ShoppingCart = () => {
 
     }
   };
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // Skip the first render
+    }
+    updateCart();
+    return ()=>{console.log('cleanup')}
+  }, [cart]);
+
   return (
     <div className="container mt-4">
       <h1>Shopping Cart</h1>

@@ -46,17 +46,15 @@ export const useCart = () => {
               product_id: item.product_id,
               quantity: item.quantity,
           }));
-          await axios.put(
-              `${import.meta.env.VITE_API_URL}/api/cart`,
-              { cartItems: updatedCartItems },
-              {
-                  headers: {
-                      Authorization: `Bearer ${jwt}`,
-                  },
-              }
-          );
+          await axios.put(`${import.meta.env.VITE_API_URL}/api/cart`, { cartItems: updatedCartItems }, {
+          // await axios.put('http://localhost:3000/api/cart', { cartItems: updatedCart }, {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          });
       } catch (error) {
           console.error("Error updating cart:", error);
+          showMessage('Error updating cart!', 'error');
       } finally {
           setIsLoading(false);
       }
@@ -67,6 +65,7 @@ export const useCart = () => {
       if (cart !== initialCart) {
           updateCart();
       }
+      // return ()=>{console.log('cleanup')}
   }, [cart]); // Depend on the cart state
 
   // const modifyCart = (product_id, quantity) => {
@@ -192,9 +191,9 @@ export const useCart = () => {
 
   const getCart = () => cart;
 
-  // const setCartContent = (cartItems) => {
-  //   setCart(Immutable(cartItems));
-  // }
+  const setCartContent = (cartItems) => {
+    setCart(Immutable(cartItems));
+  }
 
   const resetCartContent = () => {
     setCart(Immutable(initialCart));
@@ -224,7 +223,8 @@ export const useCart = () => {
       // removeFromCart,
       fetchCart,
       isLoading,
-      // setCartContent,
+      updateCart,
+      setCartContent,
       resetCartContent,
       addQuantityToCart
   };

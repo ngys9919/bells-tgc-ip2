@@ -3,6 +3,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 function createLineItems(orderItems) {
     const lineItems = orderItems.map(item => ({
+        
         price_data: {
             currency: 'usd',
             product_data: {
@@ -13,7 +14,8 @@ function createLineItems(orderItems) {
                 }
             },
             // Convert price to integer cents
-            unit_amount: Math.round(item.price * 100)
+            // unit_amount: Math.round(item.price * 100)
+            unit_amount: Math.round(item.price * (1 - item.discount) * 100)
         },
         quantity: item.quantity
     }));

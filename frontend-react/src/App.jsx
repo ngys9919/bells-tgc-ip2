@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
 import ProductPage from './ProductPage';
@@ -18,6 +18,7 @@ import './startbootstrap.css';
 // our own style sheet
 import './styles.css';
 // import './App.css'
+
 
 function App() {
 

@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { useLoginUsername } from './UserStore';
+import React, { useState, useEffect } from 'react';
+import { useLoginUsername, usePreviousLoginUser } from './UserStore';
 import { useCart } from './CartStore';
 import { Link, useLocation } from 'wouter';
 
 function Navbar() {
-  const { getLoginUsername } = useLoginUsername();
-
-  const loginUsername = getLoginUsername();
+  const { getCurrentLoginUsername } = useLoginUsername();
+  const loginUsername = getCurrentLoginUsername();
+  // const { getPreviousLoginUser } = usePreviousLoginUser();
+  // const loginUsername = getPreviousLoginUser();
 
   // console.log(loginUsername);
+
+  const { getCart } = useCart();
 
   const [isNavbarShowing, setIsNavbarShowing] = useState(false);
   // returns the current URL
@@ -27,7 +30,7 @@ function Navbar() {
   let url;
 
   let y = document.getElementById("loginlogout");
-  if ((loginUsername === "Guest") || (loginUsername === "null")) {    
+  if (loginUsername === "Guest") {    
     if (y)
       y.innerHTML = "Login";
   } else {
@@ -35,9 +38,11 @@ function Navbar() {
       y.innerHTML = "Logout";
   }
 
+  
+
   const isActiveLink = () => {
     // console.log(loginUsername);
-    if ((loginUsername === "Guest") || (loginUsername === "null")) {
+    if (loginUsername === "Guest") {
       url = "/login";
     } else {
       url = "/logout";
@@ -50,18 +55,18 @@ function Navbar() {
     }
   }
 
+  const cart = getCart(); // Retrieve cart from the store
+
   const handleCartBtnClick = () => {
+    // isFirstRender.current = false;
     setLocation('/cart');
     // <Link href="/cart"></Link>
   }
 
-  const { getCart } = useCart();
-  const cart = getCart(); // Retrieve cart from the store
-
   const spacing = 1;
 
   const loginlogoutClick = () => {
-    if ((loginUsername === "Guest") || (loginUsername === "null")) {
+    if (loginUsername === "Guest") {
       // login
       setLocation('/login');
     } else {
@@ -169,7 +174,8 @@ function Navbar() {
             </li> */}
         </ul>
             <form className="d-flex">
-    <button className="btn btn-outline-dark" type="submit" onClick={handleCartBtnClick}>
+    {/* <button className="btn btn-outline-dark" type="submit" onClick={handleCartBtnClick}> */}
+    <button className="btn btn-outline-dark" type="button" onClick={handleCartBtnClick}>
         <i className="bi-cart-fill me-1"></i>
         Cart
         <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.reduce((total, item) => total + item.quantity, 0)}</span>

@@ -11,14 +11,14 @@ const ProductCard = (props) => {
   const [, setLocation] = useLocation();
   const { showMessage } = useFlashMessage();
 
-  const { getLoginUsername } = useLoginUsername();
-
-  const loginUsername = getLoginUsername();
+  const { getCurrentLoginUsername } = useLoginUsername();
+    
+  const  loginUsername = getCurrentLoginUsername();
 
   const { setItemContent, resetItemContent } = useItem();
 
   const handleAddToCart = () => {
-    if ((loginUsername === "Guest") || (loginUsername === "null")) {
+    if (loginUsername === "Guest") {
       showMessage('Please login first!', 'info');
       setLocation('/login');
       // <Link href="/login"></Link>

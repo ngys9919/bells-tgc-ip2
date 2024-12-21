@@ -11,7 +11,7 @@ function UserLogin() {
   const [, setLocation] = useLocation();
   const { showMessage } = useFlashMessage();
   const { setJwt } = useJwt();
-  const { setLoginUsername } = useLoginUsername();
+  const { setLoginUsername, getLoginUsername, setCurrentLoginUsername } = useLoginUsername();
   const { setPreviousLoginUser } = usePreviousLoginUser();
 
   const initialValues = {
@@ -36,7 +36,10 @@ function UserLogin() {
       document.getElementById("loginlogout").innerHTML = "Logout";
       console.log(response.data.username);
       setLoginUsername(response.data.username);
+      setCurrentLoginUsername(response.data.username);
       setPreviousLoginUser(response.data.username);
+      const loginUsername = getLoginUsername();
+      console.log(loginUsername);
       setLocation('/');
     } catch (error) {
       console.error('Login error:', error);

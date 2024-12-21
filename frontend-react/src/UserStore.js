@@ -5,9 +5,18 @@ const jwtAtom = atom(null);
 // const usernameAtom = atom(null);
 const usernameAtom = atom("Guest");
 const previousUserAtom = atom(null);
+// const previousUserAtom = atom("Guest");
 
 export function useLoginUsername() {
   const [loginUsername, setLoginUsernameAtom] = useAtom(usernameAtom);
+
+  const setCurrentLoginUsername = (newLoginUsername) => {
+    setLoginUsernameAtom(newLoginUsername);
+  };
+
+  const storeLoginUsername = (newLoginUsername) => {
+    localStorage.setItem('loginUser', newLoginUsername);
+  };
 
   const setLoginUsername = (newLoginUsername) => {
     localStorage.setItem('loginUser', newLoginUsername);
@@ -15,20 +24,32 @@ export function useLoginUsername() {
   };
 
   const getLoginUsername = () => {
+    
     // This is with memory
-    // const storedLoginUsername = localStorage.getItem('loginUsername') || 'Guest';
+    // const storedLoginUsername = localStorage.getItem('loginUser') || 'Guest';
     // return storedLoginUsername;
 
     // This is without memory
     const storedLoginUsername = localStorage.getItem('loginUser');
-    
+
+    // This is for loginUsername = null by default 
     if (storedLoginUsername && !loginUsername) {
       setLoginUsernameAtom(storedLoginUsername);
     }
     return loginUsername || storedLoginUsername;
+
+    // const storedLoginUsername = localStorage.getItem('loginUser');
+    // setLoginUsernameAtom(storedLoginUsername);
+    // return storedLoginUsername;
   };
 
-  return { loginUsername, setLoginUsername, getLoginUsername };
+  const getCurrentLoginUsername = () => {
+    // console.log(loginUsername);
+    return loginUsername;
+  };
+
+  return { loginUsername, setLoginUsername, getLoginUsername, setCurrentLoginUsername, storeLoginUsername, getCurrentLoginUsername };
+  // return { loginUsername, setLoginUsername, setDefaultLoginUsername, getCurrentLoginUsername };
 }
 
 export function usePreviousLoginUser() {
