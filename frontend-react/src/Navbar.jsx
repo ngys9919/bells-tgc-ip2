@@ -27,6 +27,10 @@ function Navbar() {
     setShowDropdown(!showDropdown);
   };
 
+  const turnoffDropdown = () => {
+    setShowDropdown(false);
+  };
+
   let url;
 
   let y = document.getElementById("loginlogout");
@@ -58,6 +62,7 @@ function Navbar() {
   const cart = getCart(); // Retrieve cart from the store
 
   const handleCartBtnClick = () => {
+    setShowDropdown(false);
     // isFirstRender.current = false;
     setLocation('/cart');
     // <Link href="/cart"></Link>
@@ -66,6 +71,7 @@ function Navbar() {
   const spacing = 1;
 
   const loginlogoutClick = () => {
+    setShowDropdown(false);
     if (loginUsername === "Guest") {
       // login
       setLocation('/login');
@@ -88,7 +94,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <div className="container px-4 px-lg-5">
-        <Link href="/" className="navbar-brand">e-BookStore</Link>
+        <Link href="/" className="navbar-brand" onClick={turnoffDropdown}>e-BookStore</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -99,7 +105,7 @@ function Navbar() {
         <div className={`collapse navbar-collapse ${isNavbarShowing ? "show" : ""}`} id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li className="nav-item">
-              <Link href="/" className={`nav-link ${location === '/' ? 'active' : ''}`}>
+              <Link href="/" className={`nav-link ${location === '/' ? 'active' : ''}`} onClick={turnoffDropdown}>
                 Home
               </Link>
             </li>
@@ -151,7 +157,7 @@ function Navbar() {
           
           <ul className="navbar-nav me-2 mb-2 mb-lg-0">
           <li className="nav-item">
-              <Link href="/register" className={`nav-link ${location === '/register' ? 'active' : ''}`}>
+              <Link href="/register" className={`nav-link ${location === '/register' ? 'active' : ''}`} onClick={turnoffDropdown}>
                 Register
               </Link>
             </li>

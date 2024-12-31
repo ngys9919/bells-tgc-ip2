@@ -1,7 +1,80 @@
-const productData = require('../data/productData');
+// productService Business Logic:
+// - certain product are not for sale in any country
+// - products could be priced differently in different region
+// - increase product's pricing base on user's surfing behaviour
 
+const productData = require('../data/productData');
+const geolocationData = require('../services/Geolocation');
+
+// async function getAllProducts(geo) {
 async function getAllProducts() {
-  return await productData.getAllProducts();
+  // idea for future business logic:
+  // 1. may have to pass parameter to getAllProducts to filter by country
+  // 2. may have to pass parameter to getAllProducts to get stuff the user will likely to buy
+  let product = await productData.getAllProducts();
+  // console.log(product);
+
+  const geo = geolocationData.requireGeolocation();
+
+  // For country=US, product_id=4, it is NOT FOR SALE!
+  if (geo.country === 'US') {
+    const product_id = 4;
+    const indexToDelete = product.findIndex(item => item.id === product_id);
+    if (indexToDelete !== -1) {
+      const lhs = product.slice(0, indexToDelete);
+      const rhs = product.slice(indexToDelete + 1)
+      const cloned = [...lhs, ...rhs];
+      product = cloned;
+      // shortcut code:
+      // product = product.filter( item => item.id !== product_id)
+    }
+  }
+
+  // For region=NY, product_id=3, it is 50% OFF!
+  if (geo.region === 'NY') {
+    // console.log(geo.region);
+    const product_id = 3;
+    // note: item.product_id -> item.id
+    const indexToModify = product.findIndex(item => item.id === product_id);
+    if (indexToModify !== -1) {
+      // console.log(indexToModify);
+      // 1. clone the original object
+      const clonedObject = {...product[indexToModify]};
+      // console.log(clonedObject);
+      // 2. modify the clone
+      clonedObject.discount = '0.50';
+      // console.log(clonedObject);
+      // 3. replace the clone as the new value in the object
+      product[indexToModify] = clonedObject;
+      // console.log(product);
+    }
+  }
+
+  // For city=New York, product_id=5, it is 25% MARKUP!
+  if (geo.city === 'New York') {
+    // console.log(geo.city);
+    const product_id = 5;
+    // note: item.product_id -> item.id
+    const indexToModify = product.findIndex(item => item.id === product_id);
+    if (indexToModify !== -1) {
+      // console.log(indexToModify);
+      // 1. clone the original object
+      const clonedObject = {...product[indexToModify]};
+      // console.log(clonedObject);
+      // 2. modify the clone
+      // note: product[indexToModify].price -> product[indexToModify].priceTag
+      const markedpriceTag = product[indexToModify].priceTag * 1.25;
+      clonedObject.priceTag = parseFloat(markedpriceTag.toFixed(2));
+      // console.log(clonedObject);
+      // 3. replace the clone as the new value in the object
+      product[indexToModify] = clonedObject;
+      // console.log(product);
+    }
+  }
+
+  // console.log(product);
+  // return await productData.getAllProducts();
+  return product;
 }
 
 async function getProductById(id) {

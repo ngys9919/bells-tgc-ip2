@@ -1,4 +1,6 @@
 const express = require('express');
+// const { lookup } = require('geoip-lite');
+// const geoip = require('geoip-lite');
 const router = express.Router();
 const productService = require('../services/productService');
 const StatusCode = require('../middleware/StatusCode');
@@ -10,7 +12,15 @@ router.use(logHttpUrl);
 // Apply the StatusCode middleware to router.get route only
 // GET all products
 router.get('/', StatusCode, async (req, res) => {
+  // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  // const ip = "207.97.227.239";
+  // console.log(ip); // ip address of the user
+  // console.log("The IP is %s", geoip.pretty(ip));  
+  // const geo = geoip.lookup(ip);
+  // console.log(geo);
+  // console.log(lookup(ip)); // location of the user
   try {
+    // const products = await productService.getAllProducts(geo);
     const products = await productService.getAllProducts();
     res.json(products);
   } catch (error) {

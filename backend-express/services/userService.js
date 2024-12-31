@@ -1,3 +1,8 @@
+// userService Business Logic:
+// - password length / security
+// - allow the usage of their private info
+// - whether 16 or above in age via checkbox or dob
+
 const userData = require('../data/userData');
 const bcrypt = require('bcrypt');
 
