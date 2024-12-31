@@ -1,0 +1,20 @@
+prompt1:
+Create a 16:9 iPhone photograph of a quiet countryside at sunrise, with rolling green hills, a small cobblestone path, and an old wooden bridge crossing a crystal-clear stream..
+
+prompt2:
+Draw a 16:9 highly detailed illustration of a vibrant underwater kingdom. The colour palette should feature bright blues, greens, and hints of golden light filtering through the water from above.
+
+prompt3:
+Design a 16:9 abstract digital artwork of a cosmic landscape. The scene features swirling galaxies, vibrant nebulae in pinks and purples. In the foreground, depict a lone figure standing on an alien cliff overlooking the cosmic expanse, silhouetted against the brilliant, surreal sky.
+
+prompt4:
+Create a 16:9 book cover for a fantasy novel titled 'The Alchemist's Heir.' The title 'The Alchemist's Heir' appears in ornate, metallic gold text at the top, and the author’s name, 'Elena Mortain,' is at the bottom.
+
+prompt5:
+Draw a 16:9 whimsical illustration of a child sitting in a messy bedroom filled with toys. A toy dragon has come to life and is breathing small, friendly flames, while toy soldiers march across the floor. The child’s bed has turned into a pirate ship sailing on an imaginary sea made of blankets.
+
+prompt6:
+Create a 16:9 detailed artwork of a futuristic floating city, with towering skyscrapers suspended on massive anti-gravity platforms above a shimmering ocean. The scene is bathed in warm orange and pink hues of sunset, with smaller flying vehicles weaving between the buildings.
+
+prompt7:
+Design a 16:9 movie poster for a spy thriller titled 'Agent Zero.' The poster features a suave secret agent in a sleek black suit holding a futuristic gadget, standing dramatically in front of a fiery explosion. Behind him, a high-tech cityscape fades into shadows. Bold metallic text at the top reads 'Agent Zero,' with smaller tagline text underneath: 'No Name. No Past. No Mercy.' The overall style should be bold and cinematic.
