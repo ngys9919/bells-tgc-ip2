@@ -34,15 +34,15 @@ export const itemAtom = atom(initialItem);
 export function useItem() {
   const [itemArray, setItemAtom] = useAtom(itemAtom);
 
-  const setItem = (newItem) => {
+  const setItemArray = (newItem) => {
     // const cloned = [...itemArray];
     const cloned = [];
     cloned.push(newItem);
-    console.log(cloned);
+    // console.log(cloned);
     setItemAtom(cloned);
   };
 
-  const getItem = () => {
+  const getItemArray = () => {
     return itemArray;
   };
 
@@ -57,12 +57,12 @@ export function useItem() {
   };
 
   const setItemContent = (items) => {
-    setItem(Immutable(items));
+    setItemArray(Immutable(items));
   }
 
   const resetItemContent = () => {
-    setItem(Immutable(initialItem));
+    setItemArray(Immutable(initialItem));
   }
 
-  return { itemArray, setItem, getItem, clearItem, setItemContent, resetItemContent };
+  return { itemArray, setItemArray, getItemArray, clearItem, setItemContent, resetItemContent };
 }

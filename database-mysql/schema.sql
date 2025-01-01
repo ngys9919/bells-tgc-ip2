@@ -1,7 +1,7 @@
--- SQL Schema for ebookstore
-CREATE DATABASE ebookstore;
+-- SQL Schema for AI-eShop
+CREATE DATABASE aieshop;
 
-USE ebookstore;
+USE aieshop;
 
 -- Authors table
 CREATE TABLE authors (
@@ -10,13 +10,13 @@ CREATE TABLE authors (
   lastName VARCHAR(100) NULL
 );
 
--- Books table
-CREATE TABLE books (
+-- AIbooks table
+CREATE TABLE aibooks (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  isbn_10 VARCHAR(13) NOT NULL,
+  isbn_10 VARCHAR(13) NULL,
   isbn_13 VARCHAR(14) NOT NULL,
-  bookTitle VARCHAR(255) NOT NULL,
-  pageCount INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  pageCount INT NULL,
   priceTag DECIMAL(10, 2) NOT NULL,
   image VARCHAR(255) NOT NULL,
   format TEXT NOT NULL,
@@ -41,8 +41,69 @@ CREATE TABLE book_publisher (
   website VARCHAR(255) NOT NULL,
   book_id INT,
   publisher_id INT,
-  FOREIGN KEY (book_id) REFERENCES books(id),
+  FOREIGN KEY (book_id) REFERENCES aibooks(id),
   FOREIGN KEY (publisher_id) REFERENCES publishers(id)
+);
+
+-- AIimage table
+CREATE TABLE aiimage (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  fileName VARCHAR(255) NOT NULL,
+  fileFormat VARCHAR(4) NOT NULL,
+  fileSize VARCHAR(10) NOT NULL,
+  priceTag DECIMAL(10, 2) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  creator VARCHAR(100) NULL,
+  dateCreated DATETIME,
+  downloadlink VARCHAR(255) NULL,
+  promotion TEXT NULL,
+  badge TEXT NULL,
+  discount DECIMAL(3, 2) NULL,
+  review INT UNSIGNED NULL
+);
+
+-- AImusic table
+CREATE TABLE aimusic (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  songGenre VARCHAR(100) NULL,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  fileName VARCHAR(255) NOT NULL,
+  fileFormat VARCHAR(4) NOT NULL,
+  fileSize VARCHAR(10) NOT NULL,
+  priceTag DECIMAL(10, 2) NOT NULL,
+  music VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  duration VARCHAR(8) NOT NULL,
+  creator VARCHAR(100) NULL,
+  dateCreated DATETIME,
+  downloadlink VARCHAR(255) NULL,
+  promotion TEXT NULL,
+  badge TEXT NULL,
+  discount DECIMAL(3, 2) NULL,
+  review INT UNSIGNED NULL
+);
+
+-- AIvideo table
+CREATE TABLE aivideo (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  fileName VARCHAR(255) NOT NULL,
+  fileFormat VARCHAR(4) NOT NULL,
+  fileSize VARCHAR(10) NOT NULL,
+  priceTag DECIMAL(10, 2) NOT NULL,
+  video VARCHAR(255) NOT NULL,
+  duration VARCHAR(8) NOT NULL,
+  creator VARCHAR(100) NULL,
+  dateCreated DATETIME,
+  downloadlink VARCHAR(255) NULL,
+  promotion TEXT NULL,
+  badge TEXT NULL,
+  discount DECIMAL(3, 2) NULL,
+  review INT UNSIGNED NULL
 );
 
 -- Users table
@@ -76,7 +137,7 @@ CREATE TABLE cart_items (
   product_id INT NOT NULL,
   quantity INT NOT NULL DEFAULT 1,
   FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (product_id) REFERENCES books(id)
+  FOREIGN KEY (product_id) REFERENCES aibooks(id)
 );
 
 -- Orders table
@@ -97,5 +158,5 @@ CREATE TABLE order_items (
   product_id INT NOT NULL,
   quantity INT NOT NULL DEFAULT 1,
   FOREIGN KEY (order_id) REFERENCES orders(id),
-  FOREIGN KEY (product_id) REFERENCES books(id)
+  FOREIGN KEY (product_id) REFERENCES aibooks(id)
 );

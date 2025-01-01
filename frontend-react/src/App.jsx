@@ -5,6 +5,8 @@ import ProductPage from './ProductPage';
 import ProductsPopularPage from './ProductPopularPage';
 import ProductsNewArrivalsPage from './ProductNewArrivalsPage';
 import ItemPage from './ItemPage';
+import MusicProductPage from './MusicProductPage';
+import VideoProductPage from './VideoProductPage';
 import RegisterPage from './RegisterPage';
 import ShoppingCart from './ShoppingCart';
 import { Route, Switch } from 'wouter';
@@ -53,6 +55,8 @@ function App() {
         <Route path="/productsPopular" component={ProductsPopularPage} />
         <Route path="/productsNewArrivals" component={ProductsNewArrivalsPage} />
         <Route path="/items" component={ItemPage} />
+        <Route path="/productsmusic" component={MusicProductPage} />
+        <Route path="/productsvideo" component={VideoProductPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={UserLogin} />
         <Route path="/logout" component={UserLogout} />
@@ -61,7 +65,7 @@ function App() {
 
       {/* Footer */}
       <footer className="py-5 bg-dark">
-    <div className="container"><p className="m-0 text-center text-white">Copyright &copy; e-BookStore 2024</p></div>
+    <div className="container"><p className="m-0 text-center text-white">Copyright &copy; AI-eShop 2024</p></div>
 </footer>
     </>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from './CartStore';
+import { useProduct } from './ProductStore';
 import { Link, useLocation } from 'wouter';
 import { useFlashMessage } from './FlashMessageStore';
 import { useLoginUsername } from './UserStore';
@@ -10,6 +11,10 @@ const ItemCard = (props) => {
   const { addToCart } = useCart();
   const [, setLocation] = useLocation();
   const { showMessage } = useFlashMessage();
+
+  const { getProduct, setCurrentProduct } = useProduct();
+      
+  const product = getProduct(); // Retrieve product from the store
 
   const { getCurrentLoginUsername } = useLoginUsername();
     
@@ -129,7 +134,11 @@ const ItemCard = (props) => {
               {/* Sale badge */}
               <div className="badge bg-primary text-white position-absolute" style={{ top: '0.5rem', right: '0.5rem' }}>{props.productBadge}</div>
               {/* Product image */}
+              {product === "AI-Books" ? (
               <img className="card-img-left" src={props.imageUrl} alt={props.productName} />
+            ) : (
+              <img className="card-img-top" src={props.imageUrl} alt={props.productName} />
+            )}
               {/* Product details */}
               <div className="card-body p-4">
                 <div className="text-center">

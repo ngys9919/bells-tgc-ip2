@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLoginUsername, usePreviousLoginUser } from './UserStore';
 import { useCart } from './CartStore';
+import { useProduct } from './ProductStore';
 import { Link, useLocation } from 'wouter';
 
 function Navbar() {
@@ -13,6 +14,10 @@ function Navbar() {
 
   const { getCart } = useCart();
 
+  const { getProduct, setCurrentProduct } = useProduct();
+  
+  const product = getProduct(); // Retrieve product from the store
+  
   const [isNavbarShowing, setIsNavbarShowing] = useState(false);
   // returns the current URL
   const [location, setLocation] = useLocation();
@@ -22,12 +27,32 @@ function Navbar() {
   };
 
   const [showDropdown, setShowDropdown] = useState(false);
-  
+  const [showDropdownImage, setShowDropdownImage] = useState(false);
+
   const handleButtonClick = () => {
     setShowDropdown(!showDropdown);
+    setShowDropdownImage(false);
+  };
+
+  const handleButtonClickBooksProducts = () => {
+    setCurrentProduct("AI-Books");
+    setShowDropdown(!showDropdown);
+    setShowDropdownImage(false);
   };
 
   const turnoffDropdown = () => {
+    setShowDropdown(false);
+    setShowDropdownImage(false);
+  };
+
+  const handleButtonClickImage = () => {
+    setShowDropdownImage(!showDropdownImage);
+    setShowDropdown(false);
+  };
+
+  const handleButtonClickImageProducts = () => {
+    setCurrentProduct("AI-Image");
+    setShowDropdownImage(!showDropdownImage);
     setShowDropdown(false);
   };
 
@@ -94,7 +119,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <div className="container px-4 px-lg-5">
-        <Link href="/" className="navbar-brand" onClick={turnoffDropdown}>e-BookStore</Link>
+        <Link href="/" className="navbar-brand" onClick={turnoffDropdown}>AI-eShop</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -115,29 +140,67 @@ function Navbar() {
               {/* </Link> */}
             {/* </li> */}
             <li className="nav-item dropdown">
-    <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClick} aria-expanded="false">Shop</a>
+    <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClick} aria-expanded="false">AI-Books</a>
     <ul className={`dropdown-menu ${showDropdown ? "show" : ""}`} aria-labelledby="navbarDropdown">
         <li>
           {/* <a class="dropdown-item" href="#!">All Products</a> */}
-          <Link href="/products" className="dropdown-item" onClick={handleButtonClick}>
+          <Link href="/products" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
             All Products
           </Link>
         </li>
         <li><hr className="dropdown-divider" /></li>
         <li>
           {/* <a class="dropdown-item" href="#!">Popular Items</a> */}
-          <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClick}>
+          <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
             Popular Items
           </Link>
         </li>
         <li>
           {/* <a class="dropdown-item" href="#!">New Arrivals</a> */}
-          <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClick}>
+          <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
             New Arrivals
           </Link>
         </li>
     </ul>
 </li>
+
+<li className="nav-item dropdown">
+    <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClickImage} aria-expanded="false">AI-Image</a>
+    <ul className={`dropdown-menu ${showDropdownImage ? "show" : ""}`} aria-labelledby="navbarDropdown">
+        <li>
+          {/* <a class="dropdown-item" href="#!">All Products</a> */}
+          <Link href="/products" className="dropdown-item" onClick={handleButtonClickImageProducts}>
+            All Products
+          </Link>
+        </li>
+        <li><hr className="dropdown-divider" /></li>
+        <li>
+          {/* <a class="dropdown-item" href="#!">Popular Items</a> */}
+          <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClickImageProducts}>
+            Popular Items
+          </Link>
+        </li>
+        <li>
+          {/* <a class="dropdown-item" href="#!">New Arrivals</a> */}
+          <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClickImageProducts}>
+            New Arrivals
+          </Link>
+        </li>
+    </ul>
+</li>
+
+<li className="nav-item">
+              <Link href="/productsmusic" className={`nav-link ${location === '/productsmusic' ? 'active' : ''}`} onClick={turnoffDropdown}>
+                AI-Music
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link href="/productsvideo" className={`nav-link ${location === '/productsvideo' ? 'active' : ''}`} onClick={turnoffDropdown}>
+                AI-Video
+              </Link>
+            </li>
+
             {/* <li className="nav-item">
               <Link href="/register" className={`nav-link ${location === '/register' ? 'active' : ''}`}>
                 Register
