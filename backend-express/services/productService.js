@@ -6,12 +6,12 @@
 const productData = require('../data/productData');
 const geolocationData = require('../services/Geolocation');
 
-// async function getAllProducts(geo) {
-async function getAllProducts() {
+// async function getAllProductsBooks(geo) {
+async function getAllProductsBooks() {
   // idea for future business logic:
   // 1. may have to pass parameter to getAllProducts to filter by country
   // 2. may have to pass parameter to getAllProducts to get stuff the user will likely to buy
-  let product = await productData.getAllProducts();
+  let product = await productData.getAllProductsBooks();
   // console.log(product);
 
   const geo = geolocationData.requireGeolocation();
@@ -73,7 +73,37 @@ async function getAllProducts() {
   }
 
   // console.log(product);
-  // return await productData.getAllProducts();
+  // return await productData.getAllProductsBooks();
+  return product;
+}
+
+async function getAllProductsImage() {
+  // idea for future business logic:
+  // 1. may have to pass parameter to getAllProducts to filter by country
+  // 2. may have to pass parameter to getAllProducts to get stuff the user will likely to buy
+  let product = await productData.getAllProductsImage();
+  // console.log(product);
+  // return await productData.getAllProductsImage();
+  return product;
+}
+
+async function getAllProductsMusic() {
+  // idea for future business logic:
+  // 1. may have to pass parameter to getAllProducts to filter by country
+  // 2. may have to pass parameter to getAllProducts to get stuff the user will likely to buy
+  let product = await productData.getAllProductsMusic();
+  // console.log(product);
+  // return await productData.getAllProductsMusic();
+  return product;
+}
+
+async function getAllProductsVideo() {
+  // idea for future business logic:
+  // 1. may have to pass parameter to getAllProducts to filter by country
+  // 2. may have to pass parameter to getAllProducts to get stuff the user will likely to buy
+  let product = await productData.getAllProductsVideo();
+  // console.log(product);
+  // return await productData.getAllProductsVideo();
   return product;
 }
 
@@ -114,7 +144,10 @@ async function deleteProductById(id) {
 }
 
 module.exports = {
-  getAllProducts,
+  getAllProductsBooks,
+  getAllProductsImage,
+  getAllProductsMusic,
+  getAllProductsVideo,
   getProductById,
   createProductByBody,
   updateProductByIdBody,

@@ -1,3 +1,5 @@
+SET NAMES 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
+
 -- SQL Schema for AI-eShop
 CREATE DATABASE aieshop;
 
@@ -84,12 +86,12 @@ CREATE TABLE aimusic (
   badge TEXT NULL,
   discount DECIMAL(3, 2) NULL,
   review INT UNSIGNED NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- AIvideo table
 CREATE TABLE aivideo (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
+  title VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL,
   description VARCHAR(255) NOT NULL,
   fileName VARCHAR(255) NOT NULL,
   fileFormat VARCHAR(4) NOT NULL,
@@ -104,7 +106,7 @@ CREATE TABLE aivideo (
   badge TEXT NULL,
   discount DECIMAL(3, 2) NULL,
   review INT UNSIGNED NULL
-);
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 
 -- Users table
 CREATE TABLE users (

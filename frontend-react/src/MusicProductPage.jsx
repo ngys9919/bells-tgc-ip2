@@ -15,11 +15,12 @@ function MusicProductsPage() {
         // const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
         // const response = await axios.get(`http://localhost:3000/api/products`);
         // setProducts(response.data);
-        const response = await axios.get('/ai-music.json');
+        // const response = await axios.get('/ai-music.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/music`);
         setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
-        showMessage('Error fetching products!', 'error');
+        console.error('Error fetching AI-Music products:', error);
+        showMessage('Error fetching AI-Music products!', 'error');
       }
     };
   

@@ -27,13 +27,15 @@ function ProductsNewArrivalsPage() {
         //   return books_newarrivals.publicationDate.getFullYear() == 2023;
         // });
         if (product === 'AI-Books') {
-          response = await axios.get('/ai-books.json');
+          // response = await axios.get('/ai-books.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/books`);
           // let filtered = response.data.filter(function(books_newarrivals){
           //   return books_newarrivals.discount == 0;
           // });
           filtered = response.data.filter( books_newarrivals => books_newarrivals.discount == 0);
         } else if (product === 'AI-Image') {
-          response = await axios.get('/ai-image.json');
+          // response = await axios.get('/ai-image.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/image`);
           // let filtered = response.data.filter(function(images_newarrivals){
           //   return images_newarrivals.discount == 0;
           // });

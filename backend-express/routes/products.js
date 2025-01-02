@@ -10,8 +10,8 @@ const logHttpUrl = require('../middleware/HttpUrl');
 router.use(logHttpUrl);
 
 // Apply the StatusCode middleware to router.get route only
-// GET all products
-router.get('/', StatusCode, async (req, res) => {
+// GET all AI-Books products
+router.get('/books', StatusCode, async (req, res) => {
   // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   // const ip = "207.97.227.239";
   // console.log(ip); // ip address of the user
@@ -21,7 +21,37 @@ router.get('/', StatusCode, async (req, res) => {
   // console.log(lookup(ip)); // location of the user
   try {
     // const products = await productService.getAllProducts(geo);
-    const products = await productService.getAllProducts();
+    const products = await productService.getAllProductsBooks();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET all AI-Image products
+router.get('/image', StatusCode, async (req, res) => {
+  try {
+    const products = await productService.getAllProductsImage();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET all AI-Music products
+router.get('/music', StatusCode, async (req, res) => {
+  try {
+    const products = await productService.getAllProductsMusic();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET all AI-Video products
+router.get('/video', StatusCode, async (req, res) => {
+  try {
+    const products = await productService.getAllProductsVideo();
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });

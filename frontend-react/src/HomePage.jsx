@@ -36,7 +36,8 @@ function HomePage() {
         // const response = await axios.get('/featured.json');
         // const response = await axios.get('/products.json');
         // setFeaturedProducts(response.data);
-        const response = await axios.get('/ai-books.json');
+        // const response = await axios.get('/ai-books.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/books`);
         // let filtered = response.data.filter(function(bestsellers){
         //   return bestsellers.review == 5;
         // });
@@ -44,8 +45,8 @@ function HomePage() {
         setFeaturedProducts(filtered);
         // setCurrentProduct("AI-Books");
       } catch (error) {
-        console.error('Error fetching featured products:', error);
-        showMessage('Error fetching featured products!', 'error');
+        console.error('Error fetching featured AI-Books products:', error);
+        showMessage('Error fetching featured AI-Books products!', 'error');
       }
     };
 
@@ -86,7 +87,8 @@ function HomePage() {
         // const response = await axios.get('/featured.json');
         // const response = await axios.get('/products.json');
         // setFeaturedProducts(response.data);
-        const response = await axios.get('/ai-image.json');
+        // const response = await axios.get('/ai-image.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/image`);
         // let filtered = response.data.filter(function(bestsellers){
         //   return bestsellers.review == 5;
         // });
@@ -94,8 +96,8 @@ function HomePage() {
         setFeaturedProductsImage(filtered);
         // setCurrentProduct("AI-Image");
       } catch (error) {
-        console.error('Error fetching featured products:', error);
-        showMessage('Error fetching featured products!', 'error');
+        console.error('Error fetching featured AI-Image products:', error);
+        showMessage('Error fetching featured AI-Image products!', 'error');
       }
     };
 
@@ -136,7 +138,8 @@ function HomePage() {
         // const response = await axios.get('/featured.json');
         // const response = await axios.get('/products.json');
         // setFeaturedProducts(response.data);
-        const response = await axios.get('/ai-music.json');
+        // const response = await axios.get('/ai-music.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/music`);
         // let filtered = response.data.filter(function(bestsellers){
         //   return bestsellers.review == 5;
         // });
@@ -144,8 +147,8 @@ function HomePage() {
         setFeaturedProductsMusic(filtered);
         // setCurrentProduct("AI-Music");
       } catch (error) {
-        console.error('Error fetching featured products:', error);
-        showMessage('Error fetching featured products!', 'error');
+        console.error('Error fetching featured AI-Music products:', error);
+        showMessage('Error fetching featured AI-Music products!', 'error');
       }
     };
 
@@ -187,7 +190,8 @@ function HomePage() {
         // const response = await axios.get('/featured.json');
         // const response = await axios.get('/products.json');
         // setFeaturedProducts(response.data);
-        const response = await axios.get('/ai-video.json');
+        // const response = await axios.get('/ai-video.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/video`);
         // let filtered = response.data.filter(function(bestsellers){
         //   return bestsellers.review == 5;
         // });
@@ -195,8 +199,8 @@ function HomePage() {
         setFeaturedProductsVideo(filtered);
         // setCurrentProduct("AI-Video");
       } catch (error) {
-        console.error('Error fetching featured products:', error);
-        showMessage('Error fetching featured products!', 'error');
+        console.error('Error fetching featured AI-Video products:', error);
+        showMessage('Error fetching featured AI-Video products!', 'error');
       }
     };
 

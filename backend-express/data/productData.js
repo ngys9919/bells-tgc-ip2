@@ -1,20 +1,35 @@
 const pool = require('../database');
 
-async function getAllProducts() {
-  const [rows] = await pool.query('SELECT id, bookTitle, CAST(priceTag AS DOUBLE) AS priceTag, image, promotion, badge, discount, review FROM books');
+async function getAllProductsBooks() {
+  const [rows] = await pool.query('SELECT id, isbn_13, title, pageCount, CAST(priceTag AS DOUBLE) AS priceTag, image, format, promotion, badge, discount, review FROM aibooks');
+  return rows;
+}
+
+async function getAllProductsImage() {
+  const [rows] = await pool.query('SELECT id, title, description, fileSize, CAST(priceTag AS DOUBLE) AS priceTag, image, dateCreated, promotion, badge, discount, review FROM aiimage');
+  return rows;
+}
+
+async function getAllProductsMusic() {
+  const [rows] = await pool.query('SELECT id, title, CAST(priceTag AS DOUBLE) AS priceTag, music, image, promotion, badge, discount, review FROM aimusic');
+  return rows;
+}
+
+async function getAllProductsVideo() {
+  const [rows] = await pool.query('SELECT id, title, CAST(priceTag AS DOUBLE) AS priceTag, video, promotion, badge, discount, review FROM aivideo');
   return rows;
 }
 
 //GET => Read
 // GET a single product
 async function getProductById(id) {
-  const [rows] = await pool.query('SELECT * FROM books WHERE id = ?', [id]);
+  const [rows] = await pool.query('SELECT * FROM aibooks WHERE id = ?', [id]);
   return rows[0];
 }
 
 //POST => Create
 // POST a single product
-async function createProductByBody(isbn_10, isbn_13, bookTitle, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
+async function createProductByBody(isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -54,8 +69,8 @@ async function createProductByBody(isbn_10, isbn_13, bookTitle, pageCount, price
       // console.log(newAuthorId);
     }
 
-    let query = 'INSERT INTO books (isbn_10, isbn_13, bookTitle, pageCount, priceTag, image, format, promotion, badge, discount, review, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    let bindings = [isbn_10, isbn_13, bookTitle, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId];
+    let query = 'INSERT INTO aibooks (isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    let bindings = [isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId];
     let [result] = await connection.query(query, bindings);
 
     let newBookId = result.insertId;
@@ -75,7 +90,7 @@ async function createProductByBody(isbn_10, isbn_13, bookTitle, pageCount, price
 
 //PUT => Update by replace
 // PUT a single product
-async function updateProductByIdBody(id, isbn_10, isbn_13, bookTitle, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
+async function updateProductByIdBody(id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -121,8 +136,8 @@ async function updateProductByIdBody(id, isbn_10, isbn_13, bookTitle, pageCount,
     }
 
     // console.log(newAuthorId);
-    let query = 'UPDATE books SET isbn_10=?, isbn_13=?, bookTitle=?, pageCount=?, priceTag=?, image=?, format=?, promotion=?, badge=?, discount=?, review=?, author_id=? WHERE id=?';
-    let bindings = [isbn_10, isbn_13, bookTitle, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId, id];
+    let query = 'UPDATE aibooks SET isbn_10=?, isbn_13=?, title=?, pageCount=?, priceTag=?, image=?, format=?, promotion=?, badge=?, discount=?, review=?, author_id=? WHERE id=?';
+    let bindings = [isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId, id];
     const result2 = await pool.query(query, bindings);
 
     await connection.commit();
@@ -139,10 +154,10 @@ async function updateProductByIdBody(id, isbn_10, isbn_13, bookTitle, pageCount,
 //DELETE => Delete
 // DELETE a single product
 async function deleteProductById(id) {
-  const results = await pool.query(`DELETE FROM books WHERE id = ?`, [id]);
+  const results = await pool.query(`DELETE FROM aibooks WHERE id = ?`, [id]);
   return results;
 }
 
 module.exports = {
-  getAllProducts, getProductById, createProductByBody, updateProductByIdBody, deleteProductById
+  getAllProductsBooks, getAllProductsImage, getAllProductsMusic, getAllProductsVideo, getProductById, createProductByBody, updateProductByIdBody, deleteProductById
 };

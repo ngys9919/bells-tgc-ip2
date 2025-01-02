@@ -41,13 +41,15 @@ function ItemsPage() {
         // console.log('Items:', response.data);
         // setRelatedItems(response.data);
         if (product === 'AI-Books') {
-          response = await axios.get('/ai-books.json');
+          // response = await axios.get('/ai-books.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/books`);
           // let filtered = response.data.filter(function(books_related){
           //   return books_related.badge == 'Sale';
           // });
           filtered = response.data.filter( books_related => books_related.badge == 'Sale');
         } else if (product === 'AI-Image') {
-          response = await axios.get('/ai-image.json');
+          // response = await axios.get('/ai-image.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/image`);
           // let filtered = response.data.filter(function(images_related){
           //   return images_related.badge == 'Sale';
           // });

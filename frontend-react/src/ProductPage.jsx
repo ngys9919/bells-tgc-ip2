@@ -23,9 +23,11 @@ function ProductsPage() {
         // const response = await axios.get(`http://localhost:3000/api/products`);
         // setProducts(response.data);
         if (product === 'AI-Books') {
-          response = await axios.get('/ai-books.json');
+          // response = await axios.get('/ai-books.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/books`);
         } else if (product === 'AI-Image') {
-          response = await axios.get('/ai-image.json');
+          // response = await axios.get('/ai-image.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/image`);
         }
         setProducts(response.data);
       } catch (error) {

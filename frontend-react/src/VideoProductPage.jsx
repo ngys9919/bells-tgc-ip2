@@ -15,11 +15,12 @@ function VideoProductsPage() {
         // const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
         // const response = await axios.get(`http://localhost:3000/api/products`);
         // setProducts(response.data);
-        const response = await axios.get('/ai-video.json');
+        // const response = await axios.get('/ai-video.json');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/video`);
         setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
-        showMessage('Error fetching products!', 'error');
+        console.error('Error fetching AI-Video products:', error);
+        showMessage('Error fetching AI-Video products!', 'error');
       }
     };
   

@@ -144,7 +144,8 @@ const MusicProductCard = (props) => {
         {/* Sale badge */}
         <div className="badge bg-primary text-white position-absolute" style={{ top: '0.5rem', right: '0.5rem' }}>{props.productBadge}</div>
         {/* Product image */}
-        <img style={{ marginLeft: spacing + 'em', width: '240px', height: '320px' }} className="card-img-top" src={props.imageUrl} alt={props.productName} />        
+        {/* <img style={{ width: 'auto', height: 'auto' }} className="card-img-top" src={props.imageUrl} alt={props.productName} /> */}
+        <img style={{ width: '240px', height: '320px', display: 'block', margin: '0 auto' }} className="card-img-top" src={props.imageUrl} alt={props.productName} />
         {/* Product File */}
         {/* <div style={{ marginLeft: spacing + 'em' }}> */}
         <div className="d-flex justify-content-center">

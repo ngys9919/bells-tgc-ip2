@@ -23,13 +23,15 @@ function ProductsPopularPage() {
         // const response = await axios.get(`http://localhost:3000/api/products`);
         // setProducts(response.data);
         if (product === 'AI-Books') {
-          response = await axios.get('/ai-books.json');
+          // response = await axios.get('/ai-books.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/books`);
           // let filtered = response.data.filter(function(books_popular){
           //   return books_popular.promotion == 'Popular Item';
           // });
           filtered = response.data.filter( books_popular => books_popular.promotion == 'Popular Item');
         } else if (product === 'AI-Image') {
-          response = await axios.get('/ai-image.json');
+          // response = await axios.get('/ai-image.json');
+          response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/image`);
           // let filtered = response.data.filter(function(images_popular){
           //   return images_popular.promotion == 'Popular Item';
           // });
