@@ -104,7 +104,7 @@ async function updateCart(userId, cartItems) {
 
     // Insert each item in the new cart
     for (const item of cartItems) {
-      console.log(item);
+      // console.log(item);
       const result = await connection.query(
         'INSERT INTO cart_items (user_id, type_id, product_id, quantity) VALUES (?, ?, ?, ?)',
         [userId, item.type_id, item.product_id, item.quantity]
@@ -113,6 +113,7 @@ async function updateCart(userId, cartItems) {
     }
 
     await connection.commit();
+    return result;
   } catch (error) {
     await connection.rollback();
     throw error;

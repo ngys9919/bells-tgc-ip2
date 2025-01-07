@@ -64,9 +64,9 @@ export const useCart = () => {
   // Update cart on the backend whenever the cart changes
   useEffect(() => {
       if (cart !== initialCart) {
-          updateCart();
+        // console.log(100);
+        updateCart();
       }
-      // return ()=>{console.log('cleanup')}
   }, [cart]); // Depend on the cart state
 
   // const modifyCart = (product_id, quantity) => {
@@ -121,14 +121,14 @@ export const useCart = () => {
     setCart((currentCart) => {
       
       const existingItemIndex = currentCart.findIndex(item => item.product_id === product.id);
-      console.log(existingItemIndex);
+      // console.log(existingItemIndex);
       if (existingItemIndex !== -1) {
           // Use setIn to update quantity immutably
           const currentQuantity = currentCart[existingItemIndex].quantity;
           return currentCart.setIn([existingItemIndex, 'quantity'], currentQuantity + 1);
       } else {
-        console.log(product.type_id);
-        console.log(product.id);
+        // console.log(product.type_id);
+        // console.log(product.id);
         // Use concat to add a new item immutably
         return currentCart.concat({ ...product, type_id: product.type_id, product_id: product.id, quantity: 1 });
       }

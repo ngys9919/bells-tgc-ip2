@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useLoginUsername } from './UserStore';
 
 const ShoppingCart = () => {
-  const isFirstRender = useRef(true); // Track first render
+  // const isFirstRender = useRef(true); // Track first render
 
   const { getCurrentLoginUsername } = useLoginUsername();
       
@@ -39,6 +39,8 @@ const ShoppingCart = () => {
   useEffect(() => {
     if (loginUsername === "Guest") { 
       resetCartContent([]);
+      // console.log(200);
+      updateCart();
       return; // Only for Guest
     }
   }, [loginUsername]);
@@ -72,14 +74,15 @@ const ShoppingCart = () => {
     }
   };
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return; // Skip the first render
-    }
-    updateCart();
-    return ()=>{console.log('cleanup')}
-  }, [cart]);
+  // useEffect(() => {
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return; // Skip the first render
+    // }
+    // console.log(200);
+    // updateCart();
+    // return ()=>{console.log('cleanup')}
+  // }, [cart]);
 
   // const imageUrlTest = "https://picsum.photos/id/225/300/200";
   // const productNameTest = "Organic Green Tea";
@@ -162,6 +165,7 @@ const ShoppingCart = () => {
                   {productMusic}
                   {productVideo} */}
                   {productPicture(item)}
+                  {/* <img src={item.imageUrl} alt={item.productName} /> */}
                   <div className="d-flex align-items-center mt-2">
                     <input type="button" className="btn btn-sm btn-secondary me-2" value="-" onClick={() => modifyCart(item.product_id, item.quantity - 1)} disabled={isLoading} />
                     <p className="mb-0">Quantity: {item.quantity}</p>

@@ -78,7 +78,10 @@ async function getCartContents(userId) {
 async function updateCart(userId, cartItems) {
   if (!Array.isArray(cartItems)) {
     throw new Error('Cart items must be an array');  }
-  await cartData.updateCart(userId, cartItems);
+  // console.log(userId);
+  // console.log(cartItems);
+  const result = await cartData.updateCart(userId, cartItems);
+  // console.log(result);
 }
 
 module.exports = {
