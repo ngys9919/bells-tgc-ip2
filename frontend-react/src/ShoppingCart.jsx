@@ -81,6 +81,65 @@ const ShoppingCart = () => {
     return ()=>{console.log('cleanup')}
   }, [cart]);
 
+  // const imageUrlTest = "https://picsum.photos/id/225/300/200";
+  // const productNameTest = "Organic Green Tea";
+
+  // const productBooks = (<img src={imageUrlTest} alt={productNameTest} />);
+
+  // const productImage = (<img style={{ width: '480px', height: '480px' }} src={imageUrlTest} alt={productNameTest} />);
+
+  // const productMusic = (<img style={{ width: '240px', height: '320px', display: 'block', margin: '0 auto' }} src={imageUrlTest} alt={productNameTest} />);
+
+  // const productVideo = (<img style={{ width: '480px', height: '480px' }} src={imageUrlTest} alt={productNameTest} />);
+
+  // const productBooks = (<img src={item.imageUrl} alt={item.productName} />);
+
+  // const productImage = (<img style={{ width: '480px', height: '480px' }} src={item.imageUrl} alt={item.productName} />);
+
+  // const productMusic = (<img style={{ width: '240px', height: '320px', display: 'block', margin: '0 auto' }} src={item.imageUrl} alt={item.productName} />);
+
+  // const productVideo = (<img style={{ width: '480px', height: '480px' }} src={item.imageUrl} alt={item.productName} />);
+
+  const productPicture= (item) => {
+    let productPictureInfo = <></>;
+    const type_id = item.type_id;
+    const id = item.id;
+
+    // 1. clone the original array
+    // const clonedItem = item.slice();
+    // const clonedItem = [...item];
+
+    // // 1. clone the original object
+    const clonedItem = {...item};
+
+    if (type_id === 1) {
+      productPictureInfo = (
+        <>
+          <img src={clonedItem.imageUrl} alt={clonedItem.productName} />
+        </>
+      );
+    } else if (type_id === 2) {
+      productPictureInfo = (
+        <>
+          <img style={{ width: '480px', height: '480px' }} src={clonedItem.imageUrl} alt={clonedItem.productName} />
+        </>
+      );
+    } else if (type_id === 3) {
+      productPictureInfo = (
+        <>
+          <img style={{ width: '240px', height: '320px', display: 'block', margin: '0 auto' }} src={clonedItem.imageUrl} alt={clonedItem.productName} />
+        </>
+      );
+    } else if (type_id === 4) {
+      productPictureInfo = (
+        <>
+          <img style={{ width: '480px', height: '480px' }} src={clonedItem.imageUrl} alt={clonedItem.productName} />
+        </>
+      );
+    }
+    return productPictureInfo;
+  };
+
   return (
     <div className="container mt-4">
       <h1>Shopping Cart</h1>
@@ -98,7 +157,11 @@ const ShoppingCart = () => {
               <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
                 <div>
                   <h5>{item.productName}</h5>
-                  <img src={item.imageUrl} alt={item.productName} />
+                  {/* {productBooks}
+                  {productImage}
+                  {productMusic}
+                  {productVideo} */}
+                  {productPicture(item)}
                   <div className="d-flex align-items-center mt-2">
                     <input type="button" className="btn btn-sm btn-secondary me-2" value="-" onClick={() => modifyCart(item.product_id, item.quantity - 1)} disabled={isLoading} />
                     <p className="mb-0">Quantity: {item.quantity}</p>

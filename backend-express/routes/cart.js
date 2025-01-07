@@ -24,6 +24,7 @@ router.get('/', async (req, res) => {
 router.put('/', async (req, res) => {
   try {
     const cartItems = req.body.cartItems; // Expects an array of items with productId and quantity
+    // console.log(cartItems);
     await cartService.updateCart(req.user.userId, cartItems);
     res.json({ message: 'Cart updated successfully' });
   } catch (error) {

@@ -59,6 +59,8 @@ function ProductsPopularPage() {
             <div key={product.id} className="col-md-4 mb-4">
               <ProductCard
                 id={product.id}
+                pdt_id={product.pdt_id}
+                type_id={product.type_id}
                 imageUrl={product.image}
                 promotionName={product.promotion}
                 productName={product.title}

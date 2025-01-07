@@ -169,6 +169,7 @@ function ItemsPage() {
             <div key={product.id} className="col-md-4 mb-4">
               <ItemCard
                 id={product.id}
+                pdt_id={product.pdt_id}
                 imageUrl={product.image}
                 promotionName={product.promotion}
                 productName={product.title}

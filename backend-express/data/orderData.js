@@ -33,8 +33,8 @@ async function createOrder(userId, orderItems) {
         // Insert order items
         for (const item of orderItems) {
             await connection.query(
-                'INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)',
-                [orderId, item.product_id, item.quantity]
+                'INSERT INTO order_items (order_id, type_id, product_id, quantity) VALUES (?, ?, ?, ?)',
+                [orderId, item.type_id, item.product_id, item.quantity]
             );
         }
 
@@ -49,18 +49,103 @@ async function createOrder(userId, orderItems) {
 }
 
 async function getOrderDetails(orderId) {
-    const [rows] = await pool.query(`
+    let rows = [];
+    let lhs = [];
+    let rhs = [];
+    let cat_id = 1;
+
+//     const [cat_id] = await pool.query(
+//     'SELECT oi.type_id FROM order_items AS oi JOIN category cat ON oi.type_id = cat.id WHERE oi.order_id = ?',
+//     [orderId]
+//   );
+
+// const [cat_type] = await pool.query(
+//     'SELECT cat.type FROM order_items AS oi JOIN category cat ON oi.type_id = cat.id WHERE oi.order_id = ?',
+//     [orderId]
+//   );
+
+//   if (cat_rows === "AI-Books") {
+//   if (cat_id === 1) {
+    cat_id = 1;
+    lhs = [...rows];
+    [rows] = await pool.query(`
         SELECT
             oi.product_id,
+            oi.type_id,
             p.title,
             p.priceTag,
             p.discount,
             oi.quantity
         FROM order_items AS oi
         JOIN aibooks AS p ON oi.product_id = p.id
-        WHERE oi.order_id = ?
-    `, [orderId]);
+        WHERE oi.order_id = ? AND oi.type_id = ?
+    `, [orderId, cat_id]);
 
+    rhs = [...rows];
+        rows = [...lhs, ...rhs];
+        // console.log(lhs, rhs, rows);
+//   } else if (cat_rows === "AI-Image") {
+// } else if (cat_id === 2) {
+    cat_id = 2;
+    lhs = [...rows];
+    [rows] = await pool.query(`
+        SELECT
+            oi.product_id,
+            oi.type_id,
+            p.title,
+            p.priceTag,
+            p.discount,
+            oi.quantity
+        FROM order_items AS oi
+        JOIN aiimage AS p ON oi.product_id = p.id
+        WHERE oi.order_id = ? AND oi.type_id = ?
+    `, [orderId, cat_id]);
+
+    rhs = [...rows];
+        rows = [...lhs, ...rhs];
+        // console.log(lhs, rhs, rows);
+//   } else if (cat_rows === "AI-Music") {
+// } else if (cat_id === 3) {
+    cat_id = 3;
+    lhs = [...rows];
+    [rows] = await pool.query(`
+        SELECT
+            oi.product_id,
+            oi.type_id,
+            p.title,
+            p.priceTag,
+            p.discount,
+            oi.quantity
+        FROM order_items AS oi
+        JOIN aimusic AS p ON oi.product_id = p.id
+        WHERE oi.order_id = ? AND oi.type_id = ?
+    `, [orderId, cat_id]);
+
+    rhs = [...rows];
+        rows = [...lhs, ...rhs];
+        // console.log(lhs, rhs, rows);
+//   } else if (cat_rows === "AI-Video") {
+// } else if (cat_id === 4) {
+    cat_id = 4;
+    lhs = [...rows];
+    [rows] = await pool.query(`
+        SELECT
+            oi.product_id,
+            oi.type_id,
+            p.title,
+            p.priceTag,
+            p.discount,
+            oi.quantity
+        FROM order_items AS oi
+        JOIN aivideo AS p ON oi.product_id = p.id
+        WHERE oi.order_id = ? AND oi.type_id = ?
+    `, [orderId, cat_id]);
+    rhs = [...rows];
+    rows = [...lhs, ...rhs];
+    console.log("order");
+    console.log(rows);
+//   }
+  
     return rows;
 }
 

@@ -43,8 +43,9 @@ export const useCart = () => {
       setIsLoading(true);
       try {
           const updatedCartItems = cart.map((item) => ({
-              product_id: item.product_id,
-              quantity: item.quantity,
+            type_id: item.type_id,
+            product_id: item.product_id,
+            quantity: item.quantity,
           }));
           await axios.put(`${import.meta.env.VITE_API_URL}/api/cart`, { cartItems: updatedCartItems }, {
           // await axios.put('http://localhost:3000/api/cart', { cartItems: updatedCart }, {
@@ -87,15 +88,14 @@ export const useCart = () => {
   const modifyCart = (product_id, quantity) => {
     setCart((currentCart) => {
       const existingItemIndex = currentCart.findIndex(item => item.product_id === product_id);
+      console.log(existingItemIndex);
       if (existingItemIndex !== -1) {
-
-        // check if the quantity will be reduced to 0 or less, if so remove the item
-        if (quantity < 0) {
-          return currentCart.filter(item => item.product_id !== product_id);
-        } else {                      
+          // check if the quantity will be reduced to 0 or less, if so remove the item
+          if (quantity < 0) {
+            return currentCart.filter(item => item.product_id !== product_id);
+          } else {                      
             return currentCart.setIn([existingItemIndex, 'quantity'], quantity);
-        }
-
+          }
       }
     });
   }
@@ -119,14 +119,18 @@ export const useCart = () => {
 
   const addToCart = (product) => {
     setCart((currentCart) => {
+      
       const existingItemIndex = currentCart.findIndex(item => item.product_id === product.id);
+      console.log(existingItemIndex);
       if (existingItemIndex !== -1) {
-        // Use setIn to update quantity immutably
-        const currentQuantity = currentCart[existingItemIndex].quantity;
-        return currentCart.setIn([existingItemIndex, 'quantity'], currentQuantity + 1);
+          // Use setIn to update quantity immutably
+          const currentQuantity = currentCart[existingItemIndex].quantity;
+          return currentCart.setIn([existingItemIndex, 'quantity'], currentQuantity + 1);
       } else {
+        console.log(product.type_id);
+        console.log(product.id);
         // Use concat to add a new item immutably
-        return currentCart.concat({ ...product, product_id: product.id, quantity: 1 });
+        return currentCart.concat({ ...product, type_id: product.type_id, product_id: product.id, quantity: 1 });
       }
     });
   };
@@ -140,7 +144,7 @@ export const useCart = () => {
   // const removeFromCart = (product_id) => {
   const deleteCartItem = (product_id) => {
     setCart((currentCart) => {
-      return currentCart.filter(item => item.product_id !== product_id);
+      return currentCart.filter(item => item.product_id !== product_id); 
     });
   }
   const fetchCart = async () => {
@@ -202,13 +206,15 @@ export const useCart = () => {
   const addQuantityToCart = (product, quantity) => {
     setCart((currentCart) => {
       const existingItemIndex = currentCart.findIndex(item => item.product_id === product.id);
+      console.log(existingItemIndex);
       const newQuantity = quantity;
+      
       if (existingItemIndex !== -1) {
         // Use setIn to update quantity immutably
         return currentCart.setIn([existingItemIndex, 'quantity'], newQuantity);
       } else {
         // Use concat to add a new item immutably
-        return currentCart.concat({ ...product, product_id: product.id, quantity: newQuantity });
+        return currentCart.concat({ ...product, type_id: product.type_id, product_id: product.id, quantity: newQuantity });
       }
     });
   };

@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "type_id": 3,
     "songGenre": "electronic",
     "title": "Do, Re, Mi, Fa, Sol, La, Ti, Do (Remastered)",
     "description": "a cappella, powerful",
@@ -21,6 +22,7 @@
   },
   {
     "id": 2,
+    "type_id": 3,
     "songGenre": "rock",
     "title": "Last Night was the Last Night",
     "description": "quirky, energetic, raw, indie rock, garage rock revival, post-punk revival",
@@ -41,6 +43,7 @@
   },
   {
     "id": 3,
+    "type_id": 3,
     "songGenre": "pop",
     "title": "Mistletoe and Missing You",
     "description": "pop acoustic",
@@ -61,6 +64,7 @@
   },
   {
     "id": 4,
+    "type_id": 3,
     "songGenre": "pop",
     "title": "Rhythm In My Soul",
     "description": "neosoul, pop, acoustic, rhodes, Wurlitzer",
@@ -81,6 +85,7 @@
   },
   {
     "id": 5,
+    "type_id": 3,
     "songGenre": "soul",
     "title": "A is for Amazing",
     "description": "gospel soul choir",
@@ -101,6 +106,7 @@
   },
   {
     "id": 6,
+    "type_id": 3,
     "songGenre": "",
     "title": "Lost in the now",
     "description": "edm, guajira",
@@ -121,6 +127,7 @@
   },
   {
     "id": 7,
+    "type_id": 3,
     "songGenre": "rap",
     "title": "Breathe Right Strip",
     "description": "lo-fi rap, hip hop samples",
@@ -141,6 +148,7 @@
   },
   {
     "id": 8,
+    "type_id": 3,
     "songGenre": "pop",
     "title": "Wanderlust Dreams",
     "description": "pop, vibrant, synth",
@@ -161,6 +169,7 @@
   },
   {
     "id": 9,
+    "type_id": 3,
     "songGenre": "soul",
     "title": "Water",
     "description": "afrobeats",
@@ -181,6 +190,7 @@
   },
   {
     "id": 10,
+    "type_id": 3,
     "songGenre": "jazz",
     "title": "Circles (Remastered)",
     "description": "electronic, jazz, experimental, minimal, percussion, deep voice, acid jazz",

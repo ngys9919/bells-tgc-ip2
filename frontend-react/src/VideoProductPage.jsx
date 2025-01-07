@@ -35,7 +35,9 @@ function VideoProductsPage() {
             <div key={product.id} className="col-md-4 mb-4">
               <VideoProductCard
                 id={product.id}
+                type_id={product.type_id}
                 videoUrl={product.video}
+                imageUrl={product.image}
                 promotionName={product.promotion}
                 productName={product.title}
                 productBadge={product.badge}

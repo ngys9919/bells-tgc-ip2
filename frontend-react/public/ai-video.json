@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "type_id": 4,
     "title": "西海情歌",
     "description": "totoro",
     "fileName": "tiktok-ck54024-1.mp4",
@@ -8,6 +9,7 @@
     "fileSize": "5,571KB",
     "priceTag": 2.99,
     "video": "https://ucarecdn.com/e880f2ca-d3ad-4855-9d56-cf2b6c902697/tiktokck540241.mp4",
+    "image": "https://ucarecdn.com/1f4c679d-87c6-451a-af27-10dda3420883/tiktok1.png",
     "duration": "00:01:08",
     "creator": "ck54024",
     "dateCreated": "2024-11-21 10:56:00",
@@ -19,6 +21,7 @@
   },
   {
     "id": 2,
+    "type_id": 4,
     "title": "不敢倒下",
     "description": "construction worker",
     "fileName": "tiktok-ck54024-2.mp4",
@@ -26,6 +29,7 @@
     "fileSize": "2,119KB",
     "priceTag": 2.99,
     "video": "https://ucarecdn.com/f700b939-4768-4aac-89cd-54eedf4a11bd/tiktokck540242.mp4",
+    "image": "https://ucarecdn.com/0cd1ba25-c037-4016-a814-265443d11c99/tiktok2.png",
     "duration": "00:00:57",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:26:00",
@@ -37,6 +41,7 @@
   },
   {
     "id": 3,
+    "type_id": 4,
     "title": "蔓莉",
     "description": "shin-chan",
     "fileName": "tiktok-ck54024-3.mp4",
@@ -44,6 +49,7 @@
     "fileSize": "1,879KB",
     "priceTag": 0.99,
     "video": "https://ucarecdn.com/723fc126-1775-4c5e-aa55-e887235abcf4/tiktokck540243.mp4",
+    "image": "https://ucarecdn.com/061b3bc9-c686-4c74-9da4-917e4882fbb6/tiktok3.png",
     "duration": "00:00:30",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:27:00",
@@ -55,6 +61,7 @@
   },
   {
     "id": 4,
+    "type_id": 4,
     "title": "一个很有意思的心里现象",
     "description": "doraemon",
     "fileName": "tiktok-ck54024-4.mp4",
@@ -62,6 +69,7 @@
     "fileSize": "2,333KB",
     "priceTag": 0.99,
     "video": "https://ucarecdn.com/f80f65a7-2d4f-4ac5-b47f-7bb705da3949/tiktokck540244.mp4",
+    "image": "https://ucarecdn.com/f74808fc-bd9a-482b-add9-cccaf8b88d9f/tiktok4.png",
     "duration": "00:00:20",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:27:00",
@@ -73,6 +81,7 @@
   },
   {
     "id": 5,
+    "type_id": 4,
     "title": "你来了又走心满了又空",
     "description": "city scene",
     "fileName": "tiktok-ck54024-5.mp4",
@@ -80,6 +89,7 @@
     "fileSize": "4,660KB",
     "priceTag": 1.99,
     "video": "https://ucarecdn.com/cc5622bf-7a68-4c75-ac43-2c113249bb80/tiktokck540245.mp4",
+    "image": "https://ucarecdn.com/8fe9b1c0-6ac6-44d8-92a0-7e4bd12eacf9/tiktok5.png",
     "duration": "00:00:59",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:27:00",
@@ -91,6 +101,7 @@
   },
   {
     "id": 6,
+    "type_id": 4,
     "title": "卖糖歌",
     "description": "sweet girl",
     "fileName": "tiktok-ck54024-6.mp4",
@@ -98,6 +109,7 @@
     "fileSize": "1,795KB",
     "priceTag": 1.99,
     "video": "https://ucarecdn.com/1f16c44c-7d39-4c9f-ad38-b7451014c445/tiktokck540246.mp4",
+    "image": "https://ucarecdn.com/7b42974b-e9d2-41fe-8523-5194874147b4/tiktok6.png",
     "duration": "00:00:47",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:29:00",
@@ -109,6 +121,7 @@
   },
   {
     "id": 7,
+    "type_id": 4,
     "title": "午夜香吻",
     "description": "performance stage",
     "fileName": "tiktok-ck54024-7.mp4",
@@ -116,6 +129,7 @@
     "fileSize": "1,296KB",
     "priceTag": 0.59,
     "video": "https://ucarecdn.com/715073d1-d85b-41c6-afee-e4c38dab2577/tiktokck540247.mp4",
+    "image": "https://ucarecdn.com/62993496-31ba-4823-91de-f1d3ee7e82d9/tiktok7.png",
     "duration": "00:00:30",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:29:00",
@@ -127,6 +141,7 @@
   },
   {
     "id": 8,
+    "type_id": 4,
     "title": "望天",
     "description": "boy and wolf",
     "fileName": "tiktok-ck54024-8.mp4",
@@ -134,6 +149,7 @@
     "fileSize": "4,939KB",
     "priceTag": 0.79,
     "video": "https://ucarecdn.com/cc43f130-7730-4d59-81c2-9f115be1b059/tiktokck540248.mp4",
+    "image": "https://ucarecdn.com/02434a7d-adc6-4f39-86bd-12897c2cd6de/tiktok8.png",
     "duration": "00:00:42",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:30:00",
@@ -145,6 +161,7 @@
   },
   {
     "id": 9,
+    "type_id": 4,
     "title": "蛋炒饭",
     "description": "egg fried rice",
     "fileName": "tiktok-ck54024-9.mp4",
@@ -152,6 +169,7 @@
     "fileSize": "1,257KB",
     "priceTag": 0.39,
     "video": "https://ucarecdn.com/5703256b-b8bf-4d59-838c-f19a0aa5fc1c/tiktokck540249.mp4",
+    "image": "https://ucarecdn.com/e3e24b43-221c-430a-a3c2-da9bfc82dae9/tiktok9.png",
     "duration": "00:00:23",
     "creator": "ck54024",
     "dateCreated": "2024-11-22 02:31:00",

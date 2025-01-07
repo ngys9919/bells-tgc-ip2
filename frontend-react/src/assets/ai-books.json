@@ -1,6 +1,7 @@
 [
     {
       "id": 1,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8343157352",
       "title": "225 AI Powered Prompts:: Boost Your Business with Digital Products, Landing Pages, and Social Media Ideas",
@@ -15,6 +16,7 @@
     },
     {
       "id": 2,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8346458104",
       "title": "Adventures in AI-Powered Software Development: Unlock the Power of AI to Transform Your Development Workflow",
@@ -29,6 +31,7 @@
     },
     {
       "id": 3,
+      "type_id": 1,
       "isbn_10": "1098164563",
       "isbn_13": "978-1098164560",
       "title": "Ai-Assisted Programming: Better Planning, Coding, Testing, and Deployment",
@@ -43,6 +46,7 @@
     },
     {
       "id": 4,
+      "type_id": 1,
       "isbn_10": "1835086055",
       "isbn_13": "978-1835086056",
       "title": "AI-Assisted Programming for Web and Machine Learning: Improve your development workflow with ChatGPT and GitHub Copilot",
@@ -57,6 +61,7 @@
     },
     {
       "id": 5,
+      "type_id": 1,
       "isbn_10": "1838645357",
       "isbn_13": "978-1838645359",
       "title": "AI Crash Course",
@@ -71,6 +76,7 @@
     },
     {
       "id": 6,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8302981141",
       "title": "Ai Millionaire Income Blueprint: Using ChatGPT to Create Scalable, Ai-Powered Income Streams",
@@ -85,6 +91,7 @@
     },
     {
       "id": 7,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8341253957",
       "title": "AI-Powered Coding: Top Tools for Software Development in 2024",
@@ -99,6 +106,7 @@
     },
     {
       "id": 8,
+      "type_id": 1,
       "isbn_10": "1633437612",
       "isbn_13": "978-1633437616",
       "title": "AI-Powered Developer: Build Great Software with ChatGPT and Copilot",
@@ -113,6 +121,7 @@
     },
     {
       "id": 9,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8339273264",
       "title": "AI-Powered Productivity for Small Business Owners: Automate, Optimize, and Scale Your Business With Artificial Intelligence",
@@ -127,6 +136,7 @@
     },
     {
       "id": 10,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8332575884",
       "title": "AI Powered Productivity: Unlock Your Potential: Transforming Efficiency with AI-Powered Productivity",
@@ -141,6 +151,7 @@
     },
     {
       "id": 11,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8345079720",
       "title": "AI-Powered Productivity: Maximizing Efficiency and Success in the Modern Workplace",
@@ -155,6 +166,7 @@
     },
     {
       "id": 12,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8339162001",
       "title": "AI-Powered Productivity: Mastering AI Note-Taking and Code Assistants for Maximum Efficiency",
@@ -169,6 +181,7 @@
     },
     {
       "id": 13,
+      "type_id": 1,
       "isbn_10": "",
       "isbn_13": "979-8344566115",
       "title": "AI Powered Virtual Assistantt",
@@ -183,6 +196,7 @@
     },
     {
       "id": 14,
+      "type_id": 1,
       "isbn_10": "1633437787",
       "isbn_13": "978-1633437784",
       "title": "Learn AI-Assisted Python Programming with GitHub Copilot: With GitHub Copilot and ChatGPT",
@@ -197,6 +211,7 @@
     },
     {
       "id": 15,
+      "type_id": 1,
       "isbn_10": "1633435997",
       "isbn_13": "978-1633435995",
       "title": "Learn Ai-Assisted Python Programming, Second Edition",

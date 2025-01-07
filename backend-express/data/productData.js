@@ -1,22 +1,53 @@
 const pool = require('../database');
 
+async function getAllProducts() {
+  // const [rows] = await pool.query('SELECT id, type_id, isbn_13, title, pageCount, CAST(priceTag AS DOUBLE) AS priceTag, image, format, promotion, badge, discount, review FROM aibooks');
+  // const [rows] = await pool.query(`SELECT ai.id,
+  //                                   c.type AS productCodeID,
+  //                                   a.id AS productID
+  //                                   FROM aiproducts ai
+  //                                   JOIN category c ON ai.productCodeID = c.id
+  //                                   LEFT JOIN aibooks a ON ai.productCodeID = c.id AND ai.productID = a.id
+  //                                   LEFT JOIN aiimage i ON ai.productCodeID = c.id AND ai.productID = i.id
+  //                                   LEFT JOIN aimusic m ON ai.productCodeID = c.id AND ai.productID = m.id
+  //                                   LEFT JOIN aivideo v ON ai.productCodeID = c.id AND ai.productID = v.id;
+  //                                 `);
+  const [rows] = await pool.query(`SELECT ai.id,
+                                    c.type AS productCodeID,
+                                    ai.productID,
+                                    ai.source_table,
+                                    COALESCE(a.title, i.title, m.title, v.title) AS title
+                                    FROM aiproducts ai
+                                    JOIN category c ON ai.productCodeID = c.id
+                                    LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+                                    LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+                                    LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+                                    LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
+                                  `);
+  return rows;
+}
+
 async function getAllProductsBooks() {
-  const [rows] = await pool.query('SELECT id, isbn_13, title, pageCount, CAST(priceTag AS DOUBLE) AS priceTag, image, format, promotion, badge, discount, review FROM aibooks');
+  // const [rows] = await pool.query('SELECT id, type_id, isbn_13, title, pageCount, CAST(priceTag AS DOUBLE) AS priceTag, image, format, promotion, badge, discount, review FROM aibooks');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.isbn_13, p.title, p.pageCount, CAST(p.priceTag AS DOUBLE) AS priceTag, p.image, p.format, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aibooks p ON ai.productID = p.id WHERE ai.productCodeID = 1');
   return rows;
 }
 
 async function getAllProductsImage() {
-  const [rows] = await pool.query('SELECT id, title, description, fileSize, CAST(priceTag AS DOUBLE) AS priceTag, image, dateCreated, promotion, badge, discount, review FROM aiimage');
+  // const [rows] = await pool.query('SELECT id, type_id, title, description, fileSize, CAST(priceTag AS DOUBLE) AS priceTag, image, dateCreated, promotion, badge, discount, review FROM aiimage');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, p.description, p.fileSize, CAST(p.priceTag AS DOUBLE) AS priceTag, p.image, p.dateCreated, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aiimage p ON ai.productID = p.id WHERE ai.productCodeID = 2');
   return rows;
 }
 
 async function getAllProductsMusic() {
-  const [rows] = await pool.query('SELECT id, title, CAST(priceTag AS DOUBLE) AS priceTag, music, image, promotion, badge, discount, review FROM aimusic');
+  // const [rows] = await pool.query('SELECT id, type_id, title, CAST(priceTag AS DOUBLE) AS priceTag, music, image, promotion, badge, discount, review FROM aimusic');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, CAST(p.priceTag AS DOUBLE) AS priceTag, p.music, p.image, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aimusic p ON ai.productID = p.id WHERE ai.productCodeID = 3');
   return rows;
 }
 
 async function getAllProductsVideo() {
-  const [rows] = await pool.query('SELECT id, title, CAST(priceTag AS DOUBLE) AS priceTag, video, promotion, badge, discount, review FROM aivideo');
+  // const [rows] = await pool.query('SELECT id, type_id, title, CAST(priceTag AS DOUBLE) AS priceTag, video, image, promotion, badge, discount, review FROM aivideo');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, CAST(p.priceTag AS DOUBLE) AS priceTag, p.video, p.image, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aivideo p ON ai.productID = p.id WHERE ai.productCodeID = 4');
   return rows;
 }
 
@@ -29,7 +60,7 @@ async function getProductById(id) {
 
 //POST => Create
 // POST a single product
-async function createProductByBody(isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
+async function createProductByBody(type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -69,8 +100,8 @@ async function createProductByBody(isbn_10, isbn_13, title, pageCount, priceTag,
       // console.log(newAuthorId);
     }
 
-    let query = 'INSERT INTO aibooks (isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    let bindings = [isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId];
+    let query = 'INSERT INTO aibooks (id, type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    let bindings = [UUID_SHORT(), type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId];
     let [result] = await connection.query(query, bindings);
 
     let newBookId = result.insertId;
@@ -90,7 +121,7 @@ async function createProductByBody(isbn_10, isbn_13, title, pageCount, priceTag,
 
 //PUT => Update by replace
 // PUT a single product
-async function updateProductByIdBody(id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
+async function updateProductByIdBody(id, type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, firstName, lastName) {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -136,8 +167,8 @@ async function updateProductByIdBody(id, isbn_10, isbn_13, title, pageCount, pri
     }
 
     // console.log(newAuthorId);
-    let query = 'UPDATE aibooks SET isbn_10=?, isbn_13=?, title=?, pageCount=?, priceTag=?, image=?, format=?, promotion=?, badge=?, discount=?, review=?, author_id=? WHERE id=?';
-    let bindings = [isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId, id];
+    let query = 'UPDATE aibooks SET type_id=? isbn_10=?, isbn_13=?, title=?, pageCount=?, priceTag=?, image=?, format=?, promotion=?, badge=?, discount=?, review=?, author_id=? WHERE id=?';
+    let bindings = [type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId, id];
     const result2 = await pool.query(query, bindings);
 
     await connection.commit();
@@ -159,5 +190,5 @@ async function deleteProductById(id) {
 }
 
 module.exports = {
-  getAllProductsBooks, getAllProductsImage, getAllProductsMusic, getAllProductsVideo, getProductById, createProductByBody, updateProductByIdBody, deleteProductById
+  getAllProducts, getAllProductsBooks, getAllProductsImage, getAllProductsMusic, getAllProductsVideo, getProductById, createProductByBody, updateProductByIdBody, deleteProductById
 };

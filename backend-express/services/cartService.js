@@ -24,6 +24,7 @@ async function getCartContents(userId) {
   // For region=NY, product_id=3, it is 50% OFF!
   if (geo.region === 'NY') {
     // console.log(geo.region);
+    const type_id = 1;
     const product_id = 3;
     // note: item.id -> item.product_id
     const indexToModify = cart.findIndex(item => item.product_id === product_id);
@@ -44,6 +45,7 @@ async function getCartContents(userId) {
   // For city=New York, product_id=5, it is 25% MARKUP!
   if (geo.city === 'New York') {
     // console.log(geo.city);
+    const type_id = 1;
     const product_id = 5;
     // note: item.id -> item.product_id
     const indexToModify = cart.findIndex(item => item.product_id === product_id);

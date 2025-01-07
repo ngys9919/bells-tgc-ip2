@@ -35,6 +35,8 @@ function MusicProductsPage() {
             <div key={product.id} className="col-md-4 mb-4">
               <MusicProductCard
                 id={product.id}
+                pdt_id={product.pdt_id}
+                type_id={product.type_id}
                 musicUrl={product.music}
                 imageUrl={product.image}
                 promotionName={product.promotion}

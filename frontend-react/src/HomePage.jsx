@@ -60,6 +60,8 @@ function HomePage() {
         <div key={product.id} className="col-md-3 mb-4">
           <ProductCard
             id={product.id}
+            pdt_id={product.pdt_id}
+            type_id={product.type_id}
             imageUrl={product.image}
             promotionName={product.promotion}
             productName={product.title}
@@ -111,6 +113,8 @@ function HomePage() {
         <div key={product.id} className="col-md-3 mb-4">
           <ImageProductCard
             id={product.id}
+            pdt_id={product.pdt_id}
+            type_id={product.type_id}
             imageUrl={product.image}
             promotionName={product.promotion}
             productName={product.title}
@@ -162,6 +166,8 @@ function HomePage() {
         <div key={product.id} className="col-md-3 mb-4">
           <MusicProductCard
             id={product.id}
+            pdt_id={product.pdt_id}
+            type_id={product.type_id}
             musicUrl={product.music}
             imageUrl={product.image}
             promotionName={product.promotion}
@@ -214,7 +220,10 @@ function HomePage() {
         <div key={product.id} className="col-md-3 mb-4">
           <VideoProductCard
             id={product.id}
+            pdt_id={product.pdt_id}
+            type_id={product.type_id}
             videoUrl={product.video}
+            imageUrl={product.image}
             promotionName={product.promotion}
             productName={product.title}
             productBadge={product.badge}

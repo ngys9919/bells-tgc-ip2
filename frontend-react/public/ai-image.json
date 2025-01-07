@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "type_id": 2,
     "title": "regal woman",
     "description": "The image depicts a regal woman in an intricate blue outfit, adorned with jewels and floral accents.",
     "fileName": "nightcafe-1-1024x1024.jpg",
@@ -18,6 +19,7 @@
   },
   {
     "id": 2,
+    "type_id": 2,
     "title": "totoro creature",
     "description": "A whimsical creature sits on a tree branch surrounded by durians, in a lush forest setting.",
     "fileName": "nightcafe-2-1024x1024.jpg",
@@ -35,6 +37,7 @@
   },
   {
     "id": 3,
+    "type_id": 2,
     "title": "city park",
     "description": "A vibrant city scene with diverse people interacting in a lively park, surrounded by colorful buildings and skyscrapers.",
     "fileName": "nightcafe-3-1024x1024.jpg",
@@ -52,6 +55,7 @@
   },
   {
     "id": 4,
+    "type_id": 2,
     "title": "toddler and cat",
     "description": "A cute baby sits on a soft rug, gently interacting with a white kitten in a pastel room.",
     "fileName": "nightcafe-4-1024x1024.jpg",
@@ -69,6 +73,7 @@
   },
   {
     "id": 5,
+    "type_id": 2,
     "title": "girl and bear",
     "description": "A young girl in a winter outfit gently pets a polar bear near an igloo in a snowy landscape.",
     "fileName": "nightcafe-5-1024x1024.jpg",
@@ -86,6 +91,7 @@
   },
   {
     "id": 6,
+    "type_id": 2,
     "title": "crystal ball",
     "description": "A festive plate features a miniature snowy village scene with trees, houses, and a glowing starry sky.",
     "fileName": "nightcafe-6-1024x1024.jpg",
@@ -103,6 +109,7 @@
   },
   {
     "id": 7,
+    "type_id": 2,
     "title": "snail",
     "description": "A cartoon snail with big eyes holds a letter in its mouth while walking down a cobblestone street.",
     "fileName": "nightcafe-7-1024x1024.jpg",
@@ -120,6 +127,7 @@
   },
   {
     "id": 8,
+    "type_id": 2,
     "title": "glowing train",
     "description": "A magical steam train, glowing with golden light, travels through a snowy winter landscape towards a village.",
     "fileName": "nightcafe-8-1024x1024.jpg",
@@ -137,6 +145,7 @@
   },
   {
     "id": 9,
+    "type_id": 2,
     "title": "polar bear and people",
     "description": "A surreal scene featuring a woman exercising with a polar bear and a man holding a dumbbell.",
     "fileName": "nightcafe-9-1024x1024.jpg",
