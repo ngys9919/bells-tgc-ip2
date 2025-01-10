@@ -28,6 +28,28 @@ router.get('/', StatusCode, async (req, res) => {
   }
 });
 
+// GET product by Product Code ID
+router.get('/productCodeID/:id', async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const product = await productService.getProductByProductCodeID(req.params.id);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
+// GET product by Product Code ID
+router.get('/productID/:id', async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const product = await productService.getProductByProductID(req.params.id);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
 // GET all AI-Books products
 router.get('/books', StatusCode, async (req, res) => {
   try {

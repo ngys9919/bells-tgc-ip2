@@ -7,6 +7,7 @@ import ProductsNewArrivalsPage from './ProductNewArrivalsPage';
 import ItemPage from './ItemPage';
 import MusicProductPage from './MusicProductPage';
 import VideoProductPage from './VideoProductPage';
+import SearchPage from './SearchPage';
 import RegisterPage from './RegisterPage';
 import ShoppingCart from './ShoppingCart';
 import { Route, Switch } from 'wouter';
@@ -57,6 +58,7 @@ function App() {
         <Route path="/items" component={ItemPage} />
         <Route path="/productsmusic" component={MusicProductPage} />
         <Route path="/productsvideo" component={VideoProductPage} />
+        <Route path="/productssearch" component={SearchPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={UserLogin} />
         <Route path="/logout" component={UserLogout} />

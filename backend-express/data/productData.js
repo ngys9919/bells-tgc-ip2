@@ -13,7 +13,7 @@ async function getAllProducts() {
   //                                   LEFT JOIN aivideo v ON ai.productCodeID = c.id AND ai.productID = v.id;
   //                                 `);
   const [rows] = await pool.query(`SELECT ai.id,
-                                    c.type AS productCodeID,
+                                    c.type AS type_id,
                                     ai.productID,
                                     ai.source_table,
                                     COALESCE(a.title, i.title, m.title, v.title) AS title
@@ -25,6 +25,63 @@ async function getAllProducts() {
                                     LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
                                   `);
   return rows;
+}
+
+// GET product by Product Code ID
+async function getProductByProductCodeID(id) {
+  let rows = [];
+  console.log(id);
+  if (id == 0) {
+    [rows] = await pool.query(`SELECT ai.id,
+      c.type AS type_id,
+      ai.productID,
+      ai.source_table,
+      COALESCE(a.title, i.title, m.title, v.title) AS title
+      FROM aiproducts ai
+      JOIN category c ON ai.productCodeID = c.id
+      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
+    `);
+    console.log(rows);
+  } else {
+    [rows] = await pool.query(`SELECT ai.id,
+      c.type AS type_id,
+      ai.productID,
+      ai.source_table,
+      COALESCE(a.title, i.title, m.title, v.title) AS title
+      FROM aiproducts ai
+      JOIN category c ON ai.productCodeID = c.id
+      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      WHERE ai.productCodeID = ?
+    `, [id]);
+  }
+  
+  return rows;
+}
+
+// GET product by Product ID
+async function getProductByProductID(id) {
+  console.log(id);
+  const [rows] = await pool.query(`SELECT ai.id,
+      c.type AS type_id,
+      ai.productID,
+      ai.source_table,
+      COALESCE(a.title, i.title, m.title, v.title) AS title
+      FROM aiproducts ai
+      JOIN category c ON ai.productCodeID = c.id
+      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      WHERE ai.id = ?
+    `, [id]);
+  
+  return rows[0];
 }
 
 async function getAllProductsBooks() {
@@ -190,5 +247,15 @@ async function deleteProductById(id) {
 }
 
 module.exports = {
-  getAllProducts, getAllProductsBooks, getAllProductsImage, getAllProductsMusic, getAllProductsVideo, getProductById, createProductByBody, updateProductByIdBody, deleteProductById
+  getAllProducts,
+  getAllProductsBooks,
+  getAllProductsImage,
+  getAllProductsMusic,
+  getAllProductsVideo,
+  getProductByProductCodeID,
+  getProductByProductID,
+  getProductById,
+  createProductByBody,
+  updateProductByIdBody,
+  deleteProductById
 };

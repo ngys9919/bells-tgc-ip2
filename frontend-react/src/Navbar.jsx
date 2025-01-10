@@ -201,6 +201,12 @@ function Navbar() {
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link href="/productssearch" className={`nav-link ${location === '/productssearch' ? 'active' : ''}`} onClick={turnoffDropdown}>
+                Product Search
+              </Link>
+            </li>
+
             {/* <li className="nav-item">
               <Link href="/register" className={`nav-link ${location === '/register' ? 'active' : ''}`}>
                 Register
