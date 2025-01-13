@@ -11,6 +11,9 @@ function SearchPage() {
 
   const [productCodeID, setproductCodeID] = useState("0");
   const [productID, setproductID] = useState('');
+  const [productTitle, setproductTitle] = useState('');
+  const [productSearchMode, setproductSearchMode] = useState("type"); // type, id, title
+  const [previousProductID, setpreviousProductID] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,8 +25,12 @@ function SearchPage() {
           console.log("productCodeID=0to4: ", productCodeID);
           setProducts(response.data);
           console.log(response.data);
-        } else if (productCodeID == (-1)) {
-          setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
+          console.log("productSearchMode1", productSearchMode);
+          console.log("productCodeID1", productCodeID);
+          console.log("productID1", productID);
+          console.log("products1", products);
+        // } else if (productCodeID == (-1)) {
+        //   setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
         } else {
           // setProducts([]);
           setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
@@ -38,7 +45,8 @@ function SearchPage() {
 
   }, [productCodeID]);
   
-  const handleSearchByProductTypeClick = (e) => { 
+  const handleSearchByProductTypeClick = (e) => {
+    setproductSearchMode("type"); 
     setproductCodeID(e.target.value);
     setproductID('');
     console.log(e.target.value);
@@ -70,63 +78,121 @@ function SearchPage() {
 
   const renderProductTypeHeader = (productCodeID) => {
     let productTypeHeader = <></>;
-    if (products.length == 0) {
-      productTypeHeader = (
-        <>
-        <h1 className="text-center mb-4">AI-Product ID {productID} NOT FOUND!</h1>
-        </>
-      );
-    } else if (products.length == 1) {
-      productTypeHeader = (
-        <>
-        <h1 className="text-center mb-4">AI-Product ID {productID}</h1>
-        </>
-      );
-    } else {
+    if (productSearchMode == "id") {
+      if (products.length == 0) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">AI-Product ID {previousProductID} NOT FOUND!</h1>
+          </>
+        );
+      } else if (products.length == 1) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">AI-Product ID {previousProductID}</h1>
+          </>
+        );
+      } else {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Results for AI-Product ID {previousProductID}</h1>
+          </>
+        );
+      }     
+    } else if (productSearchMode == "type") {
       if (productID == (0)) {
-        if (productCodeID == (-1)) {
+
+      if (productCodeID == 0) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Complete List of ALL AI-Products</h1>
+          </>
+        );
+      } else if (productCodeID == 1) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Complete List of AI-Books Products</h1>
+          </>
+        );
+      } else if (productCodeID == 2) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Complete List of AI-Image Products</h1>
+          </>
+        );
+      } else if (productCodeID == 3) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Complete List of AI-Music Products</h1>
+          </>
+        );
+      } else if (productCodeID == 4) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Complete List of AI-Video Products</h1>
+          </>
+        );
+      }
+    }
+    } else if (productSearchMode == "title") {
+      if (productCodeID == 0) {
+        if (products.length == 0) {
           productTypeHeader = (
             <>
-            <h1 className="text-center mb-4">List of AI-Products</h1>
-            </>
-          );
-        } else if (productCodeID == 0) {
-          productTypeHeader = (
-            <>
-            <h1 className="text-center mb-4">Complete List of ALL AI-Products</h1>
-            </>
-          );
-        } else if (productCodeID == 1) {
-          productTypeHeader = (
-            <>
-            <h1 className="text-center mb-4">Complete List of AI-Books Products</h1>
-            </>
-          );
-        } else if (productCodeID == 2) {
-          productTypeHeader = (
-            <>
-            <h1 className="text-center mb-4">Complete List of AI-Image Products</h1>
-            </>
-          );
-        } else if (productCodeID == 3) {
-          productTypeHeader = (
-            <>
-            <h1 className="text-center mb-4">Complete List of AI-Music Products</h1>
-            </>
-          );
-        } else if (productCodeID == 4) {
-          productTypeHeader = (
-            <>
-            <h1 className="text-center mb-4">Complete List of AI-Video Products</h1>
+            <h1 className="text-center mb-4">AI-Product NOT FOUND!</h1>
             </>
           );
         } else {
-            productTypeHeader = (
-              <>
-              <h1 className="text-center mb-4">No AI-Products Listing</h1>
-              </>
-            );
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">Search Results for ALL AI-Products</h1>
+            </>
+          );
         }
+        
+      } else if (productCodeID == 1) {
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">Search Results for AI-Books Products</h1>
+            {products.length == 0 ? (
+              <h1 className="text-center mb-4">AI-Books Product NOT FOUND!</h1>
+            ) : (
+              <h1 className="text-center mb-4"></h1>
+            ) }
+            </>
+          );
+      } else if (productCodeID == 2) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Results for AI-Image Products</h1>
+          {products.length == 0 ? (
+            <h1 className="text-center mb-4">AI-Image Product NOT FOUND!</h1>
+          ) : (
+            <h1 className="text-center mb-4"></h1>
+          ) }
+          </>
+        );
+      } else if (productCodeID == 3) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Results for AI-Music Products</h1>
+          {products.length == 0 ? (
+            <h1 className="text-center mb-4">AI-Music Product NOT FOUND!</h1>
+          ) : (
+            <h1 className="text-center mb-4"></h1>
+          ) }
+          </>
+        );
+      } else if (productCodeID == 4) {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Results for AI-Video Products</h1>
+          {products.length == 0 ? (
+            <h1 className="text-center mb-4">AI-Video Product NOT FOUND!</h1>
+          ) : (
+            <h1 className="text-center mb-4"></h1>
+          ) }
+          </>
+        );
       }
     }
     
@@ -136,33 +202,75 @@ function SearchPage() {
   // every event handler in React will recieve one parameter which is
   // event data (automatically) as the first argument
   const updateProductID = (e) => {
-    setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
+    setproductSearchMode("id");
+    // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
     setproductID(e.target.value);
     if (e.target.value < 0) {
       setproductID((-1) * e.target.value);
     } else if (e.target.value == 0) {
       setproductID('');
-      setproductCodeID(-1);
+      // setproductCodeID(-1);
     }
     console.log(e.target.value);
   }
 
   const handleSearchByProductIDClick = async () => {
+    setproductSearchMode("id");
+    // setpreviousProductID(productID);
     try {
       if (productID != 0) {
+        setpreviousProductID(productID);
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/productID/${productID}`);
         // const response = await axios.get(`http://localhost:3000/api/products/productID/${productID}`);
         console.log("productID!=0");
         setProducts(response.data);
+        
         console.log(response.data);
+        console.log("productSearchMode2", productSearchMode);
+        console.log("productCodeID2", productCodeID);
+        console.log("productID2", productID);
+        console.log("products2", products);
       } else {
         console.log("productID is ZERO");
+        showMessage('You have not entered any Product ID!', 'error');
+        alert('You have not entered any Product ID!');
       }
       
     } catch (error) {
       console.error('Error fetching products:', error);
       showMessage('Error fetching products!', 'error');
       setProducts([]);
+    }
+  }
+
+  const updateProductTitle = (e) => {
+    setproductSearchMode("title");
+    setproductTitle(e.target.value);
+    console.log(e.target.value);
+  }
+
+  const handleSearchByProductTitleClick = async () => {
+    setproductSearchMode("title");
+    try {
+    
+      if (productTitle) {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/productTitle?searchBy=${productTitle}&filterAIproducts=${productCodeID}`);
+        // const response = await axios.get(`http://localhost:3000/api/products/productTitle?searchBy=${productTitle}`);
+        console.log("productTitle!=null");
+        setProducts(response.data);
+        console.log(response.data);
+        console.log("productSearchMode3", productSearchMode);
+        console.log("productCodeID3", productCodeID);
+        console.log("productID3", productID);
+        console.log("products3", products);
+      } else {
+        console.log("productTitle is EMPTY");
+        showMessage('You have not entered any Product Title!', 'error');
+        alert('You have not entered any Product Title!');
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      showMessage('Error fetching products!', 'error');
     }
   }
 
@@ -203,8 +311,8 @@ function SearchPage() {
 
         
                 {/* {productID == 0 ? ( */}
-                {/* {(!Array.isArray(products)) ? ( */}
-                {(products.length > 1) ? (
+                {/* {(products.length > 1) ? ( */}
+                {(Array.isArray(products)) ? (                
                   <>
 {products.map((val, key) => {
   return (
@@ -247,13 +355,14 @@ function SearchPage() {
 <button type="submit" className="btn btn-primary" onClick={handleSearchByProductIDClick}>Please click to Search by Product ID.</button>
 
 <div className="mb-3">
-    <label>Search by Title</label>
-    <select name="title_selected" className="form-control">
-        
-    </select>
+    <label>Search by Title (query string)</label>
+    
+  <input type="text" value={productTitle} placeholder="Your Product Title here"
+    onChange={updateProductTitle} />
+
 </div>
 
-<button type="submit" className="btn btn-primary">Please enter the Title to search.</button>
+<button type="submit" className="btn btn-primary" onClick={handleSearchByProductTitleClick}>Please enter the Title to search.</button>
 
     </div>
     </>

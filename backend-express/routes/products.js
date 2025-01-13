@@ -50,6 +50,56 @@ router.get('/productID/:id', async (req, res) => {
   }
 });
 
+// fetch(`${import.meta.env.VITE_API_URL}/api/products/product-data?sortBy=${sortBy}&sortOrder=${sortOrder}&filterAIproducts=${selectedProduct}`)
+// GET product data for product table with Server-side sort, Server-side filter
+router.get('/product-data/', async (req, res) => {
+  try {
+    // Get all query parameters
+    const queryParams = req.query;
+    const sortBy = queryParams.sortBy;
+    const sortOrder = queryParams.sortOrder;
+    const filterAIproducts = queryParams.filterAIproducts;
+
+    // same as this statement
+    // let { sortBy, sortOrder, filterAIproducts } = req.query;
+
+    // console.log(sortBy); // column.id
+    // console.log(sortOrder); // asc or desc
+    // console.log(filterAIproducts); // 0=AI-Products, 1=AI-Books, 2=AI-Image, 3=AI-Music, 4=AI-Video
+
+    console.log(req.query);
+    // const product = await productService.getProductByProductData(req.query); // this wont work!
+    const product = await productService.getProductByProductData(sortBy, sortOrder, filterAIproducts);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
+// axios.get(`${import.meta.env.VITE_API_URL}/api/products/productTitle?searchBy=${productTitle}`);
+// GET product data with productTitle query string search
+router.get('/productTitle', async (req, res) => {
+  try {
+    // Get all query parameters
+    // const queryParams = req.query;
+    // const searchBy = queryParams.sortBy;
+
+    // this is the same as let searchBy = req.query.searchBy
+    // syntax: object destructuring
+    // same as this statement
+    let { searchBy, filterAIproducts } = req.query;
+
+    console.log(searchBy); // query string
+
+    // console.log(req.query);
+    // const product = await productService.getProductByProductTitle(req.query); // this wont work!
+    const product = await productService.getProductByProductTitle(searchBy, filterAIproducts);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
 // GET all AI-Books products
 router.get('/books', StatusCode, async (req, res) => {
   try {

@@ -34,6 +34,22 @@ const geolocationData = require('../services/Geolocation');
     return product;
   }
 
+  async function getProductByProductData(sortBy, sortOrder, filterAIproducts) {
+    const product = await productData.getProductByProductData(sortBy, sortOrder, filterAIproducts);
+    if (!product) {
+      throw new Error('Product not found');
+    }
+    return product;
+  }
+
+  async function getProductByProductTitle(searchBy, filterAIproducts) {
+    const product = await productData.getProductByProductTitle(searchBy, filterAIproducts);
+    if (!product) {
+      throw new Error('Product not found');
+    }
+    return product;
+  }
+
 // async function getAllProductsBooks(geo) {
 async function getAllProductsBooks() {
   // idea for future business logic:
@@ -182,6 +198,8 @@ module.exports = {
   getAllProductsVideo,
   getProductByProductCodeID,
   getProductByProductID,
+  getProductByProductData,
+  getProductByProductTitle,
   getProductById,
   createProductByBody,
   updateProductByIdBody,

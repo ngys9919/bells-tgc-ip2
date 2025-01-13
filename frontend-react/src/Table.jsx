@@ -9,12 +9,12 @@ import './Table.css';
 const Table = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState('timestamp'); // Default sort by timestamp
+  const [sortBy, setSortBy] = useState('id'); // Default sort by Product ID
   const [sortOrder, setSortOrder] = useState('asc'); // Default sort order is ascending
-  const [selectedProduct, setSelectedProduct] = useState('0');
+  const [selectedProduct, setSelectedProduct] = useState('0'); // Default filter is ALL AI-Products
 
   useEffect(() => {
-    console.log("Fetching Product data for tables");
+    console.log("Fetching Product Data for tables");
     //fetch("http://35.188.145.46:3001/crypto-data?cryptocurrency=bitcoin&limit=10&sortOrder=asc")
     //fetch("http://35.188.145.46:3001/crypto-data")
     // Server-side sort
@@ -22,8 +22,14 @@ const Table = () => {
     // fetch(`http://35.188.145.46:3001/crypto-data?sortBy=${sortBy}&sortOrder=${sortOrder}&cryptocurrency=${selectedCrypto}`)
     // fetch("/crypto-data.json")
 
-    // fetch(`${import.meta.env.VITE_API_URL}/api/products/product-data?sortBy=${sortBy}&sortOrder=${sortOrder}&aiproducts=${selectedProduct}`)
-    fetch("/ai-books.json")
+    // hardcoded test
+    // fetch(`${import.meta.env.VITE_API_URL}/api/products/product-data?sortBy=title&sortOrder=ASC&filterAIproducts=1`)
+
+    // full backend test
+    fetch(`${import.meta.env.VITE_API_URL}/api/products/product-data?sortBy=${sortBy}&sortOrder=${sortOrder}&filterAIproducts=${selectedProduct}`)
+    
+    // local test
+    // fetch("/ai-books.json")
     .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -42,10 +48,10 @@ const Table = () => {
     // { Header: 'Price', accessor: 'price', sortable: true},
     // { Header: 'Volume', accessor: 'volume', },
     // { Header: 'Market Cap', accessor: 'marketcap', },
-    { Header: 'Product ID', accessor: 'id', sortBy: 'timestamp', sortable: true },
+    { Header: 'Product ID', accessor: 'id', sortBy: 'id', sortable: true },
     { Header: 'Product Type', accessor: 'type_id', },
-    { Header: 'Title', accessor: 'title', },
-    { Header: 'Price', accessor: 'priceTag', sortable: true},
+    { Header: 'Title', accessor: 'title', sortable: true },
+    { Header: 'Price Tag ($)', accessor: 'priceTag', sortable: true },
     { Header: 'Promotion', accessor: 'promotion', },
     { Header: 'Badge', accessor: 'badge', },
     { Header: 'Discount', accessor: 'discount', },
