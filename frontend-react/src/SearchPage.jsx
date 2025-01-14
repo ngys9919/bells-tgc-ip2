@@ -8,12 +8,16 @@ function SearchPage() {
   const { showMessage } = useFlashMessage();
 
   const [products, setProducts] = useState([]);
+  const [productDetails, setProductDetails] = useState({id: '', type_id: '', productID: '', source_table: '', title: ''});
+  const [tellMeMore, setTellMeMore] = useState(false);
+  const [productDetailsID, setProductDetailsID] = useState(4);
 
   const [productCodeID, setproductCodeID] = useState("0");
   const [productID, setproductID] = useState('');
   const [productTitle, setproductTitle] = useState('');
   const [productSearchMode, setproductSearchMode] = useState("type"); // type, id, title
   const [previousProductID, setpreviousProductID] = useState('');
+  const [productSearchError, setproductSearchError] = useState("null"); // id, title
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -78,7 +82,18 @@ function SearchPage() {
 
   const renderProductTypeHeader = (productCodeID) => {
     let productTypeHeader = <></>;
-    if (productSearchMode == "id") {
+    if (productSearchMode == "error") {
+      productTypeHeader = (
+        <>
+        <h1 className="text-center mb-4">Search Error!</h1>
+        {productSearchError == "id" ? (
+          <h1 className="text-center mb-4">You have not entered any Product ID!</h1>
+        ) : (
+          <h1 className="text-center mb-4">You have not entered any Product Title!</h1>
+        ) }
+        </>
+      );
+    } else if (productSearchMode == "id") {
       if (products.length == 0) {
         productTypeHeader = (
           <>
@@ -86,17 +101,19 @@ function SearchPage() {
           </>
         );
       } else if (products.length == 1) {
-        productTypeHeader = (
-          <>
-          <h1 className="text-center mb-4">AI-Product ID {previousProductID}</h1>
-          </>
-        );
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">AI-Product ID {previousProductID}</h1>
+            </>
+          );
       } else {
-        productTypeHeader = (
-          <>
-          <h1 className="text-center mb-4">Search Results for AI-Product ID {previousProductID}</h1>
-          </>
-        );
+        {
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">Search Results for AI-Product ID {previousProductID}</h1>
+            </>
+          );
+        }    
       }     
     } else if (productSearchMode == "type") {
       if (productID == (0)) {
@@ -232,8 +249,13 @@ function SearchPage() {
         console.log("products2", products);
       } else {
         console.log("productID is ZERO");
+        // setproductCodeID(-1);
+        setproductSearchError("id");
+        setproductSearchMode("error");
+        setProducts([]);
+        // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
         showMessage('You have not entered any Product ID!', 'error');
-        alert('You have not entered any Product ID!');
+        // alert('You have not entered any Product ID!');
       }
       
     } catch (error) {
@@ -265,13 +287,51 @@ function SearchPage() {
         console.log("products3", products);
       } else {
         console.log("productTitle is EMPTY");
+        // setproductCodeID(-1);
+        setproductSearchError("title");
+        setproductSearchMode("error");
+        setProducts([]);
+        // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
         showMessage('You have not entered any Product Title!', 'error');
-        alert('You have not entered any Product Title!');
+        // alert('You have not entered any Product Title!');
       }
     } catch (error) {
       console.error('Error fetching products:', error);
       showMessage('Error fetching products!', 'error');
+      setProducts([]);
     }
+  }
+
+  const handleTellMeMoreClick = async () => {
+    
+    try {
+    
+      if (productDetailsID) {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${productDetailsID}`);
+        // const response = await axios.get(`http://localhost:3000/api/products/${productDetailsID}`);
+        console.log("productId!=null");
+        setProductDetails(response.data);
+        console.log(response.data);
+        setTellMeMore(!tellMeMore);
+        console.log("productSearchMode4", productSearchMode);
+        console.log("productCodeID4", productCodeID);
+        console.log("productID4", productID);
+        console.log("products4", products);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      showMessage('Error fetching products!', 'error');
+      setProductDetails({});
+    }
+  }
+
+  if (tellMeMore) {
+    return (
+      <>
+      <div>Product details...</div>
+      <button className="btn btn-primary" onClick={handleTellMeMoreClick}>Back to Product Search</button>
+      </>
+    );
   }
 
   return (
@@ -321,8 +381,8 @@ function SearchPage() {
           <td className="id">{val.id}</td>
           <td className="type_id">{val.type_id}</td>
           <td className="productName">{val.title}</td>
-          <td><button>status</button></td>
-          <td><button>action1</button><button>action2</button></td>
+          <td><button className="btn btn-primary" onClick={handleTellMeMoreClick}>Tell me more...</button></td>
+          {/* <td><button>action1</button><button>action2</button></td> */}
       </tr>
       </tbody>
   )
@@ -335,6 +395,7 @@ function SearchPage() {
           <td className="id">{products.id}</td>
           <td className="type_id">{products.type_id}</td>
           <td className="productName">{products.title}</td>
+          <td><button className="btn btn-primary" onClick={handleTellMeMoreClick}>Tell me more...</button></td>
       </tr>
       </tbody>
       </>

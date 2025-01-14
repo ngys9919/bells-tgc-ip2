@@ -238,7 +238,7 @@ if (filterAIproducts == 0) {
     `);
    
   }
-  console.log(rows);
+  // console.log(rows);
 } else {
   if (searchBy) {
     // console.log(searchBy);
@@ -263,7 +263,7 @@ if (filterAIproducts == 0) {
     `, [filterAIproducts]);
    
   }
-  console.log(rows);
+  // console.log(rows);
 }
   return rows;
 }
@@ -292,12 +292,37 @@ async function getAllProductsVideo() {
   return rows;
 }
 
+// GET product details
+async function getProductById(id) {
+  console.log(id);
+  const [rows] = await pool.query(`SELECT ai.id,
+    c.type AS type_id,
+    ai.productID,
+    ai.source_table,
+    COALESCE(a.title, i.title, m.title, v.title) AS title,
+    COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
+    COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
+    COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
+    COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+    FROM aiproducts ai
+    JOIN category c ON ai.productCodeID = c.id
+    LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+    LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+    LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+    LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+    WHERE ai.id = ?
+  `, [id]);
+
+  console.log(rows[0]);
+return rows[0];
+}
+
 //GET => Read
 // GET a single product
-async function getProductById(id) {
-  const [rows] = await pool.query('SELECT * FROM aibooks WHERE id = ?', [id]);
-  return rows[0];
-}
+// async function getProductById(id) {
+//   const [rows] = await pool.query('SELECT * FROM aibooks WHERE id = ?', [id]);
+//   return rows[0];
+// }
 
 //POST => Create
 // POST a single product

@@ -42,7 +42,7 @@ router.get('/productCodeID/:id', async (req, res) => {
 // GET product by Product Code ID
 router.get('/productID/:id', async (req, res) => {
   try {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     const product = await productService.getProductByProductID(req.params.id);
     res.json(product);
   } catch (error) {
@@ -67,7 +67,7 @@ router.get('/product-data/', async (req, res) => {
     // console.log(sortOrder); // asc or desc
     // console.log(filterAIproducts); // 0=AI-Products, 1=AI-Books, 2=AI-Image, 3=AI-Music, 4=AI-Video
 
-    console.log(req.query);
+    // console.log(req.query);
     // const product = await productService.getProductByProductData(req.query); // this wont work!
     const product = await productService.getProductByProductData(sortBy, sortOrder, filterAIproducts);
     res.json(product);
@@ -82,14 +82,16 @@ router.get('/productTitle', async (req, res) => {
   try {
     // Get all query parameters
     // const queryParams = req.query;
-    // const searchBy = queryParams.sortBy;
+    // const searchBy = queryParams.searchBy;
+    // const filterAIproducts = queryParams.filterAIproducts;
 
     // this is the same as let searchBy = req.query.searchBy
     // syntax: object destructuring
     // same as this statement
     let { searchBy, filterAIproducts } = req.query;
 
-    console.log(searchBy); // query string
+    // console.log(searchBy); // query string
+    // console.log(filterAIproducts); // 0=AI-Products, 1=AI-Books, 2=AI-Image, 3=AI-Music, 4=AI-Video
 
     // console.log(req.query);
     // const product = await productService.getProductByProductTitle(req.query); // this wont work!
@@ -140,16 +142,27 @@ router.get('/video', StatusCode, async (req, res) => {
   }
 });
 
-//GET => Read
-// GET a single product
+// GET product details
 router.get('/:id', async (req, res) => {
   try {
+    console.log(req.params.id);
     const product = await productService.getProductById(req.params.id);
     res.json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 });
+
+//GET => Read
+// GET a single product
+// router.get('/:id', async (req, res) => {
+//   try {
+//     const product = await productService.getProductById(req.params.id);
+//     res.json(product);
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+// });
 
 //POST => Create
 // POST a single product
