@@ -56,6 +56,7 @@
 
 table {
     border: 2px solid forestgreen;
+    font-size: 16px;
     width: 800px;
     height: 200px;
 }
@@ -79,4 +80,16 @@ td {
 
 .productName {
     text-align: left;
+}
+
+.priceTag {
+    text-align: center;
+}
+
+.discountPercentage {
+    text-align: center;
+}
+
+.finalPrice {
+    text-align: center;
 }

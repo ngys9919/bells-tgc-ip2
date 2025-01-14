@@ -192,7 +192,7 @@ const ShoppingCart = () => {
       <div className="mt-3 text-end">
         <h4>Total: ${getCartTotal().toFixed(2)}</h4>
         {/* <h4>Total: ${getCartTotal()}</h4> */}
-        <button className="btn btn-primary mt-2" onClick={handleCheckout} disabled={isLoading}>
+        <button className="btn btn-primary mt-2 mr-2 my-2" onClick={handleCheckout} disabled={isLoading}>
           {isLoading ? "Processing..." : "Proceed to Checkout"}
         </button>
         {/* <button className="btn btn-primary" onClick={handleCheckout}>Proceed to Checkout</button> */}

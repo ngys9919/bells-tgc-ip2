@@ -301,7 +301,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -320,7 +322,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -340,7 +344,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -359,7 +365,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -388,7 +396,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -408,7 +418,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -429,7 +441,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
@@ -449,7 +463,9 @@ if (filterAIproducts == 0) {
         COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) AS priceTag,
         COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
         COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
-        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
+        COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
+        CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
+        ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
         FROM aiproducts ai
         JOIN category c ON ai.productCodeID = c.id
         LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id

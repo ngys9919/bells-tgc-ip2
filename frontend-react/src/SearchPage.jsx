@@ -259,6 +259,67 @@ function SearchPage() {
           </>
         );
       }
+     } else if (productSearchMode == "price") {
+        if (productCodeID == 0) {
+          if (products.length == 0) {
+            productTypeHeader = (
+              <>
+              <h1 className="text-center mb-4">AI-Product NOT FOUND!</h1>
+              </>
+            );
+          } else {
+            productTypeHeader = (
+              <>
+              <h1 className="text-center mb-4">Search Results for ALL AI-Products</h1>
+              </>
+            );
+          }
+          
+        } else if (productCodeID == 1) {
+            productTypeHeader = (
+              <>
+              <h1 className="text-center mb-4">Search Results for AI-Books Products</h1>
+              {products.length == 0 ? (
+                <h1 className="text-center mb-4">AI-Books Product NOT FOUND!</h1>
+              ) : (
+                <h1 className="text-center mb-4"></h1>
+              ) }
+              </>
+            );
+        } else if (productCodeID == 2) {
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">Search Results for AI-Image Products</h1>
+            {products.length == 0 ? (
+              <h1 className="text-center mb-4">AI-Image Product NOT FOUND!</h1>
+            ) : (
+              <h1 className="text-center mb-4"></h1>
+            ) }
+            </>
+          );
+        } else if (productCodeID == 3) {
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">Search Results for AI-Music Products</h1>
+            {products.length == 0 ? (
+              <h1 className="text-center mb-4">AI-Music Product NOT FOUND!</h1>
+            ) : (
+              <h1 className="text-center mb-4"></h1>
+            ) }
+            </>
+          );
+        } else if (productCodeID == 4) {
+          productTypeHeader = (
+            <>
+            <h1 className="text-center mb-4">Search Results for AI-Video Products</h1>
+            {products.length == 0 ? (
+              <h1 className="text-center mb-4">AI-Video Product NOT FOUND!</h1>
+            ) : (
+              <h1 className="text-center mb-4"></h1>
+            ) }
+            </>
+          );
+        }
     }
     
     return productTypeHeader;
@@ -494,7 +555,7 @@ function SearchPage() {
   }
 
   const updateProductMinPrice = (e) => {
-    setproductSearchMode("price");
+    // setproductSearchMode("price");
     // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
     setproductMinPrice(e.target.value);
     if (e.target.value < 0) {
@@ -504,7 +565,7 @@ function SearchPage() {
   }
 
   const updateProductMaxPrice = (e) => {
-    setproductSearchMode("price");
+    // setproductSearchMode("price");
     // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
     setproductMaxPrice(e.target.value);
     if (e.target.value < 0) {
@@ -549,13 +610,20 @@ function SearchPage() {
   return (
     <>
     <div className="container mt-5">
-      <h1>Product Search</h1>
+      <h1 className="text-center mb-4">Product Search</h1>
       <div className="mb-3">
       <h1>AI-Products Data</h1>
       <Table />
-      <label>Search by Product Type&emsp;</label>
+      
+  {/* <button type="submit" className="btn btn-primary" onClick={handleSearchByProductTypeClick}>Please click to Search by Product Type.</button> */}
+</div>
+
+<div className="mb-3">
+  <h1>Search by... </h1>
+</div>
+<label>Search by Product Type&emsp;</label>
   {/* <select value={productCodeID} onChange={(e) => { setproductCodeID(e.target.value) }}> */}
-  <select value={productCodeID} onChange={handleSearchByProductTypeClick}>
+  <select className="form-control me-2" value={productCodeID} onChange={handleSearchByProductTypeClick}>
     {/* <option value="">Select a Product Type</option> */}
     <option value="0">ALL AI-Products</option>
     <option value="1">AI-Books</option>
@@ -563,8 +631,36 @@ function SearchPage() {
     <option value="3">AI-Music</option>
     <option value="4">AI-Video</option>
   </select>
-  {/* <button type="submit" className="btn btn-primary" onClick={handleSearchByProductTypeClick}>Please click to Search by Product Type.</button> */}
+
+<div className="spacer">
 </div>
+
+<div class="row justify-content-start">
+    <div class="col-4">
+    <label>Search by Product ID&emsp;</label>
+    <input className="form-control me-2" type="number" min="1" value={productID} placeholder="Your Product ID here"
+    onChange={updateProductID} />
+    <button type="submit" className="btn btn-primary mr-2 my-2" onClick={handleSearchByProductIDClick}>Please click to Search by Product ID.</button>
+    </div>
+    <div class="col-4">
+    <label>Search by Title (query string)&emsp;</label>
+    <input className="form-control me-2" type="text" value={productTitle} placeholder="Your Product Title here"
+    onChange={updateProductTitle} />
+    <button type="submit" className="btn btn-primary mr-2 my-2" onClick={handleSearchByProductTitleClick}>Please enter the Title to search.</button>
+    </div>
+    <div class="col-4">
+    <label>Search by Price ($)&emsp;</label>
+    <input className="form-control me-2" type="number" value={productMinPrice} placeholder="lower limit for price"
+    onChange={updateProductMinPrice} />
+    <input className="form-control me-2" type="number" value={productMaxPrice} placeholder="upper limit for price"
+    onChange={updateProductMaxPrice} />
+    <button type="submit" className="btn btn-primary mr-2 my-2" onClick={handleSearchByProductPriceClick}>Please key-in the price range to search.</button>
+    </div>
+  </div>
+
+
+
+
 
 {renderProductTypeHeader(productCodeID)}
 
@@ -577,6 +673,16 @@ function SearchPage() {
                     <th className="id">Product ID</th>
                     <th className="type_id">Product Type</th>
                     <th className="productName">Title</th>
+                    {productSearchMode == "price" ? (
+                      <>
+                      <th className="priceTag">Price Tag ($)</th>
+                      <th className="discountPercentage">Discount</th>
+                      <th className="finalPrice">Final Price ($)</th>
+                      </>
+                    ) : (
+                      <>
+                      </>
+                    )}
                 </tr>
                 </thead>
         
@@ -590,9 +696,23 @@ function SearchPage() {
   return (
     <tbody>
       <tr key={key}>
+        {productSearchMode == "price" ? (
+          <>
           <td className="id">{val.id}</td>
           <td className="type_id">{val.type_id}</td>
           <td className="productName">{val.title}</td>
+          <td className="priceTag">{val.priceTag}</td>
+          <td className="discountPercentage">{val.discountPercentage}</td>
+          <td className="finalPrice">{val.finalPrice}</td>
+          </>
+        ) : (
+          <>
+          <td className="id">{val.id}</td>
+          <td className="type_id">{val.type_id}</td>
+          <td className="productName">{val.title}</td>
+          </>
+        )} 
+          
           <td><button className="btn btn-success" onClick={() => {
           console.log("val.id", val.id);
           setProductDetailsID(val.id);
@@ -625,38 +745,8 @@ function SearchPage() {
         {/* </div> */}
       </div>
 
-      <div className="mb-3">
-    <label>Search by Product ID&emsp;</label>
-    
-  <input type="number" min="1" value={productID} placeholder="Your Product ID here"
-    onChange={updateProductID} />
-
-</div>
-
-<button type="submit" className="btn btn-primary" onClick={handleSearchByProductIDClick}>Please click to Search by Product ID.</button>
-
-<div className="mb-3">
-    <label>Search by Title (query string)&emsp;</label>
-    
-  <input type="text" value={productTitle} placeholder="Your Product Title here"
-    onChange={updateProductTitle} />
-
-</div>
-
-<button type="submit" className="btn btn-primary" onClick={handleSearchByProductTitleClick}>Please enter the Title to search.</button>
-
-<div className="mb-3">
-    <label>Search by Price ($)&emsp;</label>
-    
-  <input type="number" value={productMinPrice} placeholder="lower limit for price"
-    onChange={updateProductMinPrice} />
-
-<input type="number" value={productMaxPrice} placeholder="upper limit for price"
-    onChange={updateProductMaxPrice} />
-
-</div>
-
-<button type="submit" className="btn btn-primary" onClick={handleSearchByProductPriceClick}>Please key-in the price range to search.</button>
+      <div className="spacer">
+      </div>
 
     </div>
     </>
