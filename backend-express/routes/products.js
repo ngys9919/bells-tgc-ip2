@@ -102,6 +102,34 @@ router.get('/productTitle', async (req, res) => {
   }
 });
 
+// axios.get(`${import.meta.env.VITE_API_URL}/api/products/productTitle?searchBy=${productTitle}`);
+// GET product data with productTitle query string search
+router.get('/productPrice', async (req, res) => {
+  try {
+    // Get all query parameters
+    // const queryParams = req.query;
+    // const searchByMinPrice = queryParams.searchByMinPrice;
+    // const searchByMaxPrice = queryParams.searchByMaxPrice;
+    // const filterAIproducts = queryParams.filterAIproducts;
+
+    // this is the same as let searchBy = req.query.searchBy
+    // syntax: object destructuring
+    // same as this statement
+    let { searchByMinPrice, searchByMaxPrice, filterAIproducts } = req.query;
+
+    // console.log(searchByMinPrice); // minimum price
+    // console.log(searchByMaxPrice); // maximum price
+    // console.log(filterAIproducts); // 0=AI-Products, 1=AI-Books, 2=AI-Image, 3=AI-Music, 4=AI-Video
+
+    // console.log(req.query);
+    // const product = await productService.getProductByProductPrice(req.query); // this wont work!
+    const product = await productService.getProductByProductPrice(searchByMinPrice, searchByMaxPrice, filterAIproducts);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+});
+
 // GET all AI-Books products
 router.get('/books', StatusCode, async (req, res) => {
   try {

@@ -54,7 +54,8 @@ const Table = () => {
     { Header: 'Price Tag ($)', accessor: 'priceTag', sortable: true },
     { Header: 'Promotion', accessor: 'promotion', },
     { Header: 'Badge', accessor: 'badge', },
-    { Header: 'Discount', accessor: 'discount', },
+    { Header: 'Discount (%)', accessor: 'discountPercentage', },
+    { Header: 'Final Price ($)', accessor: 'discountPrice', },
   ];
   const columns = useMemo(() => rawColumns, []);
 
@@ -74,7 +75,7 @@ const Table = () => {
   } = useTable({
     columns,
     data,
-    initialState: { pageIndex: 0, pageSize: 1 }, // Set the initial page index and page size (default pageSize=10, testing pageSize=1)
+    initialState: { pageIndex: 0, pageSize: 5 }, // Set the initial page index and page size (default pageSize=10, testing pageSize=1)
   },
     usePagination // Add the usePagination hook
   );
@@ -98,6 +99,7 @@ const Table = () => {
 
   return (
     <div>
+      <label>Search by Product Type&emsp;</label>
       <select value={selectedProduct} onChange={handleProductChange}>
         <option value="0">ALL AI-Products</option>
         <option value="1">AI-Books</option>
@@ -148,7 +150,7 @@ const Table = () => {
     {/* default settings */}
     {/* {[10, 20, 30, 40, 50].map((pageSize) => ( */}
       {/* testing settings for pageSize */}
-    {[1, 2, 3, 4, 5].map((pageSize) => (
+    {[5, 10, 15, 25, 35].map((pageSize) => (
       <option key={pageSize} value={pageSize}>
         Show {pageSize}
       </option>

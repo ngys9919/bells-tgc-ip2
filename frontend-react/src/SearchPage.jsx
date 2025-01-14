@@ -3,6 +3,11 @@ import { useFlashMessage } from './FlashMessageStore';
 import axios from 'axios';
 import Table from './Table.jsx'
 
+import { useCart } from './CartStore';
+import { useItem } from './ItemStore';
+import { useLoginUsername } from './UserStore';
+import { Link, useLocation } from 'wouter';
+
 function SearchPage() {
 
   const { showMessage } = useFlashMessage();
@@ -10,14 +15,33 @@ function SearchPage() {
   const [products, setProducts] = useState([]);
   const [productDetails, setProductDetails] = useState({id: '', type_id: '', productID: '', source_table: '', title: ''});
   const [tellMeMore, setTellMeMore] = useState(false);
-  const [productDetailsID, setProductDetailsID] = useState(4);
+  const [productDetailsID, setProductDetailsID] = useState(0);
+
 
   const [productCodeID, setproductCodeID] = useState("0");
   const [productID, setproductID] = useState('');
   const [productTitle, setproductTitle] = useState('');
-  const [productSearchMode, setproductSearchMode] = useState("type"); // type, id, title
+  const [productSearchMode, setproductSearchMode] = useState("type"); // type, id, title, price
   const [previousProductID, setpreviousProductID] = useState('');
   const [productSearchError, setproductSearchError] = useState("null"); // id, title
+
+  const [productMinPrice, setproductMinPrice] = useState('');
+  const [productMaxPrice, setproductMaxPrice] = useState('');
+
+  const [inputQuantity, setInputQuantity] = useState("1");
+  const { addQuantityToCart } = useCart();
+
+  const { itemArray } = useItem();
+  
+    // console.log(itemArray);
+  
+    const [, setLocation] = useLocation();
+  
+    const { getCurrentLoginUsername } = useLoginUsername();
+      
+    const  loginUsername = getCurrentLoginUsername();
+
+    const { setItemContent } = useItem();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -83,16 +107,40 @@ function SearchPage() {
   const renderProductTypeHeader = (productCodeID) => {
     let productTypeHeader = <></>;
     if (productSearchMode == "error") {
-      productTypeHeader = (
-        <>
-        <h1 className="text-center mb-4">Search Error!</h1>
-        {productSearchError == "id" ? (
+      if (productSearchError == "id") {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Error!</h1>
           <h1 className="text-center mb-4">You have not entered any Product ID!</h1>
-        ) : (
+          </>
+        );
+      } else if (productSearchError == "title") {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Error!</h1>
           <h1 className="text-center mb-4">You have not entered any Product Title!</h1>
-        ) }
-        </>
-      );
+          </>
+        );
+      } else if (productSearchError == "price") {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Error!</h1>
+          <h1 className="text-center mb-4">You have not entered any Product Price Range!</h1>
+          </>
+        );
+      } else {
+        productTypeHeader = (
+          <>
+          <h1 className="text-center mb-4">Search Error!</h1>
+          {productSearchError == "id" ? (
+            <h1 className="text-center mb-4">You have not entered any Product ID!</h1>
+          ) : (
+            <h1 className="text-center mb-4">You have not entered any inputs!</h1>
+          ) }
+          </>
+        );
+      }
+      
     } else if (productSearchMode == "id") {
       if (products.length == 0) {
         productTypeHeader = (
@@ -277,7 +325,7 @@ function SearchPage() {
     
       if (productTitle) {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/productTitle?searchBy=${productTitle}&filterAIproducts=${productCodeID}`);
-        // const response = await axios.get(`http://localhost:3000/api/products/productTitle?searchBy=${productTitle}`);
+        // const response = await axios.get(`http://localhost:3000/api/products/productTitle?searchBy=${productTitle}&filterAIproducts=${productCodeID}`);
         console.log("productTitle!=null");
         setProducts(response.data);
         console.log(response.data);
@@ -302,36 +350,200 @@ function SearchPage() {
     }
   }
 
-  const handleTellMeMoreClick = async () => {
-    
+  const handleAddToCart = () => {
+    if (loginUsername === "Guest") {
+      showMessage('Please login first!', 'info');
+      setLocation('/login');
+      // <Link href="/login"></Link>
+    } else {
+      console.log("itemArray[0]", itemArray[0]);
+      console.log("inputQuantity", inputQuantity);
+      addQuantityToCart(itemArray[0], inputQuantity);
+      showMessage('Item added to cart', 'success');
+      setLocation('/cart');
+      // <Link href="/cart"></Link>
+    }    
+  }
+
+  const updateInputQuantity = (e) => {
+    setInputQuantity(e.target.value);
+  }
+  
+  const updateProductDetails = async () => {
     try {
     
       if (productDetailsID) {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/${productDetailsID}`);
         // const response = await axios.get(`http://localhost:3000/api/products/${productDetailsID}`);
-        console.log("productId!=null");
+        console.log("productDetailsID!=null");
         setProductDetails(response.data);
+        setItemContent(response.data);
         console.log(response.data);
-        setTellMeMore(!tellMeMore);
+        // setTellMeMore(!tellMeMore);
         console.log("productSearchMode4", productSearchMode);
         console.log("productCodeID4", productCodeID);
         console.log("productID4", productID);
         console.log("products4", products);
+        console.log("productDetailsID4", productDetailsID);
+        console.log("productDetails4", productDetails);
       }
     } catch (error) {
       console.error('Error fetching products:', error);
       showMessage('Error fetching products!', 'error');
       setProductDetails({});
     }
+    // setItemContent(productDetails);
   }
 
+  const handleTellMeMoreClick = async () => {
+    setTellMeMore(!tellMeMore);
+  }
+
+  // Fetch the product details data when the component mounts
+  useEffect(() => {
+    updateProductDetails();
+  }, [tellMeMore]);
+
   if (tellMeMore) {
+    console.log("itemAray", itemArray);
     return (
-      <>
-      <div>Product details...</div>
+      <div className="container my-5">
+      <h1 className="text-center mb-4">Product details...</h1>
+
+      {itemArray.length === 0 ? (
+        <p>Your item is empty.</p>
+      ) : (
+        <>
+      {/* Item section */}
+      <section className="py-5">
+        {/* This is using props naming format, see HomePage.jsx */}
+      <ul className="list-group">
+            {itemArray.map((item) => (
+              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+        <div className="container px-4 px-lg-5 my-5">
+          <div className="row gx-4 gx-lg-5 align-items-center">
+          {item.type_id == "AI-Books" ? (
+              <div className="col-md-6"><img style={{ width: '480px', height: '640px' }} className="card-img-left mb-5 mb-md-0" src={item.imageUrl} alt={item.productName} /></div>
+            ) : (
+              <div className="col-md-6"><img style={{ width: '480px', height: '480px' }} className="card-img-left mb-5 mb-md-0" src={item.imageUrl} alt={item.productName} /></div>
+            )}
+            {/* <div className="col-md-6"><img className="card-img-left mb-5 mb-md-0" src={item.imageUrl} alt={item.productName} /></div> */}
+            <div className="col-md-6">
+            {item.type_id == "AI-Books" ? (
+              <div className="small mb-1">ISBN: {item.isbn_13}</div>
+            ) : (
+              <div className="small mb-1">Description: {item.description}</div>
+            )}
+              <h1 className="display-5 fw-bolder">{item.productName}</h1>
+              <div className="fs-5 mb-5">
+              {item.discount == parseFloat(0) ? (
+                  <>
+                    <span>${item.priceTag}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-decoration-line-through">${item.priceTag}</span>
+                    <span>${(item.priceTag * (1 - item.discount)).toFixed(2)}</span>
+                  </>
+                )}
+              </div>
+              {item.type_id == "AI-Books" ? (
+              <p className="lead">Page Count: {item.pageCount} <br></br> Format: {item.format}</p>
+            ) : (
+              <p className="lead">File Size: {item.fileSize} <br></br> Date Created: {item.dateCreated}</p>
+            )}
+              
+      {/* This is using json naming format */}
+      {/* <ul className="list-group">
+            {itemArray.map((item) => (
+              <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+        <div className="container px-4 px-lg-5 my-5">
+          <div className="row gx-4 gx-lg-5 align-items-center">
+            <div className="col-md-6"><img className="card-img-left mb-5 mb-md-0" src={item.image} alt={item.bookTitle} /></div>
+            <div className="col-md-6">
+              <div className="small mb-1">ISBN: {item.isbn_13}</div>
+              <h1 className="display-5 fw-bolder">{item.bookTitle}</h1>
+              <div className="fs-5 mb-5">
+                <span className="text-decoration-line-through">{item.priceTag}</span>
+                <span>${(item.priceTag * (1 - item.discount)).toFixed(2)}</span>
+              </div>
+              <p className="lead">Page Count: {item.pageCount} <br></br> Format: {item.format}</p> */}
+              <div className="d-flex">
+                <input className="form-control text-center me-3" id="inputQuantity" type="num" value={inputQuantity} style={{width: '3rem'}}  onChange={updateInputQuantity}/>
+                <button className="btn btn-outline-dark flex-shrink-0" type="button" onClick={handleAddToCart}>
+                  <i className="bi-cart-fill me-1"></i>
+                  Add to cart
+                </button>
+              </div>
+              </div>
+            </div>
+          </div>
+          </li>
+            ))}
+          </ul>
+          {/* <div className="mt-3 text-end">
+            <h4>Total: ${getCartTotal()}</h4>
+            <button className="btn btn-primary" onClick={handleCheckout}>Proceed to Checkout</button>
+          </div> */}
+          </section>
       <button className="btn btn-primary" onClick={handleTellMeMoreClick}>Back to Product Search</button>
       </>
-    );
+      )}
+      </div>
+      );
+  }
+
+  const updateProductMinPrice = (e) => {
+    setproductSearchMode("price");
+    // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
+    setproductMinPrice(e.target.value);
+    if (e.target.value < 0) {
+      setproductMinPrice((-1) * e.target.value);
+    }
+    console.log(e.target.value);
+  }
+
+  const updateProductMaxPrice = (e) => {
+    setproductSearchMode("price");
+    // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
+    setproductMaxPrice(e.target.value);
+    if (e.target.value < 0) {
+      setproductMaxPrice((-1) * e.target.value);
+    }
+    console.log(e.target.value);
+  }
+
+  const handleSearchByProductPriceClick = async () => {
+    setproductSearchMode("price");
+    try {
+      if (((!productMinPrice) && (!productMaxPrice))) {
+        console.log("productPrice is EMPTY");
+        // setproductCodeID(-1);
+        setproductSearchError("price");
+        setproductSearchMode("error");
+        setProducts([]);
+        // setProducts([{id: '', type_id: '', productID: '', source_table: '', title: ''}]);
+        showMessage('You have not entered any Product Price Range!', 'error');
+        // alert('You have not entered any Product Price Range!');
+      } else {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/productPrice?searchByMinPrice=${productMinPrice}&searchByMaxPrice=${productMaxPrice}&filterAIproducts=${productCodeID}`);
+        // const response = await axios.get(`http://localhost:3000/api/products/productPrice?searchByMinPrice=${productMinPrice}&searchByMaxPrice=${productMaxPrice}&filterAIproducts=${productCodeID}`);
+        console.log("productID!=0");
+        setProducts(response.data);
+        
+        console.log(response.data);
+        console.log("productSearchMode5", productSearchMode);
+        console.log("productCodeID5", productCodeID);
+        console.log("productID5", productID);
+        console.log("products5", products);
+        } 
+      }
+      catch (error) {
+        console.error('Error fetching products:', error);
+        showMessage('Error fetching products!', 'error');
+        setProducts([]);
+      }
+        
   }
 
   return (
@@ -339,9 +551,9 @@ function SearchPage() {
     <div className="container mt-5">
       <h1>Product Search</h1>
       <div className="mb-3">
-      <h1>Product Data</h1>
+      <h1>AI-Products Data</h1>
       <Table />
-      <label>Search by Product Type</label>
+      <label>Search by Product Type&emsp;</label>
   {/* <select value={productCodeID} onChange={(e) => { setproductCodeID(e.target.value) }}> */}
   <select value={productCodeID} onChange={handleSearchByProductTypeClick}>
     {/* <option value="">Select a Product Type</option> */}
@@ -381,7 +593,11 @@ function SearchPage() {
           <td className="id">{val.id}</td>
           <td className="type_id">{val.type_id}</td>
           <td className="productName">{val.title}</td>
-          <td><button className="btn btn-primary" onClick={handleTellMeMoreClick}>Tell me more...</button></td>
+          <td><button className="btn btn-success" onClick={() => {
+          console.log("val.id", val.id);
+          setProductDetailsID(val.id);
+          handleTellMeMoreClick();
+        }}>Tell me more...</button></td>
           {/* <td><button>action1</button><button>action2</button></td> */}
       </tr>
       </tbody>
@@ -395,7 +611,11 @@ function SearchPage() {
           <td className="id">{products.id}</td>
           <td className="type_id">{products.type_id}</td>
           <td className="productName">{products.title}</td>
-          <td><button className="btn btn-primary" onClick={handleTellMeMoreClick}>Tell me more...</button></td>
+          <td><button className="btn btn-success" onClick={() => {
+          console.log("products.id", products.id);
+          setProductDetailsID(products.id);
+          handleTellMeMoreClick();
+        }}>Tell me more...</button></td>
       </tr>
       </tbody>
       </>
@@ -406,7 +626,7 @@ function SearchPage() {
       </div>
 
       <div className="mb-3">
-    <label>Search by Product ID</label>
+    <label>Search by Product ID&emsp;</label>
     
   <input type="number" min="1" value={productID} placeholder="Your Product ID here"
     onChange={updateProductID} />
@@ -416,7 +636,7 @@ function SearchPage() {
 <button type="submit" className="btn btn-primary" onClick={handleSearchByProductIDClick}>Please click to Search by Product ID.</button>
 
 <div className="mb-3">
-    <label>Search by Title (query string)</label>
+    <label>Search by Title (query string)&emsp;</label>
     
   <input type="text" value={productTitle} placeholder="Your Product Title here"
     onChange={updateProductTitle} />
@@ -424,6 +644,19 @@ function SearchPage() {
 </div>
 
 <button type="submit" className="btn btn-primary" onClick={handleSearchByProductTitleClick}>Please enter the Title to search.</button>
+
+<div className="mb-3">
+    <label>Search by Price ($)&emsp;</label>
+    
+  <input type="number" value={productMinPrice} placeholder="lower limit for price"
+    onChange={updateProductMinPrice} />
+
+<input type="number" value={productMaxPrice} placeholder="upper limit for price"
+    onChange={updateProductMaxPrice} />
+
+</div>
+
+<button type="submit" className="btn btn-primary" onClick={handleSearchByProductPriceClick}>Please key-in the price range to search.</button>
 
     </div>
     </>
