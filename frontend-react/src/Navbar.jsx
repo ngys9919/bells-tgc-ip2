@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLoginUsername, usePreviousLoginUser } from './UserStore';
+import { useLoginUsername, usePreviousLoginUser, useLoginSuperUser } from './UserStore';
 import { useCart } from './CartStore';
 import { useProduct } from './ProductStore';
 import { Link, useLocation } from 'wouter';
@@ -11,6 +11,9 @@ function Navbar() {
   // const loginUsername = getPreviousLoginUser();
 
   // console.log(loginUsername);
+
+  const { getLoginSuperUser } = useLoginSuperUser();
+  const loginSuperUser = getLoginSuperUser();
 
   const { getCart } = useCart();
 
@@ -115,6 +118,41 @@ function Navbar() {
       }
     }
   }
+
+  let z = document.getElementById("superuser");
+  if (loginSuperUser == "true") {    
+    if (z)
+      z.innerHTML = "Admin";
+  } else {
+    if (z)
+      z.innerHTML = "";
+  }
+
+  const isActiveSuperUserLink = () => {
+    // console.log(loginSuperUser);
+    if (loginSuperUser == "true") {
+      url = "/admin";
+    } else {
+      url = "";
+    }
+    
+    if (location == url) {
+        return "nav-link active"; // active is the class that set highlighting
+    } else {
+        return "nav-link";
+    }
+  }
+
+  const superuserClick = () => {
+    setShowDropdown(false);
+    if (loginSuperUser === "true") {
+      // SuperUser login
+      setLocation('/admin');
+    } else {
+      // SuperUser logout
+      setLocation('/');  
+    }
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -223,8 +261,11 @@ function Navbar() {
               </Link>
             </li> */}
           </ul>
-          
+
           <ul className="navbar-nav me-2 mb-2 mb-lg-0">
+          <li className="nav-item">
+              <Link href="#" className={isActiveSuperUserLink()} id="superuser" onClick={superuserClick}></Link>
+          </li>
           <li className="nav-item">
               <Link href="/register" className={`nav-link ${location === '/register' ? 'active' : ''}`} onClick={turnoffDropdown}>
                 Register
@@ -242,6 +283,7 @@ function Navbar() {
               {/* </Link> */}
               <Link href="#" className={isActiveLink()} id="loginlogout" onClick={loginlogoutClick}></Link>
             </li>
+            
           {/* <li className="nav-item">
               <Link href="/cart" className={`nav-link ${location === '/cart' ? 'active' : ''}`}>
                 Cart

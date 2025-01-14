@@ -10,6 +10,7 @@ import VideoProductPage from './VideoProductPage';
 import SearchPage from './SearchPage';
 import RegisterPage from './RegisterPage';
 import ShoppingCart from './ShoppingCart';
+import SuperUser from './SuperUser';
 import { Route, Switch } from 'wouter';
 import { useFlashMessage } from './FlashMessageStore';
 // make sure to import `UserLogin.jsx` after the other imports
@@ -59,6 +60,7 @@ function App() {
         <Route path="/productsmusic" component={MusicProductPage} />
         <Route path="/productsvideo" component={VideoProductPage} />
         <Route path="/productssearch" component={SearchPage} />
+        <Route path="/admin" component={SuperUser} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={UserLogin} />
         <Route path="/logout" component={UserLogout} />

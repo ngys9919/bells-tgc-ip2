@@ -38,7 +38,7 @@ CREATE TABLE aibooks (
   author_id INT,
   FOREIGN KEY (type_id) REFERENCES category(id),
   FOREIGN KEY (author_id) REFERENCES authors(id)
-);
+) AUTO_INCREMENT = 10000;
 
 -- Author_Book table
 CREATE TABLE author_book (
@@ -87,7 +87,7 @@ CREATE TABLE aiimage (
   discount DECIMAL(3, 2) NULL,
   review INT UNSIGNED NULL,
   FOREIGN KEY (type_id) REFERENCES category(id)
-);
+) AUTO_INCREMENT = 20000;
 
 
 
@@ -113,7 +113,7 @@ CREATE TABLE aimusic (
   discount DECIMAL(3, 2) NULL,
   review INT UNSIGNED NULL,
   FOREIGN KEY (type_id) REFERENCES category(id)
-);
+) AUTO_INCREMENT = 30000;
 
 
 -- AIvideo table
@@ -137,7 +137,7 @@ CREATE TABLE aivideo (
   discount DECIMAL(3, 2) NULL,
   review INT UNSIGNED NULL,
   FOREIGN KEY (type_id) REFERENCES category(id)
-);
+) AUTO_INCREMENT = 40000;
 
 -- AI-Products table
 CREATE TABLE aiproducts (

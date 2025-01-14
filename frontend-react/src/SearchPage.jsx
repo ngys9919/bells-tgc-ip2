@@ -430,6 +430,50 @@ function SearchPage() {
     setInputQuantity(e.target.value);
   }
   
+  const productPicture= (item) => {
+    let productPictureInfo = <></>;
+    const type_id = item.type_id;
+    const id = item.id;
+
+    // 1. clone the original array
+    // const clonedItem = item.slice();
+    // const clonedItem = [...item];
+
+    // // 1. clone the original object
+    const clonedItem = {...item};
+
+    if (type_id === 1) {
+      productPictureInfo = (
+        <>
+          <div className="col-md-6"><img style={{ width: '480px', height: '640px' }} className="card-img-left mb-5 mb-md-0" src={clonedItem.imageUrl} alt={clonedItem.productName} /></div>
+          {/* <img src={clonedItem.imageUrl} alt={clonedItem.productName} /> */}
+        </>
+      );
+    } else if (type_id === 2) {
+      productPictureInfo = (
+        <>
+          <div className="col-md-6"><img style={{ width: '480px', height: '480px' }} className="card-img-left mb-5 mb-md-0" src={clonedItem.imageUrl} alt={clonedItem.productName} /></div>
+          {/* <img style={{ width: '480px', height: '480px' }} src={clonedItem.imageUrl} alt={clonedItem.productName} /> */}
+        </>
+      );
+    } else if (type_id === 3) {
+      productPictureInfo = (
+        <>
+          <div className="col-md-6"><img style={{ width: '240px', height: '320px', display: 'block', margin: '0 auto' }} className="card-img-left mb-5 mb-md-0" src={clonedItem.imageUrl} alt={clonedItem.productName} /></div>
+          {/* <img style={{ width: '240px', height: '320px', display: 'block', margin: '0 auto' }} src={clonedItem.imageUrl} alt={clonedItem.productName} /> */}
+        </>
+      );
+    } else if (type_id === 4) {
+      productPictureInfo = (
+        <>
+          <div className="col-md-6"><img style={{ width: '480px', height: '480px' }} className="card-img-left mb-5 mb-md-0" src={clonedItem.imageUrl} alt={clonedItem.productName} /></div>
+          {/* <img style={{ width: '480px', height: '480px' }} src={clonedItem.imageUrl} alt={clonedItem.productName} /> */}
+        </>
+      );
+    }
+    return productPictureInfo;
+  };
+
   const updateProductDetails = async () => {
     try {
     
@@ -483,11 +527,12 @@ function SearchPage() {
               <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
         <div className="container px-4 px-lg-5 my-5">
           <div className="row gx-4 gx-lg-5 align-items-center">
-          {item.type_id == "AI-Books" ? (
+          {productPicture(item)}
+          {/* {item.type_id == "AI-Books" ? (
               <div className="col-md-6"><img style={{ width: '480px', height: '640px' }} className="card-img-left mb-5 mb-md-0" src={item.imageUrl} alt={item.productName} /></div>
             ) : (
               <div className="col-md-6"><img style={{ width: '480px', height: '480px' }} className="card-img-left mb-5 mb-md-0" src={item.imageUrl} alt={item.productName} /></div>
-            )}
+            )} */}
             {/* <div className="col-md-6"><img className="card-img-left mb-5 mb-md-0" src={item.imageUrl} alt={item.productName} /></div> */}
             <div className="col-md-6">
             {item.type_id == "AI-Books" ? (

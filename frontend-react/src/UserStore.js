@@ -6,6 +6,7 @@ const jwtAtom = atom(null);
 const usernameAtom = atom("Guest");
 const previousUserAtom = atom(null);
 // const previousUserAtom = atom("Guest");
+const loginSuperUserAtom = atom("false");
 
 export function useLoginUsername() {
   const [loginUsername, setLoginUsernameAtom] = useAtom(usernameAtom);
@@ -66,6 +67,27 @@ export function usePreviousLoginUser() {
   };
 
   return { previousLoginUser, getPreviousLoginUser, setPreviousLoginUser };
+}
+
+export function useLoginSuperUser() {
+  const [loginSuperUser, setLoginSuperUserAtom] = useAtom(loginSuperUserAtom);
+
+  const getLoginSuperUser = () => {   
+    // const loginSuperUser = localStorage.getItem('SuperUser');
+    return loginSuperUser;
+  };
+
+  const setLoginSuperUser = () => {
+    // localStorage.setItem('SuperUser', "true");
+    setLoginSuperUserAtom("true");
+  };
+
+  const resetLoginSuperUser = () => {
+    localStorage.setItem('SuperUser', "false");
+    setLoginSuperUserAtom("false");
+  };
+
+  return { loginSuperUser, getLoginSuperUser, setLoginSuperUser, resetLoginSuperUser };
 }
 
 export function useJwt() {

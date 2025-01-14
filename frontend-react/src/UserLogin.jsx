@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useLocation } from 'wouter';
 import { useFlashMessage } from './FlashMessageStore';
-import { useJwt, useLoginUsername, usePreviousLoginUser } from './UserStore';
+import { useJwt, useLoginUsername, usePreviousLoginUser, useLoginSuperUser } from './UserStore';
 
 function UserLogin() {
+
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [togglepassword, setTogglePassword] = useState([]);
 
   const [, setLocation] = useLocation();
   const { showMessage } = useFlashMessage();
   const { setJwt } = useJwt();
   const { setLoginUsername, getLoginUsername, setCurrentLoginUsername } = useLoginUsername();
   const { setPreviousLoginUser } = usePreviousLoginUser();
+  const { setLoginSuperUser, resetLoginSuperUser } = useLoginSuperUser();
 
   const initialValues = {
     email: '',
@@ -33,6 +38,14 @@ function UserLogin() {
       setJwt(response.data.token); // Store the JWT
       actions.setSubmitting(false);
       showMessage('Login successful!', 'success');
+      // alert(JSON.stringify(values, null, 2));
+      if ((response.data.username == "admin") && (loginEmail == "admin@aieshop.com.sg")) {
+        alert("Admin SuperUser");
+        setLoginSuperUser();
+      } else {
+        alert("Normal User");
+        resetLoginSuperUser(); 
+      }
       document.getElementById("loginlogout").innerHTML = "Logout";
       console.log(response.data.username);
       setLoginUsername(response.data.username);
@@ -50,12 +63,49 @@ function UserLogin() {
     }
   };
 
+  // const togglePasswordChecked = () => {
+  //   setTogglePassword(!togglepassword);
+  // }
+
+  const togglePasswordChecked = (e) => {
+    console.log(e.target.value);
+    console.log(e.target.checked);
+  
+    if (e.target.checked) {
+  
+      // straightforward method:
+      // 1. clone the array
+      const cloned = togglepassword.slice();
+  
+      // 2. update (i.e mutate) the array
+      cloned.push(e.target.value);
+  
+      // 3. set the cloned as the new state
+      setTogglePassword(cloned);
+
+      // alert("Show Password!");
+      alert(loginPassword);
+
+    } else {
+      const cloned = togglepassword.slice();
+  
+      // delete: find the index and use splice
+      const indexToDelete = togglepassword.findIndex(current => current == e.target.value)
+      cloned.splice(indexToDelete, 1);
+  
+      setTogglePassword(cloned);
+
+      // alert("Hide Password!");
+    }
+  }
+
   return (
     <div className="container mt-5">
       <h2>Login</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
+        // onSubmit={handleSubmit}
         onSubmit={handleSubmit}
       >
         {function(formik) {
@@ -75,9 +125,19 @@ function UserLogin() {
 
               {formik.errors.submit && <div className="alert alert-danger">{formik.errors.submit}</div>}
 
+              {setLoginEmail(formik.values.email)}
+              {setLoginPassword(formik.values.password)}
+
               <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
                 {formik.isSubmitting ? 'Logging in...' : 'Login'}
               </button>
+              
+              <form class="d-flex">
+              <input className="me-2" type="checkbox" name="togglepassword" value="Show Password"
+                onChange={togglePasswordChecked}
+                checked={togglepassword.includes("Show Password")} />
+              <label>Show Password</label>
+              </form>
             </Form>
           );
         }}

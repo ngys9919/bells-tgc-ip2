@@ -16,6 +16,10 @@ function UserLogout() {
     if (y)
         y.innerHTML = "Login";
 
+    const z = document.getElementById("superuser");
+    if (z)
+        z.innerHTML = "";
+
     return (
         <>
         <div className="container mt-5">
