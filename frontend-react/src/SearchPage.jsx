@@ -466,7 +466,7 @@ function SearchPage() {
   }, [tellMeMore]);
 
   if (tellMeMore) {
-    console.log("itemAray", itemArray);
+    // console.log("itemAray", itemArray);
     return (
       <div className="container my-5">
       <h1 className="text-center mb-4">Product details...</h1>
@@ -499,12 +499,12 @@ function SearchPage() {
               <div className="fs-5 mb-5">
               {item.discount == parseFloat(0) ? (
                   <>
-                    <span>${item.priceTag}</span>
+                    <span>${item.price}</span>
                   </>
                 ) : (
                   <>
-                    <span className="text-decoration-line-through">${item.priceTag}</span>
-                    <span>${(item.priceTag * (1 - item.discount)).toFixed(2)}</span>
+                    <span className="text-decoration-line-through">${item.price}</span>
+                    <span>${(item.price * (1 - item.discount)).toFixed(2)}</span>
                   </>
                 )}
               </div>
@@ -675,7 +675,7 @@ function SearchPage() {
                     <th className="productName">Title</th>
                     {productSearchMode == "price" ? (
                       <>
-                      <th className="priceTag">Price Tag ($)</th>
+                      <th className="price">Price Tag ($)</th>
                       <th className="discountPercentage">Discount</th>
                       <th className="finalPrice">Final Price ($)</th>
                       </>
@@ -701,7 +701,7 @@ function SearchPage() {
           <td className="id">{val.id}</td>
           <td className="type_id">{val.type_id}</td>
           <td className="productName">{val.title}</td>
-          <td className="priceTag">{val.priceTag}</td>
+          <td className="price">{val.priceTag}</td>
           <td className="discountPercentage">{val.discountPercentage}</td>
           <td className="finalPrice">{val.finalPrice}</td>
           </>
@@ -743,9 +743,6 @@ function SearchPage() {
                 
             </table>
         {/* </div> */}
-      </div>
-
-      <div className="spacer">
       </div>
 
     </div>

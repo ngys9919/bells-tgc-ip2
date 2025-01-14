@@ -65,6 +65,9 @@ function App() {
         <Route path="/cart" component={ShoppingCart} />
       </Switch>
 
+      {/* <div className="spacer"></div> */}
+      <div style={{ margin: '10px 10px', padding: '10px 10px' }}></div>
+
       {/* Footer */}
       <footer className="py-5 bg-dark">
     <div className="container"><p className="m-0 text-center text-white">Copyright &copy; AI-eShop 2024</p></div>

@@ -51,7 +51,7 @@ const Table = () => {
     { Header: 'Product ID', accessor: 'id', sortBy: 'id', sortable: true },
     { Header: 'Product Type', accessor: 'type_id', },
     { Header: 'Title', accessor: 'title', sortable: true },
-    { Header: 'Price Tag ($)', accessor: 'priceTag', sortable: true },
+    { Header: 'Price Tag ($)', accessor: 'price', sortable: true },
     { Header: 'Promotion', accessor: 'promotion', },
     { Header: 'Badge', accessor: 'badge', },
     { Header: 'Discount (%)', accessor: 'discountPercentage', },
@@ -156,6 +156,9 @@ const Table = () => {
       </option>
     ))}
   </select>
+</div>
+
+<div className="spacer">
 </div>
 
     <table {...getTableProps()} className="product-table">
