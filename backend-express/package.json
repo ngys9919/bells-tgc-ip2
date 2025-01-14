@@ -17,6 +17,9 @@
     "geoip-lite": "^1.4.10",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.4",
-    "stripe": "^17.4.0"
+    "stripe": "^17.4.0",
+    "handlebars-helpers": "^0.10.0",
+    "hbs": "^4.2.0",
+    "wax-on": "^1.2.2"
   }
 }

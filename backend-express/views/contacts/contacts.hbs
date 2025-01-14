@@ -1,0 +1,36 @@
+{{#extends "nav"}}
+
+{{#block "title"}}BELLS-TEST-5{{/block}}
+
+{{#block "content"}}
+
+<h1>Contacts</h1>
+<form method="POST">
+<div class="mb-3">
+    <label>Employees</label>
+    <select name="employee_id_selected" class="form-control">
+        {{#each employees}}
+        <option value="{{employee_id}}"
+        {{#inArray employee_id }}selected{{/inArray}}>
+            Name: {{name}}  Department: {{department}}
+        </option>
+        {{/each}}
+    </select>
+</div>
+
+<button type="submit" class="btn btn-primary">Please select an employee for his/her contacts: </button>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Address1</th>
+        <th>Address2</th>
+        <th>Address3</th>
+        <th>Mobile Phone</th>
+        <th>Home Number</th>
+        <th>Personal Email</th>
+    </tr>
+</table>
+</form>        
+{{/block}}
+{{/extends}}

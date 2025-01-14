@@ -1,4 +1,6 @@
 const express = require('express');
+const hbs = require('hbs');
+const wax = require('wax-on');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -7,21 +9,43 @@ const productsRouter = require('./routes/products');
 const userRoutes = require('./routes/users');
 const cartRoutes = require('./routes/cart');
 const checkoutRoutes = require('./routes/checkout');
+const adminRoutes = require('./routes/admin');
 
 const pool = require('./database');
+const connection = require('./database');
+
+// const admin = require('./admin');
 
 const app = express();
+
+app.set('view engine', 'hbs');
+app.use(express.static('public'));
+app.use(express.urlencoded({extended:false}));
+
+wax.on(hbs.handlebars);
+wax.setLayoutPath('./views/layouts');
+
+// require in handlebars and their helpers
+const helpers = require('handlebars-helpers');
+// tell handlebars-helpers where to find handlebars
+helpers({
+    'handlebars': hbs.handlebars
+})
 
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
+// main - Shop Management -> Site Administration
+// admin();
+
 // Routes
 app.use('/api/products', productsRouter);
 app.use('/api/users', userRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Basic Route
 
