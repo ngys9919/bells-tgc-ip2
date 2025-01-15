@@ -61,6 +61,7 @@ function App() {
         <Route path="/productsvideo" component={VideoProductPage} />
         <Route path="/productssearch" component={SearchPage} />
         <Route path="/admin" component={SuperUser} />
+        {/* <Route path="http://localhost:3000/api/admin/" component={SuperUser} /> */}  // wont work
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={UserLogin} />
         <Route path="/logout" component={UserLogout} />

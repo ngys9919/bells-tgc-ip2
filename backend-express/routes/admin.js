@@ -214,6 +214,22 @@ const formatDate_DDMMYYYY = (date) => {
     // Implement a Route to Show Taskforces Records
     router.get("/taskforce", async function(req,res){
         try {
+            const people = 
+                {
+                  firstname: "Yehuda",
+                  lastname: "Katz",
+                  url: "https://www.google.com/",
+                  text: "See Website"
+                }; 
+
+            const general = 
+                {
+                    firstname: "Yehuda",
+                    lastname: "Katz",
+                    link: "https://www.google.com/",
+                    text: "Google Website"
+                };
+
         // this is the same as let members = req.query.members
         // syntax: object destructuring
         let { members } = req.query;
@@ -259,7 +275,12 @@ const formatDate_DDMMYYYY = (date) => {
         // console.log(employees);
 
         res.render('taskforces/taskforces', {
-            'employees': employees
+            'employees': employees,
+            'people': people,
+            'general': general,
+            'fetchURLEmployees': process.env.SERVER_URL + "/api/admin/employees",
+            'fetchURLContact': process.env.SERVER_URL + "/api/admin/contact",
+            'fetchURLSupervisor': process.env.SERVER_URL + "/api/admin/supervisor"
         });
 
         // res.json({

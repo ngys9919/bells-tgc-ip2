@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-console.log("MySQL Database connected (pool-aieshop2) !");
+console.log("MySQL Database connected (pool-aieshop3) !");
 
 // const { createConnection } = require('mysql2/promise');
 

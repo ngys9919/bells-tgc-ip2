@@ -7,9 +7,17 @@
 <h1>Taskforces</h1>
 <table class="table">
     <tr>
+        <a class="nav-link" href={{fetchURLEmployees}}>Employees</a>
+        <a class="nav-link" href={{{fetchURLContact}}}>Contact</a>
+        <a class="nav-link" href="{{fetchURLSupervisor}}">Supervisor</a>
         <th>Taskforce</th> 
         <th>Name</th>
         <th>Role</th>
+        <th>{{link people.text people.url}}</th>
+        {{!-- <a target="_blank" {{link people.text people.url}}><img src="AI-eCommerce-for-web-app.png" class="link-icon" /></a> --}}
+        {{!-- <a {{link people.text people.url}}><img src="https://picsum.photos/id/292/300/200" alt="Picture PNG" class="link-icon" /></a> --}}
+        <a target="_blank" {{attr 'href' general.link}}><img src="./../../assets/images/AI-eCommerce-for-web-app.png" alt="AI-Picture PNG" class="link-icon" /></a>
+        <a target="_blank" {{attr 'href' general.link}}><img src="https://picsum.photos/id/292/300/200" class="link-icon" /></a>
     </tr>
     {{#each employees}}
     <tr>
@@ -20,6 +28,7 @@
         <td>{{EmployeeTaskforce.role}}</td>
     </tr>
     {{/each}}
-</table>        
+</table> 
+       
 {{/block}}
 {{/extends}}

@@ -33,6 +33,22 @@ helpers({
 })
 
 
+
+hbs.handlebars.registerHelper("link", function(text, url) {
+  let url2 = hbs.handlebars.escapeExpression(url),
+      text2 = hbs.handlebars.escapeExpression(text)
+      
+ return new hbs.handlebars.SafeString("<a href='" + url2 + "'>" + text2 +"</a>");
+});
+
+hbs.handlebars.registerHelper('attr', function(name, data) {
+  if(typeof target === 'undefined') target = "";
+
+  let result = ' ' + name + '="' + data +  '" ';
+
+  return new hbs.handlebars.SafeString(result);
+});
+
 // Middleware
 app.use(express.json());
 app.use(cors());
