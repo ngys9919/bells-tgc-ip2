@@ -41,9 +41,9 @@ function SuperUser() {
       try {
 
         // const response = await axios.get('/products.json');
-        // const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin`);
         // const response = await axios.get(`http://localhost:3000/api/admin`);
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/employees`);
+        // const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/employees`);
         setRawHTML(response.data);
         console.log(response.data);
 

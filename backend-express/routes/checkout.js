@@ -22,32 +22,83 @@ router.post('/', UserAuth, async (req, res) => {
 });
 
 
-// Webhook for Stripe
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-    let event;
-    try {
-       // verify the webhook signature
-        const sig = req.headers['stripe-signature'];
-        event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
-    } catch (error) {
-        console.error(`Webhook Error: ${error.message}`);
-        return res.status(400).send(`Webhook Error: ${error.message}`);
-    }
+// Webhook for Stripe (Paul's Sample Code)
+// router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+//     let event;
+//     try {
+//        // verify the webhook signature
+//         const sig = req.headers['stripe-signature'];
+//         event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+//     } catch (error) {
+//         console.error(`Webhook Error: ${error.message}`);
+//         return res.status(400).send(`Webhook Error: ${error.message}`);
+//     }
 
-    // Handling the webhook event
+//     // Handling the webhook event
+//     switch (event.type) {
+//         case 'checkout.session.completed':
+//             const session = event.data.object;
+//             console.log('Checkout session completed!', session);
+//             if (session.metadata && session.metadata.orderId) {
+//                 await orderService.updateOrderStatus(session.metadata.orderId, 'processing');
+//             }
+//             break;
+//         default:
+//             console.log(`Unhandled event type ${event.type}`);
+//     }
+
+//     res.json({ received: true });
+// });
+
+// Webhook for Stripe (Stripe's Sample Code)
+// https://docs.stripe.com/webhooks?lang=node
+// If you are using Express v4 - v4.16 you need to use body-parser, not express, to retrieve the request body
+router.post('/webhook', express.json({type: 'application/json'}), async (req, res) => {
+    const event = request.body;
+  
+    // Handle the event
     switch (event.type) {
-        case 'checkout.session.completed':
-            const session = event.data.object;
-            console.log('Checkout session completed!', session);
-            if (session.metadata && session.metadata.orderId) {
-                await orderService.updateOrderStatus(session.metadata.orderId, 'processing');
-            }
-            break;
-        default:
-            console.log(`Unhandled event type ${event.type}`);
-    }
+      case 'payment_intent.succeeded':
+        const paymentIntentSucceeded = event.data.object;
+        // Then define and call a method to handle the successful payment intent.
+        // handlePaymentIntentSucceeded(paymentIntentSucceeded);
+        console.log('Payment session succeeded!', paymentIntentSucceeded);
+        if (paymentIntentSucceeded.metadata && paymentIntentSucceeded.metadata.orderId) {
+            await orderService.updateOrderStatus(paymentIntentSucceeded.metadata.orderId, 'completed');
+        }
+        break;
 
-    res.json({ received: true });
-});
+      case 'payment_method.attached':
+        const paymentMethod = event.data.object;
+        // Then define and call a method to handle the successful attachment of a PaymentMethod.
+        // handlePaymentMethodAttached(paymentMethod);
+        break;
+        
+      case 'payment_intent.payment_failed':
+        const paymentIntentFailed = event.data.object;
+        // Then define and call a method to handle the successful payment intent.
+        // handlePaymentIntentSucceeded(paymentIntent);
+        console.log('Payment session failed!', paymentIntentFailed);
+        if (paymentIntentFailed.metadata && paymentIntentFailed.metadata.orderId) {
+            await orderService.updateOrderStatus(paymentIntentFailed.metadata.orderId, 'cancelled');
+        }
+        break;
+
+      // ... handle other event types
+      case 'checkout.session.completed':
+        const session = event.data.object;
+        console.log('Checkout session completed!', session);
+        if (session.metadata && session.metadata.orderId) {
+            await orderService.updateOrderStatus(session.metadata.orderId, 'processing');
+        }
+        break;
+    
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+  
+    // Return a response to acknowledge receipt of the event
+    response.json({received: true});
+  });
 
 module.exports = router;

@@ -226,8 +226,10 @@ const formatDate_DDMMYYYY = (date) => {
                 {
                     firstname: "Yehuda",
                     lastname: "Katz",
-                    link: "https://www.google.com/",
-                    text: "Google Website"
+                    link1: "https://www.google.com/",
+                    text1: "Google Website",
+                    link2: "https://www.yahoo.com/",
+                    text2: "Yahoo Website"
                 };
 
         // this is the same as let members = req.query.members
