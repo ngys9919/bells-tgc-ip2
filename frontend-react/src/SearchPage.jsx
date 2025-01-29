@@ -701,7 +701,7 @@ function SearchPage() {
     onChange={updateProductMaxPrice} />
     <button type="submit" className="btn btn-primary mr-2 my-2" onClick={handleSearchByProductPriceClick}>Please key-in the price range to search.</button>
     </div>
-  </div>
+</div>
 
 
 

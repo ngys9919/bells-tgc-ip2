@@ -1,0 +1,83 @@
+**Deployment Frontend using Netlify**
+For the same web project, I would like to deploy by means of hosting using Netlify platform for the full stack of Vite-React frontend, Express and Handlebars backend and MySQL database, how should I do it by giving me illustrated steps with examples?
+
+### **Deploying Your Full-Stack Web Application Using Netlify**  
+
+Since **Netlify** is optimized for **static frontend hosting**, we will deploy:
+- **Frontend (Vite-React) on Netlify**
+- **Backend (Express-Handlebars) & MySQL on a separate server (e.g., DigitalOcean, Heroku, or Railway)**
+- **Connect the frontend to the backend via environment variables**
+
+---
+
+## **1. Deploy the Backend (Express-Handlebars + MySQL)**
+Since Netlify does not support hosting Node.js backends directly, you need to deploy your backend elsewhere, such as:
+✅ **DigitalOcean**  
+✅ **Railway**  
+✅ **Heroku**  
+
+### **Step 1: Deploy Backend to Railway (Easiest Option)**
+1. Go to [Railway.app](https://railway.app/) and create a new project.
+2. Click **"Deploy from GitHub Repository"** and select your backend repo.
+3. Set up the required environment variables:
+   ```bash
+   DB_HOST=your_mysql_host
+   DB_USER=your_mysql_user
+   DB_PASSWORD=your_mysql_password
+   DB_NAME=orders_db
+   ```
+4. Deploy the project and note the **backend URL** (e.g., `https://my-backend-production.up.railway.app`).
+
+---
+
+## **2. Deploy the Frontend (Vite-React) on Netlify**
+### **Step 1: Install Netlify CLI**
+```bash
+npm install -g netlify-cli
+```
+
+### **Step 2: Configure Netlify for Vite**
+Inside your **Vite project**, create a file `netlify.toml`:
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://my-backend-production.up.railway.app/api/:splat"
+  status = 200
+```
+🔹 This **proxies API requests** from Netlify to your backend.
+
+---
+
+### **Step 3: Set Up Environment Variables**
+In Netlify, go to **Site Settings → Environment Variables** and add:
+```bash
+VITE_BACKEND_URL=https://my-backend-production.up.railway.app
+```
+
+---
+
+### **Step 4: Deploy to Netlify**
+1. **Login to Netlify**:
+   ```bash
+   netlify login
+   ```
+2. **Initialize Deployment**:
+   ```bash
+   netlify init
+   ```
+3. **Deploy to Production**:
+   ```bash
+   netlify deploy --prod
+   ```
+
+---
+
+## **3. Verify Deployment**
+- **Frontend:** Check your **Netlify URL** (e.g., `https://myapp.netlify.app`).
+- **Backend:** Check your **Railway/DigitalOcean/Heroku URL**.
+
+Would you like to **automate deployment with CI/CD**? 🚀
