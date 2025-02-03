@@ -6,10 +6,28 @@ const productService = require('../services/productService');
 const StatusCode = require('../middleware/StatusCode');
 const logHttpUrl = require('../middleware/HttpUrl');
 
-// Apply the logHttpUrl middleware to all routes
+// (2) Router-level Middleware
+// Router-level middleware works similarly to application-level middleware but is bound to an instance of express.Router().
+
+// (2) Middleware with no mount path, executed for every request to the router
+router.use((req, res, next) => {
+  console.log('Time:', Date.now());
+  next();
+});
+
+// (2) Middleware sub-stack for /productID/:id
+router.use('/productID/:id', (req, res, next) => {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}, (req, res, next) => {
+  console.log('Request Type:', req.method);
+  next();
+});
+
+// (2) Middleware for applying logHttpUrl to all routes
 router.use(logHttpUrl);
 
-// Apply the StatusCode middleware to router.get route only
+// (2) Middleware for the StatusCode to router.get route only
 // GET all AI-Products products
 router.get('/', StatusCode, async (req, res) => {
   // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

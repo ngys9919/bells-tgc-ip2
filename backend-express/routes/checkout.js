@@ -8,10 +8,13 @@ const logHttpUrl = require('../middleware/HttpUrl');
 // make sure to import Stripe after all the other require
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// Apply the logHttpUrl middleware to all routes
+// (2) Router-level Middleware
+// Router-level middleware works similarly to application-level middleware but is bound to an instance of express.Router().
+
+// (2) Middleware for applying logHttpUrl to all routes
 router.use(logHttpUrl);
 
-// Apply the UserAuth middleware to router.post route only
+// (2) Middleware for applying the UserAuth to router.post route only
 router.post('/', UserAuth, async (req, res) => {
     try {
         const session = await checkoutService.checkout(req.user.userId);

@@ -4,10 +4,13 @@ const cartService = require('../services/cartService');
 const authenticateToken = require('../middleware/UserAuth');
 const logHttpUrl = require('../middleware/HttpUrl');
 
-// Apply logHttpUrl middleware to all routes
+// (2) Router-level Middleware
+// Router-level middleware works similarly to application-level middleware but is bound to an instance of express.Router().
+
+// (2) Middleware for applying logHttpUrl to all routes
 router.use(logHttpUrl);
 
-// Apply the authenticateToken middleware to all routes
+// (2) Middleware for applying the authenticateToken to all routes
 router.use(authenticateToken);
 
 // GET cart contents

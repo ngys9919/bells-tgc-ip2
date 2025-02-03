@@ -6,6 +6,12 @@ const wax = require('wax-on');
 const cors = require('cors');
 require('dotenv').config();
 
+function convertUTCDateToLocalDate(date) {
+  var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+  newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+  return newDate;   
+}
+
 // make sure this comes AFTER dotenv config
 const databasesRouter = require('./routes/databases');
 const productsRouter = require('./routes/products');
@@ -29,21 +35,61 @@ helpers({
 wax.on(hbs.handlebars);  // Enable wax-on for additional Handlebars features
 wax.setLayoutPath('./views/layouts');
 
-
+// Inform express that we are using HBS as view engine
+// (aka template engine)
 // Set up Handlebars engine with Express
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files (e.g., CSS, images)
-// app.use(express.static(path.join(__dirname, 'public')));
+// (5) Third-party Middleware
+// To add functionality to your Express app, you can use third-party middleware. 
+// Install the required Node.js module and load it in your app:
+// npm install cookie-parser
+const cookieParser = require('cookie-parser');
 
+// (5) Middleware for loading the cookie-parsing
+app.use(cookieParser());
+
+// (4) Middleware for enabling use of static files
+
+// c.Multiple Directories
+// You can serve static files from multiple directories by calling express.static multiple times:
+// Express will look for files in the order the static directories are defined.
+
+// a.Basic Usage
+// The express.static function takes a root directory from which to serve static assets. 
+// Here is a simple example:
+
+// Serve static files for Express / Handlebars (e.g., CSS, images)
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
+
+// In this example, files in the public directory can be accessed via URLs like 
+// http://localhost:3000/images/kitten.jpg.
+
+// d.Virtual Path Prefix
+// To create a virtual path prefix for files served by express.static, specify a mount path:
+
+app.use('/static', express.static('public'));
+
+// Now, files in the public directory can be accessed via URLs like 
+// http://localhost:3000/static/images/kitten.jpg.
+
+// (4) Middleware for enabling use of static files
 // Set up static file serving for React build folder
+// the first parameter is the folder to put all the static files like image files, css files
+
+// b.Using Absolute Paths
+// If you run your Express app from a different directory, it's safer to use the absolute path of the directory you want to serve:
 app.use(express.static(path.join(__dirname, 'frontend-react/build')));
+
+// (4) Middleware for enabling form (i.e forms submitted by the browser) processing
+app.use(express.urlencoded({extended:false}));
 
 // app.set('view engine', 'hbs');
 // app.use(express.static('public'));
-app.use(express.urlencoded({extended:false}));
-// app.use(express.urlencoded({extended:true}));
+// app.use(express.urlencoded({extended:false}));
+
 
 // wax.on(hbs.handlebars);
 // wax.setLayoutPath('./views/layouts');
@@ -71,11 +117,38 @@ hbs.handlebars.registerHelper('attr', function(name, data) {
   return new hbs.handlebars.SafeString(result);
 });
 
+// (1) Application-level Middleware
+// Application-level middleware is bound to an instance of express using app.use() and app.VERB().
 
-// Middleware
-// Middleware for JSON parsing
+// (1) Middleware with no mount path, executed for every request
+app.use((req, res, next) => {
+  let user_now = Date.now();
+  // console.log('Time1:', user_now);
+  let now_date = new Date( parseInt(user_now));
+  // console.log('Time2:', now_date);
+  let now_datetime = convertUTCDateToLocalDate(new Date(now_date)); // this work
+  // console.log('Time3:', now_datetime);
+  now_datetime = now_datetime.toLocaleString();
+  console.log('Time:', now_datetime);
+  next();
+});
+
+// (4) Built-in Middleware
+// Express provides built-in middleware functions such as express.static, express.json, and express.urlencoded:
+
+// (4) Middleware for JSON parsing
 app.use(express.json());
+// (4) Middleware for enabling cross origin resources sharing
 app.use(cors());
+
+// (3) Error-handling Middleware
+// Error-handling middleware is defined with four arguments: (err, req, res, next).
+
+// (3) Middleware for 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // main - Shop Management -> Site Administration
 // admin();
