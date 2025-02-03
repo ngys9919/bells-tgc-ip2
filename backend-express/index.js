@@ -1,5 +1,7 @@
 const express = require('express');
+const path = require("path");
 const hbs = require('hbs');
+const helpers = require('handlebars-helpers');
 const wax = require('wax-on');
 const cors = require('cors');
 require('dotenv').config();
@@ -13,26 +15,42 @@ const checkoutRoutes = require('./routes/checkout');
 const adminRoutes = require('./routes/admin');
 
 const pool = require('./database');
-const connection = require('./database');
+// const connection = require('./database');
 
 // const admin = require('./admin');
 
 const app = express();
+// Register handlebars helpers using handlebars-helpers
+helpers({
+  'handlebars': hbs.handlebars,  // Connect the helpers to hbs
+});
 
-app.set('view engine', 'hbs');
-app.use(express.static('public'));
-app.use(express.urlencoded({extended:false}));
-
-wax.on(hbs.handlebars);
+// Register custom helpers (for #extends and #block) using wax-on
+wax.on(hbs.handlebars);  // Enable wax-on for additional Handlebars features
 wax.setLayoutPath('./views/layouts');
 
-// require in handlebars and their helpers
-const helpers = require('handlebars-helpers');
-// tell handlebars-helpers where to find handlebars
-helpers({
-    'handlebars': hbs.handlebars
-})
 
+// Set up Handlebars engine with Express
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serve static files (e.g., CSS, images)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// app.set('view engine', 'hbs');
+// app.use(express.static('public'));
+// app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
+
+// wax.on(hbs.handlebars);
+// wax.setLayoutPath('./views/layouts');
+
+// require in handlebars and their helpers
+// const helpers = require('handlebars-helpers');
+// tell handlebars-helpers where to find handlebars
+// helpers({
+//     'handlebars': hbs.handlebars
+// })
 
 
 hbs.handlebars.registerHelper("link", function(text, url) {
@@ -50,7 +68,9 @@ hbs.handlebars.registerHelper('attr', function(name, data) {
   return new hbs.handlebars.SafeString(result);
 });
 
+
 // Middleware
+// Middleware for JSON parsing
 app.use(express.json());
 app.use(cors());
 
@@ -64,6 +84,21 @@ app.use('/api/users', userRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/admin', adminRoutes);
+
+// Handlebars route for SSR Order Management Module
+app.get("/orders1", (req, res) => {
+  res.render("orders", { title: "Orders Management" });
+});
+
+// Example route: Orders
+app.get('/orders2', (req, res) => {
+  const orders = [
+      { name: 'Order 1' },
+      { name: 'Order 2' },
+      { name: 'Order 3' },
+  ];
+  res.render('orders', { orders });
+});
 
 // Basic Route
 

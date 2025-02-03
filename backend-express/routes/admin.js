@@ -572,7 +572,8 @@ const formatDate_DDMMYYYY = (date) => {
         let bindings3 = [newEmployeeId, newSupervisorId, employee_supervisor_ranking];
         await connection.query(query3, bindings3);
     
-        res.redirect('http://localhost:3000/api/admin/employees');
+        res.redirect('/api/admin/employees');
+        // res.redirect('http://localhost:3000/api/admin/employees');
 
         // res.status(statusCode_201_Created).json({
             // 'message': 'New employee has been created',
@@ -724,7 +725,8 @@ const formatDate_DDMMYYYY = (date) => {
             await connection.query(query6, bindings6);
         }
         
-        res.redirect('http://localhost:3000/api/admin/employees');
+        res.redirect('/api/admin/employees');
+        // res.redirect('http://localhost:3000/api/admin/employees');
 
         // if there is no matches, means no update took place
         // if (result2.matchedCount == 0) {
@@ -778,7 +780,8 @@ const formatDate_DDMMYYYY = (date) => {
 
         await pool.query(`DELETE FROM eds.EmployeeSupervisor WHERE employee_id = ?`, [req.params.employee_id]);
         const results = await pool.query(`DELETE FROM eds.Employees WHERE employee_id = ?`, [req.params.employee_id]);
-        res.redirect('http://localhost:3000/api/admin/employees');
+        res.redirect('/api/admin/employees');
+        // res.redirect('http://localhost:3000/api/admin/employees');
 
         // if (results.deletedCount == 0) {
             // return res.status(statusCode_404_Not_Found).json({

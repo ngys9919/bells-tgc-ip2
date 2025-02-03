@@ -1,0 +1,12 @@
+{{#extends 'main'}}  <!-- Use the main layout -->
+{{#block "title"}}{{title}}{{/block}}
+    {{#block 'content'}}
+        {{title}}
+        <h2>Orders</h2>
+        <ul>
+            {{#each orders}}
+                <li>{{name}}</li>
+            {{/each}}
+        </ul>
+    {{/block}}
+{{/extends}}
