@@ -17,12 +17,12 @@ async function getAllProducts() {
                                     ai.productID,
                                     ai.source_table,
                                     COALESCE(a.title, i.title, m.title, v.title) AS title
-                                    FROM aiproducts ai
-                                    JOIN category c ON ai.productCodeID = c.id
-                                    LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-                                    LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-                                    LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-                                    LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
+                                    FROM aieshop2.aiproducts ai
+                                    JOIN aieshop2.category c ON ai.productCodeID = c.id
+                                    LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+                                    LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+                                    LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+                                    LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
                                   `);
   return rows;
 }
@@ -37,12 +37,12 @@ async function getProductByProductCodeID(id) {
       ai.productID,
       ai.source_table,
       COALESCE(a.title, i.title, m.title, v.title) AS title
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
     `);
     // console.log(rows);
   } else {
@@ -51,12 +51,12 @@ async function getProductByProductCodeID(id) {
       ai.productID,
       ai.source_table,
       COALESCE(a.title, i.title, m.title, v.title) AS title
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
       WHERE ai.productCodeID = ?
     `, [id]);
   }
@@ -72,12 +72,12 @@ async function getProductByProductID(id) {
       ai.productID,
       ai.source_table,
       COALESCE(a.title, i.title, m.title, v.title) AS title
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
       WHERE ai.id = ?
     `, [id]);
   
@@ -109,12 +109,12 @@ async function getProductByProductData(sortBy, sortOrder, filterAIproducts) {
         ELSE CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%')
       END AS discountPercentage,
       CONCAT('$', ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2)) AS discountPrice
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
       ORDER BY ${sortBy} ${sortOrder};
     `);
 
@@ -158,12 +158,12 @@ async function getProductByProductData(sortBy, sortOrder, filterAIproducts) {
         ELSE CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%')
       END AS discountPercentage,
       CONCAT('$', ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2)) AS discountPrice
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
       WHERE ai.productCodeID = ?
       ORDER BY ${sortBy} ${sortOrder}
     `, [filterAIproducts]);
@@ -238,12 +238,12 @@ if (filterAIproducts == 0) {
       COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
       COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
       COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
       WHERE COALESCE(a.title, i.title, m.title, v.title) LIKE ${criteria};
     `);
    
@@ -262,12 +262,12 @@ if (filterAIproducts == 0) {
       COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotion,
       COALESCE(a.badge, i.badge, m.badge, v.badge) AS badge,
       COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
-      FROM aiproducts ai
-      JOIN category c ON ai.productCodeID = c.id
-      LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-      LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-      LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-      LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+      FROM aieshop2.aiproducts ai
+      JOIN aieshop2.category c ON ai.productCodeID = c.id
+      LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+      LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+      LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+      LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
       WHERE ai.productCodeID = ? 
       AND COALESCE(a.title, i.title, m.title, v.title) LIKE ${criteria};
     `, [filterAIproducts]);
@@ -304,12 +304,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
       `);
     } else if (!searchByMinPrice) {
       // searchByMinPrice = null
@@ -325,12 +325,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) <= ${searchByMaxPrice};
       `);
     } else if (!searchByMaxPrice) {
@@ -347,12 +347,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) >= ${searchByMinPrice};
       `);
     } else {
@@ -368,12 +368,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) >= ${searchByMinPrice}
         AND COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) <= ${searchByMaxPrice};
       `);
@@ -399,12 +399,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE ai.productCodeID = ?;
       `, [filterAIproducts]);
     } else if (!searchByMinPrice) {
@@ -421,12 +421,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE ai.productCodeID = ? 
         AND COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) <= ${searchByMaxPrice};
       `, [filterAIproducts]);
@@ -444,12 +444,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE ai.productCodeID = ? 
         AND COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) >= ${searchByMinPrice};
       `, [filterAIproducts]);
@@ -466,12 +466,12 @@ if (filterAIproducts == 0) {
         COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount,
         CONCAT(ROUND(COALESCE(a.discount, i.discount, m.discount, v.discount) * (100), 0),'%') AS discountPercentage,
         ROUND(COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) * (1 - COALESCE(a.discount, i.discount, m.discount, v.discount)), 2) AS finalPrice
-        FROM aiproducts ai
-        JOIN category c ON ai.productCodeID = c.id
-        LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-        LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-        LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-        LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+        FROM aieshop2.aiproducts ai
+        JOIN aieshop2.category c ON ai.productCodeID = c.id
+        LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+        LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+        LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+        LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
         WHERE ai.productCodeID = ? 
         AND COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) >= ${searchByMinPrice}
         AND COALESCE(a.priceTag, i.priceTag, m.priceTag, v.priceTag) <= ${searchByMaxPrice};
@@ -486,25 +486,25 @@ if (filterAIproducts == 0) {
 
 async function getAllProductsBooks() {
   // const [rows] = await pool.query('SELECT id, type_id, isbn_13, title, pageCount, CAST(priceTag AS DOUBLE) AS priceTag, image, format, promotion, badge, discount, review FROM aibooks');
-  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.isbn_13, p.title, p.pageCount, CAST(p.priceTag AS DOUBLE) AS priceTag, p.image, p.format, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aibooks p ON ai.productID = p.id WHERE ai.productCodeID = 1');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.isbn_13, p.title, p.pageCount, CAST(p.priceTag AS DOUBLE) AS priceTag, p.image, p.format, p.promotion, p.badge, p.discount, p.review FROM aieshop2.aiproducts ai JOIN aieshop2.category c ON ai.productCodeID = c.id JOIN aieshop2.aibooks p ON ai.productID = p.id WHERE ai.productCodeID = 1');
   return rows;
 }
 
 async function getAllProductsImage() {
   // const [rows] = await pool.query('SELECT id, type_id, title, description, fileSize, CAST(priceTag AS DOUBLE) AS priceTag, image, dateCreated, promotion, badge, discount, review FROM aiimage');
-  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, p.description, p.fileSize, CAST(p.priceTag AS DOUBLE) AS priceTag, p.image, p.dateCreated, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aiimage p ON ai.productID = p.id WHERE ai.productCodeID = 2');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, p.description, p.fileSize, CAST(p.priceTag AS DOUBLE) AS priceTag, p.image, p.dateCreated, p.promotion, p.badge, p.discount, p.review FROM aieshop2.aiproducts ai JOIN aieshop2.category c ON ai.productCodeID = c.id JOIN aieshop2.aiimage p ON ai.productID = p.id WHERE ai.productCodeID = 2');
   return rows;
 }
 
 async function getAllProductsMusic() {
   // const [rows] = await pool.query('SELECT id, type_id, title, CAST(priceTag AS DOUBLE) AS priceTag, music, image, promotion, badge, discount, review FROM aimusic');
-  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, CAST(p.priceTag AS DOUBLE) AS priceTag, p.music, p.image, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aimusic p ON ai.productID = p.id WHERE ai.productCodeID = 3');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, CAST(p.priceTag AS DOUBLE) AS priceTag, p.music, p.image, p.promotion, p.badge, p.discount, p.review FROM aieshop2.aiproducts ai JOIN aieshop2.aimusic p ON ai.productID = p.id WHERE ai.productCodeID = 3');
   return rows;
 }
 
 async function getAllProductsVideo() {
   // const [rows] = await pool.query('SELECT id, type_id, title, CAST(priceTag AS DOUBLE) AS priceTag, video, image, promotion, badge, discount, review FROM aivideo');
-  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, CAST(p.priceTag AS DOUBLE) AS priceTag, p.video, p.image, p.promotion, p.badge, p.discount, p.review FROM aiproducts ai JOIN aivideo p ON ai.productID = p.id WHERE ai.productCodeID = 4');
+  const [rows] = await pool.query('SELECT ai.id, p.id AS pdt_id, p.type_id, p.title, CAST(p.priceTag AS DOUBLE) AS priceTag, p.video, p.image, p.promotion, p.badge, p.discount, p.review FROM aieshop2.aiproducts ai JOIN aieshop2.aivideo p ON ai.productID = p.id WHERE ai.productCodeID = 4');
   return rows;
 }
 
@@ -528,12 +528,12 @@ async function getProductById(id) {
     COALESCE(a.promotion, i.promotion, m.promotion, v.promotion) AS promotionName,
     COALESCE(a.badge, i.badge, m.badge, v.badge) AS productBadge,
     COALESCE(a.discount, i.discount, m.discount, v.discount) AS discount
-    FROM aiproducts ai
-    JOIN category c ON ai.productCodeID = c.id
-    LEFT JOIN aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
-    LEFT JOIN aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
-    LEFT JOIN aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
-    LEFT JOIN aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
+    FROM aieshop2.aiproducts ai
+    JOIN aieshop2.category c ON ai.productCodeID = c.id
+    LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+    LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+    LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+    LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id
     WHERE ai.id = ?
   `, [id]);
 
@@ -559,7 +559,7 @@ async function createProductByBody(type_id, isbn_10, isbn_13, title, pageCount, 
       lastName = null;
     }
 
-    let [authors] = await connection.query('SELECT * from authors');
+    let [authors] = await connection.query('SELECT * from aieshop2.authors');
 
     // console.log(firstName);
     // console.log(lastName);
@@ -583,14 +583,14 @@ async function createProductByBody(type_id, isbn_10, isbn_13, title, pageCount, 
     // console.log(newAuthorId);
 
     if (newAuthor) {
-      let query2 = 'INSERT INTO authors (firstName, lastName) VALUES (?, ?)';
+      let query2 = 'INSERT INTO aieshop2.authors (firstName, lastName) VALUES (?, ?)';
       let bindings2 = [firstName, lastName];
       let [result2] = await connection.query(query2, bindings2);
       newAuthorId = result2.insertId;
       // console.log(newAuthorId);
     }
 
-    let query = 'INSERT INTO aibooks (id, type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    let query = 'INSERT INTO aieshop2.aibooks (id, type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, author_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     let bindings = [UUID_SHORT(), type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId];
     let [result] = await connection.query(query, bindings);
 
@@ -616,7 +616,7 @@ async function updateProductByIdBody(id, type_id, isbn_10, isbn_13, title, pageC
   try {
     await connection.beginTransaction();
 
-    let [authors] = await pool.query('SELECT * from authors');
+    let [authors] = await pool.query('SELECT * from aieshop2.authors');
 
     let newAuthor = false;
     let newAuthorId = null;
@@ -646,18 +646,18 @@ async function updateProductByIdBody(id, type_id, isbn_10, isbn_13, title, pageC
     // console.log(newAuthorId);
 
     if ((newAuthor) && (firstName != null)) {
-      let query4 = 'INSERT INTO authors (firstName, lastName) VALUES (?, ?)';
+      let query4 = 'INSERT INTO aieshop2.authors (firstName, lastName) VALUES (?, ?)';
       let bindings4 = [firstName, lastName];
       let [result4] = await pool.query(query4, bindings4);
       newAuthorId = result4.insertId;
     } else if (firstName != null) {
-      let query2 = 'UPDATE authors SET firstName=?, lastName=? WHERE id=?';
+      let query2 = 'UPDATE aieshop2.authors SET firstName=?, lastName=? WHERE id=?';
       let bindings2 = [firstName, lastName, author_id];
       await pool.query(query2, bindings2);
     }
 
     // console.log(newAuthorId);
-    let query = 'UPDATE aibooks SET type_id=? isbn_10=?, isbn_13=?, title=?, pageCount=?, priceTag=?, image=?, format=?, promotion=?, badge=?, discount=?, review=?, author_id=? WHERE id=?';
+    let query = 'UPDATE aieshop2.aibooks SET type_id=? isbn_10=?, isbn_13=?, title=?, pageCount=?, priceTag=?, image=?, format=?, promotion=?, badge=?, discount=?, review=?, author_id=? WHERE id=?';
     let bindings = [type_id, isbn_10, isbn_13, title, pageCount, priceTag, image, format, promotion, badge, discount, review, newAuthorId, id];
     const result2 = await pool.query(query, bindings);
 
@@ -675,7 +675,7 @@ async function updateProductByIdBody(id, type_id, isbn_10, isbn_13, title, pageC
 //DELETE => Delete
 // DELETE a single product
 async function deleteProductById(id) {
-  const results = await pool.query(`DELETE FROM aibooks WHERE id = ?`, [id]);
+  const results = await pool.query(`DELETE FROM aieshop2.aibooks WHERE id = ?`, [id]);
   return results;
 }
 

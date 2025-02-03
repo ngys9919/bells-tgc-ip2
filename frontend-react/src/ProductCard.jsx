@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from './CartStore';
+import { useProduct } from './ProductStore';
 import { Link, useLocation } from 'wouter';
 import { useFlashMessage } from './FlashMessageStore';
 import { useLoginUsername } from './UserStore';
@@ -17,6 +18,10 @@ const ProductCard = (props) => {
 
   const { setItemContent, resetItemContent } = useItem();
 
+  const { getProduct, setCurrentProduct } = useProduct();
+
+  const product = getProduct(); // Retrieve product from the store
+
   const handleAddToCart = () => {
     if (loginUsername === "Guest") {
       showMessage('Please login first!', 'info');
@@ -33,6 +38,7 @@ const ProductCard = (props) => {
   const handleViewOptions = () => {
     // resetItemContent();
     // console.log(props);
+    setCurrentProduct("AI-Books");
     setItemContent(props);
     setLocation('/items');
     // <Link href="/items"></Link> 

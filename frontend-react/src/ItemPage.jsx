@@ -110,9 +110,18 @@ function ItemsPage() {
               <div className="small mb-1">Description: {item.description}</div>
             )}
               <h1 className="display-5 fw-bolder">{item.productName}</h1>
+
+
               <div className="fs-5 mb-5">
-                <span className="text-decoration-line-through">{item.price}</span>
-                <span>${item.discount}</span>
+                {/* <span className="text-decoration-line-through">{item.price}</span> */}
+                {/* <span>${item.discount}</span> */}
+                {item.discount === item.price ? (
+                  <p className="card-text">${item.price}</p>
+                ) : ( 
+                  <> <span className="text-muted text-decoration-line-through">${item.price}</span>
+                  ${item.discount} 
+                  </>
+                )}
               </div>
               {product === "AI-Books" ? (
               <p className="lead">Page Count: {item.pageCount} <br></br> Format: {item.format}</p>
@@ -170,6 +179,7 @@ function ItemsPage() {
               <ItemCard
                 id={product.id}
                 pdt_id={product.pdt_id}
+                type_id={product.type_id}
                 imageUrl={product.image}
                 promotionName={product.promotion}
                 productName={product.title}

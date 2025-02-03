@@ -253,9 +253,9 @@ const formatDate_DDMMYYYY = (date) => {
             // Obtaining the Results with Nested Tables
             [employees] = await pool.query({
                 'sql': (`
-                SELECT * FROM Employees 
-                JOIN EmployeeTaskforce ON Employees.employee_id = EmployeeTaskforce.employee_id 
-                JOIN Taskforces ON EmployeeTaskforce.taskforce_id = Taskforces.taskforce_id
+                SELECT * FROM eds.Employees 
+                JOIN eds.EmployeeTaskforce ON Employees.employee_id = EmployeeTaskforce.employee_id 
+                JOIN eds.Taskforces ON EmployeeTaskforce.taskforce_id = Taskforces.taskforce_id
                 WHERE Employees.name LIKE ${criteria}
                 `),
                 nestTables: true
@@ -265,9 +265,9 @@ const formatDate_DDMMYYYY = (date) => {
             // Obtaining the Results with Nested Tables
             [employees] = await pool.query({
                 'sql': `
-                SELECT * FROM Employees 
-                JOIN EmployeeTaskforce ON Employees.employee_id = EmployeeTaskforce.employee_id 
-                JOIN Taskforces ON EmployeeTaskforce.taskforce_id = Taskforces.taskforce_id
+                SELECT * FROM eds.Employees 
+                JOIN eds.EmployeeTaskforce ON Employees.employee_id = EmployeeTaskforce.employee_id 
+                JOIN eds.Taskforces ON EmployeeTaskforce.taskforce_id = Taskforces.taskforce_id
                 ORDER BY Employees.name ASC
                 `,
                 nestTables: true
@@ -334,9 +334,9 @@ const formatDate_DDMMYYYY = (date) => {
             // Obtaining the Results with Nested Tables
             [employees] = await pool.query({
                 'sql': (`
-                SELECT * FROM Employees 
-                JOIN EmployeeSupervisor ON Employees.employee_id = EmployeeSupervisor.employee_id 
-                LEFT JOIN Supervisors ON EmployeeSupervisor.supervisor_id = Supervisors.supervisor_id
+                SELECT * FROM eds.Employees 
+                JOIN eds.EmployeeSupervisor ON Employees.employee_id = EmployeeSupervisor.employee_id 
+                LEFT JOIN eds.Supervisors ON EmployeeSupervisor.supervisor_id = Supervisors.supervisor_id
                 WHERE Supervisors.name LIKE ${criteria}
                 `),
                 nestTables: true
@@ -346,9 +346,9 @@ const formatDate_DDMMYYYY = (date) => {
             // Obtaining the Results with Nested Tables
             [employees] = await pool.query({
                 'sql': `
-                SELECT * FROM Employees 
-                JOIN EmployeeSupervisor ON Employees.employee_id = EmployeeSupervisor.employee_id 
-                LEFT JOIN Supervisors ON EmployeeSupervisor.supervisor_id = Supervisors.supervisor_id
+                SELECT * FROM eds.Employees 
+                JOIN eds.EmployeeSupervisor ON Employees.employee_id = EmployeeSupervisor.employee_id 
+                LEFT JOIN eds.Supervisors ON EmployeeSupervisor.supervisor_id = Supervisors.supervisor_id
                 ORDER BY Employees.name ASC
                 `,
                 nestTables: true
@@ -385,7 +385,7 @@ const formatDate_DDMMYYYY = (date) => {
         try {
 
         // With Ascending sorting
-        let [employees] = await pool.query('SELECT * FROM Employees INNER JOIN Contacts ON Employees.employee_id = Contacts.employee_id ORDER BY name ASC');
+        let [employees] = await pool.query('SELECT * FROM eds.Employees INNER JOIN eds.Contacts ON Employees.employee_id = Contacts.employee_id ORDER BY name ASC');
         
         // res.render('contacts/contacts_all', {
         // res.render('contacts/contacts_each', {
@@ -403,11 +403,11 @@ const formatDate_DDMMYYYY = (date) => {
 
         let {employee_id_selected} = req.body;
         // With Ascending sorting
-        let [employees] = await pool.query('SELECT * FROM Employees INNER JOIN Contacts ON Employees.employee_id = Contacts.employee_id ORDER BY name ASC');
+        let [employees] = await pool.query('SELECT * FROM eds.Employees INNER JOIN eds.Contacts ON Employees.employee_id = Contacts.employee_id ORDER BY name ASC');
         
-        let [employee_selected] = await pool.query('SELECT * FROM Employees WHERE employee_id = ?', [employee_id_selected]);
+        let [employee_selected] = await pool.query('SELECT * FROM eds.Employees WHERE employee_id = ?', [employee_id_selected]);
 
-        let [relatedContacts] = await pool.query('SELECT * FROM Contacts WHERE employee_id = ?', [employee_id_selected]);
+        let [relatedContacts] = await pool.query('SELECT * FROM eds.Contacts WHERE employee_id = ?', [employee_id_selected]);
 
         let employee = employee_selected[0];
         let relatedContact = relatedContacts[0];
@@ -437,9 +437,9 @@ const formatDate_DDMMYYYY = (date) => {
         // Obtaining the Results with Nested Tables
         let [employees] = await pool.query({
             'sql':`
-            SELECT * from Employees
-                JOIN EmployeeSupervisor ON Employees.employee_id = EmployeeSupervisor.employee_id
-                LEFT JOIN Supervisors ON EmployeeSupervisor.supervisor_id = Supervisors.supervisor_id 
+            SELECT * from eds.Employees
+                JOIN eds.EmployeeSupervisor ON Employees.employee_id = EmployeeSupervisor.employee_id
+                LEFT JOIN eds.Supervisors ON EmployeeSupervisor.supervisor_id = Supervisors.supervisor_id 
                 ORDER BY Employees.name ASC;
             `,
             nestTables: true
@@ -501,9 +501,9 @@ const formatDate_DDMMYYYY = (date) => {
     router.get('/employees/create', async(req,res)=>{
         try {
 
-        let [supervisors] = await pool.query('SELECT * from Supervisors');
-        let [employees] = await pool.query('SELECT * from Employees');
-        let [employee_supervisor] = await pool.query('SELECT * from EmployeeSupervisor');
+        let [supervisors] = await pool.query('SELECT * from eds.Supervisors');
+        let [employees] = await pool.query('SELECT * from eds.Employees');
+        let [employee_supervisor] = await pool.query('SELECT * from eds.EmployeeSupervisor');
         res.render('employees/create', {
             'supervisors': supervisors,
             'employees': employees,
@@ -531,7 +531,7 @@ const formatDate_DDMMYYYY = (date) => {
                 .json({ "error": "The field(s) is incomplete: name, designation, department, date_joined, supervisor, ranking" })
         }
 
-        let query = 'INSERT INTO Employees (name, designation, department, date_joined) VALUES (?, ?, ?, ?)';
+        let query = 'INSERT INTO eds.Employees (name, designation, department, date_joined) VALUES (?, ?, ?, ?)';
         let bindings = [name, designation, department, date_joined];
         let [result] = await connection.query(query, bindings);
     
@@ -539,7 +539,7 @@ const formatDate_DDMMYYYY = (date) => {
             supervisor_name = null;
         }
 
-        let [supervisors] = await connection.query('SELECT * from Supervisors');
+        let [supervisors] = await connection.query('SELECT * from eds.Supervisors');
 
         let newSupervisor = false;
         let newSupervisorId = null;
@@ -554,7 +554,7 @@ const formatDate_DDMMYYYY = (date) => {
         }
 
         if (newSupervisor) {
-            let query2 = 'INSERT INTO Supervisors (name) VALUES (?)';
+            let query2 = 'INSERT INTO eds.Supervisors (name) VALUES (?)';
             let bindings2 = [supervisor_name];
             let [result2] = await connection.query(query2, bindings2);
             newSupervisorId = result2.insertId;
@@ -568,11 +568,11 @@ const formatDate_DDMMYYYY = (date) => {
         let newEmployeeId = result.insertId;
         
         
-        let query3 = 'INSERT INTO EmployeeSupervisor (employee_id, supervisor_id, ranking) VALUES (?, ?, ?)';
+        let query3 = 'INSERT INTO eds.EmployeeSupervisor (employee_id, supervisor_id, ranking) VALUES (?, ?, ?)';
         let bindings3 = [newEmployeeId, newSupervisorId, employee_supervisor_ranking];
         await connection.query(query3, bindings3);
     
-        res.redirect('/employees');
+        res.redirect('http://localhost:3000/api/admin/employees');
 
         // res.status(statusCode_201_Created).json({
             // 'message': 'New employee has been created',
@@ -600,15 +600,15 @@ const formatDate_DDMMYYYY = (date) => {
     router.get('/employees/:employee_id/edit', async (req, res) => {
         try {
 
-        let [employees] = await pool.query('SELECT * from Employees WHERE employee_id = ?', [req.params.employee_id]);
-        let [employee_supervisors] = await pool.query('SELECT * from EmployeeSupervisor WHERE employee_id = ?', [req.params.employee_id]);
+        let [employees] = await pool.query('SELECT * from eds.Employees WHERE employee_id = ?', [req.params.employee_id]);
+        let [employee_supervisors] = await pool.query('SELECT * from eds.EmployeeSupervisor WHERE employee_id = ?', [req.params.employee_id]);
     
         let employee_supervisor = employee_supervisors[0];
 
         let supervisor = {supervisor_id: null, name: null};
         supervisor_idEdit = employee_supervisor.supervisor_id;
         supervisor.supervisor_id = supervisor_idEdit;
-        let [supervisors] = await pool.query('SELECT * from Supervisors');
+        let [supervisors] = await pool.query('SELECT * from eds.Supervisors');
         for (let s of supervisors) {
             if ((s.supervisor_id == supervisor_idEdit) ) {
                 supervisor.name = s.name;
@@ -666,12 +666,12 @@ const formatDate_DDMMYYYY = (date) => {
                 .json({ "error": "The field(s) is incomplete: name, designation, department, date_joined, supervisor, ranking" })
         }
 
-        let query = 'UPDATE Employees SET name=?, designation=?, department=?, date_joined=? WHERE employee_id=?';
+        let query = 'UPDATE eds.Employees SET name=?, designation=?, department=?, date_joined=? WHERE employee_id=?';
         let bindings = [name, designation, department, date_joined, req.params.employee_id];
         const result2 = await connection.query(query, bindings);
     
 
-        let [supervisors] = await connection.query('SELECT * from Supervisors');
+        let [supervisors] = await connection.query('SELECT * from eds.Supervisors');
 
         let newSupervisor = false;
         let newSupervisorId = null;
@@ -698,33 +698,33 @@ const formatDate_DDMMYYYY = (date) => {
         }
 
         if ((newSupervisor) && (supervisor_name != null)) {
-            let query4 = 'INSERT INTO Supervisors (name) VALUES (?)';
+            let query4 = 'INSERT INTO eds.Supervisors (name) VALUES (?)';
             let bindings4 = [supervisor_name];
             let [result4] = await connection.query(query4, bindings4);
             newSupervisorId = result4.insertId;
         } else if (supervisor_name != null) {
-            let query2 = 'UPDATE Supervisors SET name=? WHERE supervisor_id=?';
+            let query2 = 'UPDATE eds.Supervisors SET name=? WHERE supervisor_id=?';
             let bindings2 = [supervisor_name, supervisor_id];
             await connection.query(query2, bindings2);
         }
         
         
     
-        let query3 = 'UPDATE EmployeeSupervisor SET ranking=? WHERE employee_id=?';
+        let query3 = 'UPDATE eds.EmployeeSupervisor SET ranking=? WHERE employee_id=?';
         let bindings3 = [supervisor_ranking, req.params.employee_id];
         await connection.query(query3, bindings3);
     
         if (newSupervisorId == null) {
-            let query5 = 'UPDATE EmployeeSupervisor SET supervisor_id=? WHERE employee_id=?';
+            let query5 = 'UPDATE eds.EmployeeSupervisor SET supervisor_id=? WHERE employee_id=?';
             let bindings5 = [supervisor_id, req.params.employee_id];
             await connection.query(query5, bindings5);
         } else {
-            let query6 = 'UPDATE EmployeeSupervisor SET supervisor_id=? WHERE employee_id=?';
+            let query6 = 'UPDATE eds.EmployeeSupervisor SET supervisor_id=? WHERE employee_id=?';
             let bindings6 = [newSupervisorId, req.params.employee_id];
             await connection.query(query6, bindings6);
         }
         
-        res.redirect('/employees');
+        res.redirect('http://localhost:3000/api/admin/employees');
 
         // if there is no matches, means no update took place
         // if (result2.matchedCount == 0) {
@@ -758,7 +758,7 @@ const formatDate_DDMMYYYY = (date) => {
 
         // display a confirmation form 
         const [employees] = await pool.query(
-            "SELECT * FROM Employees WHERE employee_id =?", [req.params.employee_id]
+            "SELECT * FROM eds.Employees WHERE employee_id =?", [req.params.employee_id]
         );
         const employee = employees[0];
 
@@ -776,9 +776,9 @@ const formatDate_DDMMYYYY = (date) => {
     router.post('/employees/:employee_id/delete', async function(req, res){
         try {
 
-        await pool.query(`DELETE FROM EmployeeSupervisor WHERE employee_id = ?`, [req.params.employee_id]);
-        const results = await pool.query(`DELETE FROM Employees WHERE employee_id = ?`, [req.params.employee_id]);
-        res.redirect('/employees');
+        await pool.query(`DELETE FROM eds.EmployeeSupervisor WHERE employee_id = ?`, [req.params.employee_id]);
+        const results = await pool.query(`DELETE FROM eds.Employees WHERE employee_id = ?`, [req.params.employee_id]);
+        res.redirect('http://localhost:3000/api/admin/employees');
 
         // if (results.deletedCount == 0) {
             // return res.status(statusCode_404_Not_Found).json({

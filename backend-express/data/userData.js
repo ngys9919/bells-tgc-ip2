@@ -4,7 +4,7 @@ async function getUserByEmail(email) {
   if (!email || typeof email !== 'string') {
     throw new Error('Invalid email');
   }
-  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+  const [rows] = await pool.query('SELECT * FROM aieshop2.users WHERE email = ?', [email]);
   return rows[0];
 }
 
@@ -19,7 +19,7 @@ async function createUser({ name, email, password, salutation, country, marketin
 
     // Insert user data
     const [userResult] = await connection.query(
-      `INSERT INTO users (name, email, password, salutation, country) VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO aieshop2.users (name, email, password, salutation, country) VALUES (?, ?, ?, ?, ?)`,
       [name, email, password, salutation, country]
     );
     const userId = userResult.insertId;
@@ -29,7 +29,7 @@ async function createUser({ name, email, password, salutation, country, marketin
       for (const preference of marketingPreferences) {
         // Retrieve preference ID from marketing_preferences table
         const [preferenceResult] = await connection.query(
-          `SELECT id FROM marketing_preferences WHERE preference = ?`,
+          `SELECT id FROM aieshop2.marketing_preferences WHERE preference = ?`,
           [preference]
         );
 
@@ -42,7 +42,7 @@ async function createUser({ name, email, password, salutation, country, marketin
 
         // Insert into user_marketing_preferences table
         await connection.query(
-          `INSERT INTO user_marketing_preferences (user_id, preference_id) VALUES (?, ?)`,
+          `INSERT INTO aieshop2.user_marketing_preferences (user_id, preference_id) VALUES (?, ?)`,
           [userId, preferenceId]
         );
       }
@@ -71,16 +71,16 @@ async function updateUser(id, { name, email, password, salutation, country, mark
     
     // Update user data
     await connection.query(
-      `UPDATE users SET name = ?, email = ?, password = ?, salutation = ?, country = ? WHERE id = ?`,
+      `UPDATE aieshop2.users SET name = ?, email = ?, password = ?, salutation = ?, country = ? WHERE id = ?`,
       [name, email, password, salutation, country, id]
     );
 
     // Update marketing preferences by deleting existing ones and inserting new ones
-    await connection.query(`DELETE FROM user_marketing_preferences WHERE user_id = ?`, [id]);
+    await connection.query(`DELETE FROM aieshop2.user_marketing_preferences WHERE user_id = ?`, [id]);
     if (Array.isArray(marketingPreferences)) {
       for (const preference of marketingPreferences) {
         await connection.query(
-          `INSERT INTO user_marketing_preferences (user_id, preference) VALUES (?, ?)`,
+          `INSERT INTO aieshop2.user_marketing_preferences (user_id, preference) VALUES (?, ?)`,
           [id, preference]
         );
       }

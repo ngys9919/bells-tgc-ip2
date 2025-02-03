@@ -1,7 +1,7 @@
 const pool = require('../database');
 
 async function getOrdersByUserId(userId) {
-    const [rows] = await pool.query('SELECT * FROM orders WHERE user_id = ?', [userId]);
+    const [rows] = await pool.query('SELECT * FROM aieshop2.orders WHERE user_id = ?', [userId]);
     return rows;
 }
 
@@ -27,13 +27,13 @@ async function createOrder(userId, orderItems) {
         // console.log(total);
 
         // Insert order data
-        const [orderResult] = await connection.query("INSERT INTO orders (user_id, total) VALUES (?, ?)", [userId, total]);
+        const [orderResult] = await connection.query("INSERT INTO aieshop2.orders (user_id, total) VALUES (?, ?)", [userId, total]);
         const orderId = orderResult.insertId;
 
         // Insert order items
         for (const item of orderItems) {
             await connection.query(
-                'INSERT INTO order_items (order_id, type_id, product_id, quantity) VALUES (?, ?, ?, ?)',
+                'INSERT INTO aieshop2.order_items (order_id, type_id, product_id, quantity) VALUES (?, ?, ?, ?)',
                 [orderId, item.type_id, item.product_id, item.quantity]
             );
         }
@@ -76,8 +76,8 @@ async function getOrderDetails(orderId) {
             p.priceTag,
             p.discount,
             oi.quantity
-        FROM order_items AS oi
-        JOIN aibooks AS p ON oi.product_id = p.id
+        FROM aieshop2.order_items AS oi
+        JOIN aieshop2.aibooks AS p ON oi.product_id = p.id
         WHERE oi.order_id = ? AND oi.type_id = ?
     `, [orderId, cat_id]);
 
@@ -96,8 +96,8 @@ async function getOrderDetails(orderId) {
             p.priceTag,
             p.discount,
             oi.quantity
-        FROM order_items AS oi
-        JOIN aiimage AS p ON oi.product_id = p.id
+        FROM aieshop2.order_items AS oi
+        JOIN aieshop2.aiimage AS p ON oi.product_id = p.id
         WHERE oi.order_id = ? AND oi.type_id = ?
     `, [orderId, cat_id]);
 
@@ -116,8 +116,8 @@ async function getOrderDetails(orderId) {
             p.priceTag,
             p.discount,
             oi.quantity
-        FROM order_items AS oi
-        JOIN aimusic AS p ON oi.product_id = p.id
+        FROM aieshop2.order_items AS oi
+        JOIN aieshop2.aimusic AS p ON oi.product_id = p.id
         WHERE oi.order_id = ? AND oi.type_id = ?
     `, [orderId, cat_id]);
 
@@ -136,8 +136,8 @@ async function getOrderDetails(orderId) {
             p.priceTag,
             p.discount,
             oi.quantity
-        FROM order_items AS oi
-        JOIN aivideo AS p ON oi.product_id = p.id
+        FROM aieshop2.order_items AS oi
+        JOIN aieshop2.aivideo AS p ON oi.product_id = p.id
         WHERE oi.order_id = ? AND oi.type_id = ?
     `, [orderId, cat_id]);
     rhs = [...rows];
@@ -154,11 +154,11 @@ async function updateOrderStatus(orderId, status) {
     if (!['created', 'processing', 'completed', 'cancelled'].includes(status)) {
         throw new Error('Invalid status');
     }
-    await pool.query('UPDATE orders SET status = ? WHERE id = ?', [status, orderId]);
+    await pool.query('UPDATE aieshop2.orders SET status = ? WHERE id = ?', [status, orderId]);
 }
 
 async function updateOrderSessionId(orderId, sessionId) {
-    await pool.query('UPDATE orders SET checkout_session_id = ? WHERE id = ?', [sessionId, orderId]);
+    await pool.query('UPDATE aieshop2.orders SET checkout_session_id = ? WHERE id = ?', [sessionId, orderId]);
 }
 
 module.exports = {

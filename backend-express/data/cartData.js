@@ -30,7 +30,7 @@ async function getCartContents(userId) {
         lhs = [...rows];
         // console.log(lhs);
         [rows] = await pool.query(
-          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM cart_items c JOIN aiproducts ai ON c.product_id = ai.id JOIN aibooks p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
+          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM aieshop2.cart_items c JOIN aieshop2.aiproducts ai ON c.product_id = ai.id JOIN aieshop2.aibooks p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
           [userId, cat_id]
         );
         // console.log(rows);
@@ -45,7 +45,7 @@ async function getCartContents(userId) {
         lhs = [...rows];
         // console.log(lhs);
         [rows] = await pool.query(
-          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM cart_items c JOIN aiproducts ai ON c.product_id = ai.id JOIN aiimage p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
+          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM aieshop2.cart_items c JOIN aieshop2.aiproducts ai ON c.product_id = ai.id JOIN aieshop2.aiimage p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
           [userId, cat_id]
         );
         // console.log(rows);
@@ -60,7 +60,7 @@ async function getCartContents(userId) {
         lhs = [...rows];
         // console.log(lhs);
         [rows] = await pool.query(
-          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM cart_items c JOIN aiproducts ai ON c.product_id = ai.id JOIN aimusic p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
+          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM aieshop2.cart_items c JOIN aieshop2.aiproducts ai ON c.product_id = ai.id JOIN aieshop2.aimusic p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
           [userId, cat_id]
         );
         // console.log(rows);
@@ -75,7 +75,7 @@ async function getCartContents(userId) {
         lhs = [...rows];
         // console.log(lhs);
         [rows] = await pool.query(
-          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM cart_items c JOIN aiproducts ai ON c.product_id = ai.id JOIN aivideo p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
+          'SELECT c.id, c.type_id, c.product_id, p.id AS pdt_id, p.image as imageUrl, p.title AS productName, CAST(p.priceTag AS DOUBLE) AS price, p.discount, c.quantity FROM aieshop2.cart_items c JOIN aieshop2.aiproducts ai ON c.product_id = ai.id JOIN aieshop2.aivideo p ON ai.productID = p.id WHERE c.user_id = ? AND c.type_id = ?',
           [userId, cat_id]
         );
         // console.log(rows);
@@ -98,7 +98,7 @@ async function updateCart(userId, cartItems) {
     await connection.beginTransaction();
 
     // Clear existing cart items for the user
-    await connection.query('DELETE FROM cart_items WHERE user_id = ?', [userId]);
+    await connection.query('DELETE FROM aieshop2.cart_items WHERE user_id = ?', [userId]);
 
     // console.log(cartItems);
 
@@ -106,7 +106,7 @@ async function updateCart(userId, cartItems) {
     for (const item of cartItems) {
       // console.log(item);
       const result = await connection.query(
-        'INSERT INTO cart_items (user_id, type_id, product_id, quantity) VALUES (?, ?, ?, ?)',
+        'INSERT INTO aieshop2.cart_items (user_id, type_id, product_id, quantity) VALUES (?, ?, ?, ?)',
         [userId, item.type_id, item.product_id, item.quantity]
       );
       // console.log(result);

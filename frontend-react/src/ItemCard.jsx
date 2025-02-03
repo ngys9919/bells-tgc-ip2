@@ -28,6 +28,7 @@ const ItemCard = (props) => {
       setLocation('/login');
       // <Link href="/login"></Link>
     } else {
+      console.log(props);
       addToCart(props);
       showMessage('Item added to cart', 'success');
       setLocation('/cart');
