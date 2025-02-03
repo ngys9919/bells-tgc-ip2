@@ -41,14 +41,6 @@ wax.setLayoutPath('./views/layouts');
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// (5) Third-party Middleware
-// To add functionality to your Express app, you can use third-party middleware. 
-// Install the required Node.js module and load it in your app:
-// npm install cookie-parser
-const cookieParser = require('cookie-parser');
-
-// (5) Middleware for loading the cookie-parsing
-app.use(cookieParser());
 
 // (4) Middleware for enabling use of static files
 
@@ -180,7 +172,6 @@ app.get('/orders2', (req, res) => {
   ];
   res.render('orders', { orders });
 });
-
 
 // Basic Route
 

@@ -55,11 +55,20 @@ function UserLogin() {
       console.log(loginUsername);
       setLocation('/');
     } catch (error) {
-      console.error('Login error:', error);
-      showMessage('Login error!', 'error');
-      document.getElementById("loginlogout").innerHTML = "Login";
-      actions.setErrors({ submit: error.response.data.message });      
-      actions.setSubmitting(false);
+      if (error.code === 'ERR_NETWORK') {
+        console.error('Network error:', error);
+        showMessage('Network error!', 'error');
+        document.getElementById("loginlogout").innerHTML = "Login";
+        actions.setErrors({ submit: error.response.message });      
+        actions.setSubmitting(false);
+      } else if (error.code === 'ERR_BAD_REQUEST') {
+        console.error('Login error:', error);
+        showMessage('Login error!', 'error');
+        document.getElementById("loginlogout").innerHTML = "Login";
+        actions.setErrors({ submit: error.response.data.message });      
+        actions.setSubmitting(false);
+      }
+      
     }
   };
 
