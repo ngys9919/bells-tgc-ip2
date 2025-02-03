@@ -35,12 +35,15 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Serve static files (e.g., CSS, images)
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// Set up static file serving for React build folder
+app.use(express.static(path.join(__dirname, 'frontend-react/build')));
 
 // app.set('view engine', 'hbs');
 // app.use(express.static('public'));
-// app.use(express.urlencoded({extended:false}));
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:false}));
+// app.use(express.urlencoded({extended:true}));
 
 // wax.on(hbs.handlebars);
 // wax.setLayoutPath('./views/layouts');
@@ -85,6 +88,11 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Catch-all route to serve the React app (React handles routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend-react/build', 'index.html'));
+});
+
 // Handlebars route for SSR Order Management Module
 app.get("/orders1", (req, res) => {
   res.render("orders", { title: "Orders Management" });
@@ -99,6 +107,7 @@ app.get('/orders2', (req, res) => {
   ];
   res.render('orders', { orders });
 });
+
 
 // Basic Route
 

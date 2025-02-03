@@ -1,0 +1,87 @@
+[
+  {
+  "cryptocurrency": "solana",
+  "timestamp": 1586563521174,
+  "price": 0.9576058280146803,
+  "volume": 92672667.43447028,
+  "marketcap": 7827651.892659198 
+  },
+  {
+    "cryptocurrency": "bitcoin",
+    "timestamp": 1234567890123,
+    "price": 0.1234567890123456,
+    "volume": 12345678901234567,
+    "marketcap": 1234567.123456789 
+  },
+  {
+    "cryptocurrency": "ethereum",
+    "timestamp": 3210987654321,
+    "price": 0.6543210987654321,
+    "volume": 76543210987654321,
+    "marketcap": 7654321.987654321 
+  },
+  {
+    "cryptocurrency": "bitcoin",
+    "timestamp": 1586563521174,
+    "price": 0.9576058280146803,
+    "volume": 92672667.43447028,
+    "marketcap": 7827651.892659198 
+  },
+  {
+    "cryptocurrency": "solana",
+    "timestamp": 1586563521174,
+    "price": 0.9576058280146803,
+    "volume": 92672667.43447028,
+    "marketcap": 7827651.892659198 
+    },
+    {
+      "cryptocurrency": "bitcoin",
+      "timestamp": 1234567890123,
+      "price": 0.1234567890123456,
+      "volume": 12345678901234567,
+      "marketcap": 1234567.123456789 
+    },
+    {
+      "cryptocurrency": "ethereum",
+      "timestamp": 3210987654321,
+      "price": 0.6543210987654321,
+      "volume": 76543210987654321,
+      "marketcap": 7654321.987654321 
+    },
+    {
+      "cryptocurrency": "bitcoin",
+      "timestamp": 1586563521174,
+      "price": 0.9576058280146803,
+      "volume": 92672667.43447028,
+      "marketcap": 7827651.892659198 
+    },
+    {
+      "cryptocurrency": "solana",
+      "timestamp": 1586563521174,
+      "price": 0.9576058280146803,
+      "volume": 92672667.43447028,
+      "marketcap": 7827651.892659198 
+      },
+      {
+        "cryptocurrency": "bitcoin",
+        "timestamp": 1234567890123,
+        "price": 0.1234567890123456,
+        "volume": 12345678901234567,
+        "marketcap": 1234567.123456789 
+      },
+      {
+        "cryptocurrency": "ethereum",
+        "timestamp": 3210987654321,
+        "price": 0.6543210987654321,
+        "volume": 76543210987654321,
+        "marketcap": 7654321.987654321 
+      },
+      {
+        "cryptocurrency": "bitcoin",
+        "timestamp": 1586563521174,
+        "price": 0.9576058280146803,
+        "volume": 92672667.43447028,
+        "marketcap": 7827651.892659198 
+      }
+]
+
