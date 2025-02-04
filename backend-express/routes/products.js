@@ -5,6 +5,7 @@ const router = express.Router();
 const productService = require('../services/productService');
 const StatusCode = require('../middleware/StatusCode');
 const logHttpUrl = require('../middleware/HttpUrl');
+const csrfHeader = require('../middleware/csrf-header');
 
 // (2) Router-level Middleware
 // Router-level middleware works similarly to application-level middleware but is bound to an instance of express.Router().
@@ -26,6 +27,12 @@ router.use('/productID/:id', (req, res, next) => {
 
 // (2) Middleware for applying logHttpUrl to all routes
 router.use(logHttpUrl);
+
+// (2) Middleware for applying csrfHeader to all routes
+router.use(csrfHeader({
+  hostname: 'localhost',
+  port: '3000'
+}));
 
 // (2) Middleware for the StatusCode to router.get route only
 // GET all AI-Products products
