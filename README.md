@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 <!-- This is a Secured branch -->
 # This is a Secured Branch
-=======
-<!-- This is a Main branch -->
->>>>>>> d7f62fd62d1116349c26d9b98cee9a3bd199e027
 
 <!-- .md means markdown -->
 
