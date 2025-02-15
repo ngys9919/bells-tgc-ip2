@@ -1,4 +1,4 @@
-<!-- This is a Secured branch -->
+<!-- This is a Main branch -->
 
 <!-- .md means markdown -->
 
