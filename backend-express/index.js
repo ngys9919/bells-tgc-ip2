@@ -341,10 +341,14 @@ app.use((req, res, next) => {
 // (4) Built-in Middleware
 // Express provides built-in middleware functions such as express.static, express.json, and express.urlencoded:
 
+// Middleware
 // (4) Middleware for JSON parsing
-app.use(express.json());
+// setup for RESTFul API
+// disable global express.json so that it won't interfere
+// with the webhook
+// app.use(express.json()); // indicate that we are reciving JSON payloads in requests
 // (4) Middleware for enabling cross origin resources sharing
-app.use(cors());
+app.use(cors()); // enable cross origin resources sharing
 
 // (3) Error-handling Middleware
 // Error-handling middleware is defined with four arguments: (err, req, res, next).
@@ -359,12 +363,19 @@ app.use((err, req, res, next) => {
 // admin();
 
 // Routes
-app.use('/api/databases', databasesRouter);
-app.use('/api/products', productsRouter);
-app.use('/api/users', userRoutes);
-app.use('/api/cart', cartRoutes);
+app.use('/api/databases', express.json(), databasesRouter);
+app.use('/api/products', express.json(), productsRouter);
+app.use('/api/users', express.json(), userRoutes);
+app.use('/api/cart', express.json(), cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/api/admin', express.json(), adminRoutes);
+
+// app.use('/api/databases', databasesRouter);
+// app.use('/api/products', productsRouter);
+// app.use('/api/users', userRoutes);
+// app.use('/api/cart', cartRoutes);
+// app.use('/api/checkout', checkoutRoutes);
+// app.use('/api/admin', adminRoutes);
 
 // Catch-all route to serve the React app (React handles routing)
 app.get('*', (req, res) => {

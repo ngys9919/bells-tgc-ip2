@@ -56,52 +56,93 @@ router.post('/', UserAuth, async (req, res) => {
 // Webhook for Stripe (Stripe's Sample Code)
 // https://docs.stripe.com/webhooks?lang=node
 // If you are using Express v4 - v4.16 you need to use body-parser, not express, to retrieve the request body
-router.post('/webhook', express.json({type: 'application/json'}), async (req, res) => {
-    const event = request.body;
-  
-    // Handle the event
-    switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntentSucceeded = event.data.object;
-        // Then define and call a method to handle the successful payment intent.
-        // handlePaymentIntentSucceeded(paymentIntentSucceeded);
-        console.log('Payment session succeeded!', paymentIntentSucceeded);
-        if (paymentIntentSucceeded.metadata && paymentIntentSucceeded.metadata.orderId) {
-            await orderService.updateOrderStatus(paymentIntentSucceeded.metadata.orderId, 'completed');
-        }
-        break;
+// This is your Stripe CLI webhook secret for testing your endpoint locally.
 
-      case 'payment_method.attached':
-        const paymentMethod = event.data.object;
-        // Then define and call a method to handle the successful attachment of a PaymentMethod.
-        // handlePaymentMethodAttached(paymentMethod);
-        break;
-        
-      case 'payment_intent.payment_failed':
-        const paymentIntentFailed = event.data.object;
-        // Then define and call a method to handle the successful payment intent.
-        // handlePaymentIntentSucceeded(paymentIntent);
-        console.log('Payment session failed!', paymentIntentFailed);
-        if (paymentIntentFailed.metadata && paymentIntentFailed.metadata.orderId) {
-            await orderService.updateOrderStatus(paymentIntentFailed.metadata.orderId, 'cancelled');
-        }
-        break;
+router.post('/webhook', express.raw({ type: 'application/json' }), async (request, response) => {
+  // const sig = request.headers['stripe-signature'];
 
-      // ... handle other event types
-      case 'checkout.session.completed':
-        const session = event.data.object;
-        console.log('Checkout session completed!', session);
-        if (session.metadata && session.metadata.orderId) {
-            await orderService.updateOrderStatus(session.metadata.orderId, 'processing');
+  // let event;
+
+  // try {
+  //   event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+  // } catch (err) {
+  //   console.log("hello there.");
+  //   response.status(400).send(`Webhook Error: ${err.message}`);
+  //   console.log(err.message);
+  //   return;
+  // }
+
+  let event;
+
+  try {
+           // verify the webhook signature
+            const sig = request.headers['stripe-signature'];
+            event = stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+        } catch (error) {
+          console.log("hello there3.");
+          console.log(error.message);
+            console.error(`Webhook Error: ${error.message}`);
+            return response.status(400).send(`Webhook Error: ${error.message}`);
         }
-        break;
-    
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
-  
-    // Return a response to acknowledge receipt of the event
-    response.json({received: true});
-  });
+
+  // Handle the event
+  switch (event.type) {
+    // case 'payment_intent.succeeded':
+    //   const paymentIntentSucceeded = event.data.object;
+    //   // Then define and call a function to handle the event payment_intent.succeeded
+    //   break;
+    // // ... handle other event types
+    // default:
+    //   console.log(`Unhandled event type ${event.type}`);
+
+    case 'payment_intent.succeeded':
+      const paymentIntentSucceeded = event.data.object;
+      // Then define and call a method to handle the successful payment intent.
+      // handlePaymentIntentSucceeded(paymentIntentSucceeded);
+      console.log('Payment session succeeded!', paymentIntentSucceeded);
+      console.log("hello there2.");
+      console.log(session);
+      console.log(orderId); // No orderId
+      if (paymentIntentSucceeded.metadata && paymentIntentSucceeded.metadata.orderId) {
+        await orderService.updateOrderStatus(paymentIntentSucceeded.metadata.orderId, 'completed');
+      }
+      break;
+
+    case 'payment_method.attached':
+      const paymentMethod = event.data.object;
+      // Then define and call a method to handle the successful attachment of a PaymentMethod.
+      // handlePaymentMethodAttached(paymentMethod);
+      break;
+
+    case 'payment_intent.payment_failed':
+      const paymentIntentFailed = event.data.object;
+      // Then define and call a method to handle the successful payment intent.
+      // handlePaymentIntentSucceeded(paymentIntent);
+      console.log('Payment session failed!', paymentIntentFailed);
+      if (paymentIntentFailed.metadata && paymentIntentFailed.metadata.orderId) {
+        await orderService.updateOrderStatus(paymentIntentFailed.metadata.orderId, 'cancelled');
+      }
+      break;
+
+    // ... handle other event types
+    case 'checkout.session.completed':
+      const session = event.data.object;
+      console.log('Checkout session completed!', session);
+      console.log("hello there1.");
+      console.log(session);
+      console.log(orderId); // Has orderId
+      if (session.metadata && session.metadata.orderId) {
+        await orderService.updateOrderStatus(session.metadata.orderId, 'processing');
+      }
+      break;
+
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  // Return a 200 response to acknowledge receipt of the event
+  // response.send();
+  response.json({ received: true });
+});
 
 module.exports = router;
