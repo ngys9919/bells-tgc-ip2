@@ -5,7 +5,7 @@ const helpers = require('handlebars-helpers');
 const wax = require('wax-on');
 const cors = require('cors');
 require('dotenv').config();
-const csrfHeader = require('./middleware/csrf-header');
+// const csrfHeader = require('./middleware/csrf-header');
 
 function convertUTCDateToLocalDate(date) {
   var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
@@ -146,10 +146,10 @@ hbs.handlebars.registerHelper('attr', function(name, data) {
 // We can set the same header by defining the following middleware in our stack:
 
 // Middleware for Content-Security-Policy header
-app.use(function (req, res, next) {
-  res.header('Content-Security-Policy', "default-src 'self'");
-  next();
-})
+// app.use(function (req, res, next) {
+//   res.header('Content-Security-Policy', "default-src 'self'");
+//   next();
+// })
 
 // For a more nuanced CSP header setup, I recommend you use a module
 // designed for ease of use, such as helmet-csp 
@@ -169,32 +169,32 @@ app.use(function (req, res, next) {
 
 // Advanced usage is also easy and modular by extending it with various options:
 
-const csp = require('helmet-csp');
-app.use(csp({
-    // Specify directives as normal
-    defaultSrc: ["'self'", 'default.com'],
-    scriptSrc: ["'self'", "'unsafe-inline'"],
-    styleSrc: ['style.com'],
-    imgSrc: ['img.com', 'data:'],
-    sandbox: ['allow-forms', 'allow-scripts'],
-    reportUri: '/report-violation',
+// const csp = require('helmet-csp');
+// app.use(csp({
+//     // Specify directives as normal
+//     defaultSrc: ["'self'", 'default.com'],
+//     scriptSrc: ["'self'", "'unsafe-inline'"],
+//     styleSrc: ['style.com'],
+//     imgSrc: ['img.com', 'data:'],
+//     sandbox: ['allow-forms', 'allow-scripts'],
+//     reportUri: '/report-violation',
 
-    // Set to an empty array to allow nothing through
-    objectSrc: [],
+//     // Set to an empty array to allow nothing through
+//     objectSrc: [],
 
-    // Set to true if you only want browsers to report errors, not block them
-    reportOnly: false,
+//     // Set to true if you only want browsers to report errors, not block them
+//     reportOnly: false,
 
-    // Set to true if you want to blindly set all headers: Content-Security-Policy,
-    // X-WebKit-CSP, and X-Content-Security-Policy.
-    setAllHeaders: false,
+//     // Set to true if you want to blindly set all headers: Content-Security-Policy,
+//     // X-WebKit-CSP, and X-Content-Security-Policy.
+//     setAllHeaders: false,
 
-    // Set to true if you want to disable CSP on Android.
-    disableAndroid: false,
+//     // Set to true if you want to disable CSP on Android.
+//     disableAndroid: false,
 
-    // Set to true if you want to force buggy CSP in Safari 5.1 and below.
-    safari5: false
-}));
+//     // Set to true if you want to force buggy CSP in Safari 5.1 and below.
+//     safari5: false
+// }));
 
 // If the application has to include scripts from other locations, such as tracking
 // and feedback modules, you will need to list the possible locations in the
@@ -213,19 +213,20 @@ app.use(csp({
 // To add functionality to your Express app, you can use third-party middleware. 
 // Install the required Node.js module and load it in your app: npm install cookie-parser
 
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const csurf = require('csurf');
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
+// const bodyParser = require('body-parser');
+// const csurf = require('csurf');
 
-// (5) Middleware for loading the cookie-parsing
-app.use(cookieParser());
-app.use(session({
-  secret: 'this is a nice secret',
-  resave: false,
-  saveUninitialized: true
-}));
-app.use(bodyParser.urlencoded({extended: false}));
+// // (5) Middleware for loading the cookie-parsing
+// app.use(cookieParser());
+// app.use(session({
+//   secret: 'this is a nice secret',
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true
+// }));
+// app.use(bodyParser.urlencoded({extended: false}));
 
 // FE2-CSRF: Cross-Site Request Forgery => client-side attack
 // Cross-site request forgery, also known as one-click attack or session riding, 
@@ -266,7 +267,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // This method of CSRF protection simply moves the location of the token from the session to the
 // cookie as you swutch from the server-side dfense to client-side defense. Instead
 // of taking up storage, you now take up bandwidth.
-app.use(csurf({cookie: true})); // Include csurf middleware, with cookie option
+// app.use(csurf({cookie: true})); // Include csurf middleware, with cookie option
 
 // Synchronized token patterns are the most commonly used method to prevent
 // CSRF, nut there are other ways that don't require extra tokens.
@@ -298,28 +299,28 @@ app.use(csurf({cookie: true})); // Include csurf middleware, with cookie option
 // (2) Middleware for applying csrfHeader to all routes
 // This just checks for hostname and port.
 // If the hostname or port differs from localhost:3000, the application will throw errors.
-app.use(csrfHeader({
-  hostname: 'localhost',
-  port: '3000'
-}));
+// app.use(csrfHeader({
+//   hostname: 'localhost',
+//   port: '3000'
+// }));
 
-// Middleware for CSRF Error Handler
-app.use(function (err, req, res, next) {
-  if (err.code !== 'EBADCSRFTOKEN') {
-    return next(err) // some other error
-  }
+// // Middleware for CSRF Error Handler
+// app.use(function (err, req, res, next) {
+//   if (err.code !== 'EBADCSRFTOKEN') {
+//     return next(err) // some other error
+//   }
 
-  // handle CSRF token errors here
+//   // handle CSRF token errors here
 
-  // Besides just saying that we had a mismatch
-  // we should log some useful information about the request here
-  // like the user and referrer and origin headers of the request
-  // for example
-  console.warn('CSRF token mismatch');
+//   // Besides just saying that we had a mismatch
+//   // we should log some useful information about the request here
+//   // like the user and referrer and origin headers of the request
+//   // for example
+//   console.warn('CSRF token mismatch');
 
-  res.status(403);
-  res.send('form tampered with');
-})
+//   res.status(403);
+//   res.send('form tampered with');
+// })
 
 // (1) Application-level Middleware
 // Application-level middleware is bound to an instance of express using app.use() and app.VERB().
@@ -386,16 +387,16 @@ app.get('/orders2', (req, res) => {
 });
 
 // Basic Route
-app.get('/csrf', function (req, res, next) {
-  let form = '<form method="POST" action="/add">' +
-            '<input type="hidden" name="_csrf" value="' +
-            req.csrfToken() + '" />' + // add hidden token field
-            '<input type="text" name="name" placeholder="name" />' +
-            '<input type="text" name="value" placeholder="value" />' +
-            '<input type="submit" value="submit" />' +
-            '</form>';
-  res.send(form);
-});
+// app.get('/csrf', function (req, res, next) {
+//   let form = '<form method="POST" action="/add">' +
+//             '<input type="hidden" name="_csrf" value="' +
+//             req.csrfToken() + '" />' + // add hidden token field
+//             '<input type="text" name="name" placeholder="name" />' +
+//             '<input type="text" name="value" placeholder="value" />' +
+//             '<input type="submit" value="submit" />' +
+//             '</form>';
+//   res.send(form);
+// });
 
 // https://<server url>/
 // https://<server url>/?success=true

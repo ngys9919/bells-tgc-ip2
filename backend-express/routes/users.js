@@ -18,6 +18,7 @@ const bodyParser = require('body-parser');
 // (5) Middleware for loading the cookie-parsing
 app.use(cookieParser());
 app.use(session({
+  // secret: 'this is a nice secret',
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true
