@@ -8,7 +8,7 @@ require('dotenv').config();
 // const csrfHeader = require('./middleware/csrf-header');
 
 function convertUTCDateToLocalDate(date) {
-  var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+  let newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
   newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
   return newDate;   
 }
@@ -20,6 +20,8 @@ const userRoutes = require('./routes/users');
 const cartRoutes = require('./routes/cart');
 const checkoutRoutes = require('./routes/checkout');
 const adminRoutes = require('./routes/admin');
+const adminTalentRoutes = require('./routes/admintalent');
+const adminShopRoutes = require('./routes/adminshop');
 
 const pool = require('./database');
 // const connection = require('./database');
@@ -369,6 +371,8 @@ app.use('/api/users', express.json(), userRoutes);
 app.use('/api/cart', express.json(), cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/admin', express.json(), adminRoutes);
+app.use('/api/admintalent', express.json(), adminTalentRoutes);
+app.use('/api/adminshop', express.json(), adminShopRoutes);
 
 // app.use('/api/databases', databasesRouter);
 // app.use('/api/products', productsRouter);
