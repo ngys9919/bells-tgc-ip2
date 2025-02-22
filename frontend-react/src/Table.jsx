@@ -94,7 +94,8 @@ const Table = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    // return <div>Loading...</div>;
+    return <div class="loading-spinner">Loading...</div>
   }
 
   return (

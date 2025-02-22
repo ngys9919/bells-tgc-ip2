@@ -1,6 +1,7 @@
 .product-container {
   width: 50%;
-  max-height: 33vh; /* Set the maximum height to 33% of the viewport height */
+  max-height: 33vh;
+  /* Set the maximum height to 33% of the viewport height */
   overflow: auto;
 }
 
@@ -55,6 +56,7 @@
 .product-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
 .product-table tr:hover {
   background-color: #ddd;
 }
@@ -62,4 +64,24 @@
 .spacer {
   margin: 10px 10px;
   padding: 10px 10px;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.6s linear infinite;
+  margin: 4rem auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

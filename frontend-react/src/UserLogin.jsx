@@ -40,11 +40,23 @@ function UserLogin() {
       showMessage('Login successful!', 'success');
       // alert(JSON.stringify(values, null, 2));
       if ((response.data.username == "admin") && (loginEmail == "admin@aieshop.com.sg")) {
-        alert("Admin SuperUser");
+        // alert("Admin SuperUser");
+        // Sweet Alert2
+        Swal.fire({
+          title: "Admin SuperUser",
+          text: "You have all access rights!",
+          icon: "success"
+        });
         setLoginSuperUser();
       } else {
-        alert("Normal User");
-        resetLoginSuperUser(); 
+        // alert("Normal User");
+        // Sweet Alert2
+        Swal.fire({
+          title: "Normal User",
+          text: "You have read access only!",
+          icon: "info"
+        });
+        resetLoginSuperUser();
       }
       document.getElementById("loginlogout").innerHTML = "Logout";
       console.log(response.data.username);
@@ -59,16 +71,16 @@ function UserLogin() {
         console.error('Network error:', error);
         showMessage('Network error!', 'error');
         document.getElementById("loginlogout").innerHTML = "Login";
-        actions.setErrors({ submit: error.response.message });      
+        actions.setErrors({ submit: error.response.message });
         actions.setSubmitting(false);
       } else if (error.code === 'ERR_BAD_REQUEST') {
         console.error('Login error:', error);
         showMessage('Login error!', 'error');
         document.getElementById("loginlogout").innerHTML = "Login";
-        actions.setErrors({ submit: error.response.data.message });      
+        actions.setErrors({ submit: error.response.data.message });
         actions.setSubmitting(false);
       }
-      
+
     }
   };
 
@@ -79,29 +91,63 @@ function UserLogin() {
   const togglePasswordChecked = (e) => {
     console.log(e.target.value);
     console.log(e.target.checked);
-  
+
     if (e.target.checked) {
-  
+
       // straightforward method:
       // 1. clone the array
       const cloned = togglepassword.slice();
-  
+
       // 2. update (i.e mutate) the array
       cloned.push(e.target.value);
-  
+
       // 3. set the cloned as the new state
       setTogglePassword(cloned);
 
       // alert("Show Password!");
-      alert(loginPassword);
+      // alert(loginPassword);
+      // Swal.fire({
+      //   title: "This is your entered password: ",
+      //   text: loginPassword,
+      //   icon: "success",
+      //   draggable: true
+      // });
+
+      // A message with auto close timer
+      let timerInterval;
+      Swal.fire({
+        draggable: true,
+        html: `This is your entered password:
+        </br>
+        </br><em>${loginPassword}</em>
+        </br>
+        </br>Auto-Close in <b></b> seconds.`,
+        timer: 10000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          const timer = Swal.getPopup().querySelector("b");
+          timerInterval = setInterval(() => {
+            timer.textContent = `${Swal.getTimerLeft()/1000}`;
+          }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        }
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log("I was closed by the timer");
+        }
+      });
 
     } else {
       const cloned = togglepassword.slice();
-  
+
       // delete: find the index and use splice
       const indexToDelete = togglepassword.findIndex(current => current == e.target.value)
       cloned.splice(indexToDelete, 1);
-  
+
       setTogglePassword(cloned);
 
       // alert("Hide Password!");
@@ -117,7 +163,7 @@ function UserLogin() {
         // onSubmit={handleSubmit}
         onSubmit={handleSubmit}
       >
-        {function(formik) {
+        {function (formik) {
           return (
             <Form>
               <div className="mb-3">
@@ -128,7 +174,7 @@ function UserLogin() {
 
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <Field type="password" id="password" name="password" className="form-control" autoComplete="on"/>
+                <Field type="password" id="password" name="password" className="form-control" autoComplete="on" />
                 <ErrorMessage name="password" component="div" className="text-danger" />
               </div>
 
@@ -140,12 +186,12 @@ function UserLogin() {
               <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
                 {formik.isSubmitting ? 'Logging in...' : 'Login'}
               </button>
-              
+
               <form class="d-flex">
-              <input className="me-2" type="checkbox" name="togglepassword" value="Show Password"
-                onChange={togglePasswordChecked}
-                checked={togglepassword.includes("Show Password")} />
-              <label>Show Password</label>
+                <input className="me-2" type="checkbox" name="togglepassword" value="Show Password"
+                  onChange={togglePasswordChecked}
+                  checked={togglepassword.includes("Show Password")} />
+                <label>Show Password</label>
               </form>
             </Form>
           );
