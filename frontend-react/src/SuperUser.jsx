@@ -6,6 +6,11 @@ import axios from 'axios';
 import createDOMPurify from 'dompurify'
 // import { JSDOM } from 'jsdom'
 
+import avatar from './assets/avatar.png'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+
 // const window = (new JSDOM('')).window;
 const DOMPurify = createDOMPurify(window);
 
@@ -56,19 +61,40 @@ function SuperUser() {
     fetchAdmin();
   }, []);
 
-  // API: Handle Checkout
-  const handleBackend = async () => {
+  // API: Handle Backend
+  const handleBackendShop = async () => {
     // Redirect to Backend
-    window.location.href = `${import.meta.env.VITE_API_URL}/api/admin/employees`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/adminshop/main`;
+  };
+
+  const handleBackendTalent = async () => {
+    // Redirect to Backend
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/admintalent/main`;
   };
 
   return (
     <>
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Shop Management</h1>
+      <h1 className="text-center mb-4">Backend Management</h1>
+      <div id="logo-div">
+   <a href="https://nodejs.org/en" target="_blank">
+     <img src="https://img.icons8.com/color/48/nodejs.png" className="logo" alt="node.js logo" />
+   </a>
+   <a href="https://react.dev" target="_blank">
+     <img src={avatar} className="logo react" alt="avatar logo" />
+   </a>
+   <a href="https://www.mysql.com/" target="_blank">
+     <img src="https://img.icons8.com/color/48/mysql-logo.png" className="logo" alt="MySQL logo" />
+   </a>
+ </div>
       { <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rawHTML) }} /> }
-      <div className="mt-3 text-end">
-        <button className="btn btn-primary mt-2 mr-2 my-2" onClick={handleBackend}>Proceed to Backend</button>
+      <div className="text-center">
+      <button className="btn btn-success mr-2 my-2" onClick={handleBackendShop}>Proceed to Shop Backend</button>
+      {/* <button className="btn btn-success mr-2 my-2" onClick={handleBackendTalent}>Proceed to Talent Backend</button> */}
+      </div>
+      <div className="text-center">
+      {/* <button className="btn btn-success mr-2 my-2" onClick={handleBackendShop}>Proceed to Shop Backend</button> */}
+      <button className="btn btn-success mr-2 my-2" onClick={handleBackendTalent}>Proceed to Talent Backend</button>
       </div>
     </div>
     </>

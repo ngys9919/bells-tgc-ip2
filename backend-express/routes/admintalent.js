@@ -77,7 +77,7 @@ const formatDate_DDMMYYYY = (date) => {
         // The 'res' response to the client can only sent once.
         // Cannot set headers after they are sent to the client.
         const data = {
-            title: "Backend with MySQL and Express!",
+            title: "EDS Backend with MySQL and Express!",
             name: 'Ng Yew Seng',
             email: 'ngys9919@yahoo.com'
         };
@@ -86,7 +86,9 @@ const formatDate_DDMMYYYY = (date) => {
         <!DOCTYPE html>
         <html>
         <head>
-        <title>BELLS-TEST-5</title>
+        <!-- Favicon-->
+        <link rel="shortcut icon" type="image/x-icon" href="/bells_icon.ico">
+        <title>Employees Database System (EDS) Backend Admin</title>
         </head>
         <style>
             .container { 
@@ -108,7 +110,18 @@ const formatDate_DDMMYYYY = (date) => {
             {
                 tab-size: 8;
             }
-  
+
+            #image {
+                /* specify picture size */
+                width: 50px;
+                height: 50px;
+                /* centered picture */
+                display: block;
+                margin: 0 auto;
+                /* provide perimeter gaps */
+                padding: 2px 2px;
+            }
+            
             /* Responsive margin-left effect */
   
             /* Extra small devices (phones, 600px and down) */
@@ -158,10 +171,12 @@ const formatDate_DDMMYYYY = (date) => {
                 <h3>Name: ${data.name}</h3>
                 &NewLine;
                 <p style="font-size: 15pt; color: blue;">Email: ${data.email}</p>
+                <a href="/api/admintalent/main"><img src="./../../img/home.png" alt="Goto EDS Home" id="image"></a>
+                <a href="/api/admintalent/main">Back to Talent Admin</a>
             </div>
             </br>
             <div class="container">
-                <img src="img/eds-database.png" alt="database: company_xyz">
+                <img style="width: auto; height: 320px; display: block; margin: 0 auto;" src="./../../img/mysql-eds-database.png" alt="database: eds"></img>
                 <br/>
                 <h3>server url:<h3>
                 <h4></h4>
@@ -197,6 +212,20 @@ const formatDate_DDMMYYYY = (date) => {
 
     });
 
+    // Implementing Read
+    // Implement a Route to Show Talent Dashbaord
+    router.get("/main", async function(req,res){
+        try {
+    
+        res.render('employees/index', {
+        });
+
+    } catch (error) {
+        console.error("Error fetching talent record:", error);
+        res.status(statusCode_500_Internal_Server_Error);
+    }
+    });
+
     //Exact Search
     // Search by members: https://<server url>/taskforce?members=Jon Tan -> Jon%20%Tan
     // Search by members: https://<server url>/taskforce?members=Alex%20CHUA
@@ -214,23 +243,6 @@ const formatDate_DDMMYYYY = (date) => {
     // Implement a Route to Show Taskforces Records
     router.get("/taskforce", async function(req,res){
         try {
-            const people = 
-                {
-                  firstname: "Yehuda",
-                  lastname: "Katz",
-                  url: "https://www.google.com/",
-                  text: "See Website"
-                }; 
-
-            const general = 
-                {
-                    firstname: "Yehuda",
-                    lastname: "Katz",
-                    link1: "https://www.google.com/",
-                    text1: "Google Website",
-                    link2: "https://www.yahoo.com/",
-                    text2: "Yahoo Website"
-                };
 
         // this is the same as let members = req.query.members
         // syntax: object destructuring
@@ -278,11 +290,6 @@ const formatDate_DDMMYYYY = (date) => {
 
         res.render('taskforces/taskforces', {
             'employees': employees,
-            'people': people,
-            'general': general,
-            'fetchURLEmployees': process.env.SERVER_URL + "/api/admin/employees",
-            'fetchURLContact': process.env.SERVER_URL + "/api/admin/contact",
-            'fetchURLSupervisor': process.env.SERVER_URL + "/api/admin/supervisor"
         });
 
         // res.json({
@@ -572,8 +579,8 @@ const formatDate_DDMMYYYY = (date) => {
         let bindings3 = [newEmployeeId, newSupervisorId, employee_supervisor_ranking];
         await connection.query(query3, bindings3);
     
-        res.redirect('/api/admin/employees');
-        // res.redirect('http://localhost:3000/api/admin/employees');
+        res.redirect('/api/admintalent/employees');
+        // res.redirect('http://localhost:3000/api/admintalent/employees');
 
         // res.status(statusCode_201_Created).json({
             // 'message': 'New employee has been created',
@@ -725,8 +732,8 @@ const formatDate_DDMMYYYY = (date) => {
             await connection.query(query6, bindings6);
         }
         
-        res.redirect('/api/admin/employees');
-        // res.redirect('http://localhost:3000/api/admin/employees');
+        res.redirect('/api/admintalent/employees');
+        // res.redirect('http://localhost:3000/api/admintalent/employees');
 
         // if there is no matches, means no update took place
         // if (result2.matchedCount == 0) {
@@ -780,8 +787,8 @@ const formatDate_DDMMYYYY = (date) => {
 
         await pool.query(`DELETE FROM eds.EmployeeSupervisor WHERE employee_id = ?`, [req.params.employee_id]);
         const results = await pool.query(`DELETE FROM eds.Employees WHERE employee_id = ?`, [req.params.employee_id]);
-        res.redirect('/api/admin/employees');
-        // res.redirect('http://localhost:3000/api/admin/employees');
+        res.redirect('/api/admintalent/employees');
+        // res.redirect('http://localhost:3000/api/admintalent/employees');
 
         // if (results.deletedCount == 0) {
             // return res.status(statusCode_404_Not_Found).json({
