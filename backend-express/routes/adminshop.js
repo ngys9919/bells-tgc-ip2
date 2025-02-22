@@ -198,43 +198,7 @@ const pool = require('../database');
         });
 
     } catch (error) {
-        console.error("Error fetching shop record:", error);
-        res.status(statusCode_500_Internal_Server_Error);
-    }
-    });
-
-    // Implementing Read
-    // Implement a Route to Show Tests Records
-    router.get("/tests", async function(req,res){
-        try {
-            const people = 
-                {
-                  firstname: "Yehuda",
-                  lastname: "Katz",
-                  url: "https://www.google.com/",
-                  text: "See Website"
-                }; 
-
-            const general = 
-                {
-                    firstname: "Yehuda",
-                    lastname: "Katz",
-                    link1: "https://www.google.com/",
-                    text1: "Google Website",
-                    link2: "https://www.yahoo.com/",
-                    text2: "Yahoo Website"
-                };
-
-        res.render('shops/tests', {
-            'people': people,
-            'general': general,
-            'fetchURLEmployees': process.env.SERVER_URL + "/api/admin/employees",
-            'fetchURLContact': process.env.SERVER_URL + "/api/admin/contact",
-            'fetchURLSupervisor': process.env.SERVER_URL + "/api/admin/supervisor"
-        });
-
-    } catch (error) {
-        console.error("Error fetching shop record:", error);
+        console.error("Error fetching shop main record:", error);
         res.status(statusCode_500_Internal_Server_Error);
     }
     });

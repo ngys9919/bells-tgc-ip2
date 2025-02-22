@@ -171,33 +171,32 @@ const formatDate_DDMMYYYY = (date) => {
     });
 
     // Implementing Read
-    // Implement a Route to Show Tests Records
-    router.get("/tests", async function(req,res){
+    // Implement a Route to Show Sitemap Records
+    router.get("/sitemap", async function(req,res){
         try {
-            const people = 
+            const developer = 
                 {
-                  firstname: "Yehuda",
-                  lastname: "Katz",
-                  url: "https://www.google.com/",
-                  text: "See Website"
+                  firstname: "Eric Ng",
+                  lastname: "Yew Seng",
+                  url: "http://localhost:5173/",
+                  text: "AI-eShop Website"
                 }; 
 
-            const general = 
+            const administrator = 
                 {
-                    firstname: "Yehuda",
-                    lastname: "Katz",
-                    link1: "https://www.google.com/",
-                    text1: "Google Website",
-                    link2: "https://www.yahoo.com/",
-                    text2: "Yahoo Website"
+                    linkaieshop: "http://localhost:5173",
+                    textaieshop: "AI-eShop Landing Page",
+                    linkshopadmin: "/api/adminshop/main",
+                    textshopadmin: "Shop Admin",
+                    linktalentadmin: "/api/admintalent/main",
+                    texttalentadmin: "Talent Admin"
                 };
 
-        res.render('shops/tests', {
-            'people': people,
-            'general': general,
-            'fetchURLEmployees': process.env.SERVER_URL + "/api/admintalent/employees",
-            'fetchURLContact': process.env.SERVER_URL + "/api/admintalent/contact",
-            'fetchURLSupervisor': process.env.SERVER_URL + "/api/admintalent/supervisor"
+        res.render('shops/sitemap', {
+            'developer': developer,
+            'administrator': administrator,
+            'fetchURLAdminShop': process.env.SERVER_URL + "/api/adminshop/main",
+            'fetchURLAdminTalent': process.env.SERVER_URL + "/api/admintalent/main",
         });
 
     } catch (error) {

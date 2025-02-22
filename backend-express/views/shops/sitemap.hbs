@@ -1,0 +1,21 @@
+{{#extends "base"}}
+
+{{#block "title"}}Sites Administration{{/block}}
+
+{{#block "content"}}
+
+<h1>AI-eShop Sitemap</h1>
+</br>
+<div style="margin-top: 3.5vh; text-align: left; font-size: xx-large;">Frontend Site Links</div>
+<a target="_blank" {{attr 'href' administrator.linkaieshop}}><img style={ width='240px'; height='240px' } src="./../../img/ai-ecommerce.jpg" alt="AI-eShop PNG" class="link-icon" /></a>
+<a>{{link developer.text developer.url}}</a>
+<div style="margin-top: 3.5vh; text-align: left; font-size: xx-large;">Backend Site Links</div>
+<a target="_blank" {{attr 'href' administrator.linkshopadmin}}><img style={ width='240px'; height='240px' } src="./../../img/ai-eshop-management-system.png" alt="SDS PNG" class="link-icon" /></a>
+<div style="display: inline-block"><a class="nav-link" href={{fetchURLAdminShop}}>Shop Database System (SDS) Backend Admin</a></div>
+<div style="margin-top: 3.5vh;"></div>
+<a target="_blank" {{attr 'href' administrator.linktalentadmin}}><img style="width:240px; height: 240px;" src="./../../img/human-resource-management-system.png" alt="EDS PNG" class="link-icon" /></a>
+<div style="display: inline-block"><a class="nav-link" href={{{fetchURLAdminTalent}}}>Employees Database System (EDS) Backend Admin</a></div>
+</br>
+
+{{/block}}
+{{/extends}}

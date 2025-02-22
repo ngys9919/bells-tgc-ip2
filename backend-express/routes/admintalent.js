@@ -221,7 +221,7 @@ const formatDate_DDMMYYYY = (date) => {
         });
 
     } catch (error) {
-        console.error("Error fetching talent record:", error);
+        console.error("Error fetching talent main record:", error);
         res.status(statusCode_500_Internal_Server_Error);
     }
     });
