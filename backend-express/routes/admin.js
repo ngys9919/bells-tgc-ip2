@@ -3,6 +3,8 @@ const express = require('express');
 // const wax = require('wax-on');
 // require('dotenv').config();
 // const { createConnection } = require('mysql2/promise');
+const { graphqlHTTP } = require('express-graphql');
+const schema = require('./schema.js');
 
 // const port = 3000;
 
@@ -38,9 +40,9 @@ const router = express.Router();
 const pool = require('../database');
 
 function convertUTCDateToLocalDate(date) {
-    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+    var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
     newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-    return newDate;   
+    return newDate;
 }
 
 const formatDate_YYYYMMDD = (date) => {
@@ -61,28 +63,28 @@ const formatDate_DDMMYYYY = (date) => {
 
 
 // async function admin() {
-    // connection = await createConnection({
-    // connection = createConnection({
-    //     'host': process.env.DB_HOST,
-    //     'user': process.env.DB_USER,
-    //     'database': process.env.DB_NAME_EDS,
-    //     'password': process.env.DB_PASSWORD
-    // })
+// connection = await createConnection({
+// connection = createConnection({
+//     'host': process.env.DB_HOST,
+//     'user': process.env.DB_USER,
+//     'database': process.env.DB_NAME_EDS,
+//     'password': process.env.DB_PASSWORD
+// })
 
-    // console.log("MySQL Database connected (connection) !");
+// console.log("MySQL Database connected (connection) !");
 
-    router.get('/', (req,res) => {
-        // res.send('Hello, World!');
-        
-        // The 'res' response to the client can only sent once.
-        // Cannot set headers after they are sent to the client.
-        const data = {
-            title: "Backend with MySQL and Express!",
-            name: 'Ng Yew Seng',
-            email: 'ngys9919@yahoo.com'
-        };
+router.get('/', (req, res) => {
+    // res.send('Hello, World!');
 
-        const html = `
+    // The 'res' response to the client can only sent once.
+    // Cannot set headers after they are sent to the client.
+    const data = {
+        title: "Backend with MySQL and Express!",
+        name: 'Ng Yew Seng',
+        email: 'ngys9919@yahoo.com'
+    };
+
+    const html = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -164,53 +166,74 @@ const formatDate_DDMMYYYY = (date) => {
         </body>
         </html>
   `     ;
-  
-        res.header('Content-Type', 'text/html');
-        res.send(html);
 
-    });
+    res.header('Content-Type', 'text/html');
+    res.send(html);
 
-    // Implementing Read
-    // Implement a Route to Show Sitemap Records
-    router.get("/sitemap", async function(req,res){
+});
+
+// Use async/await instead of callbacks
+const root = {
+    users: async () => {
         try {
-            const developer = 
-                {
-                  firstname: "Eric Ng",
-                  lastname: "Yew Seng",
-                  url: "http://localhost:5173/",
-                  text: "AI-eShop Website"
-                }; 
+            const [rows] = await pool.query('SELECT * FROM aieshop2.users');
+            return rows;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
+    },
+};
 
-            const administrator = 
-                {
-                    linkaieshop: "http://localhost:5173",
-                    textaieshop: "AI-eShop Landing Page",
-                    linkshopadmin: "/api/adminshop/main",
-                    textshopadmin: "Shop Admin",
-                    linktalentadmin: "/api/admintalent/main",
-                    texttalentadmin: "Talent Admin"
-                };
+router.use('/graphql', graphqlHTTP({
+    schema,
+    rootValue: root,
+    graphiql: true,
+}));
+
+// Implementing Read
+// Implement a Route to Show Sitemap Records
+router.get("/sitemap", async function (req, res) {
+    try {
+        const developer =
+        {
+            firstname: "Eric Ng",
+            lastname: "Yew Seng",
+            url: "http://localhost:5173/",
+            text: "AI-eShop Website"
+        };
+
+        const administrator =
+        {
+            linkaieshop: "http://localhost:5173",
+            textaieshop: "AI-eShop Landing Page",
+            linkshopadmin: "/api/adminshop/main",
+            textshopadmin: "Shop Admin",
+            linktalentadmin: "/api/admintalent/main",
+            texttalentadmin: "Talent Admin",
+            linkdatabase: "/api/admin/graphql",
+            textdatabase: "Database GraphiQL"
+        };
 
         res.render('shops/sitemap', {
             'developer': developer,
             'administrator': administrator,
             'fetchURLAdminShop': process.env.SERVER_URL + "/api/adminshop/main",
             'fetchURLAdminTalent': process.env.SERVER_URL + "/api/admintalent/main",
+            'fetchURLDatabase': process.env.SERVER_URL + "/api/admin/graphql",
         });
 
     } catch (error) {
         console.error("Error fetching tests record:", error);
         res.status(statusCode_500_Internal_Server_Error);
     }
-    });
+});
 
-    // 3. START SERVER (Don't put any routes after this line)
-    // app.listen(3000, function () {
-    // app.listen(3000, ()=>{
-    // app.listen(port, function () {
-    //     console.log("Server is running at port:" + port);
-    // });
+// 3. START SERVER (Don't put any routes after this line)
+// app.listen(3000, function () {
+// app.listen(3000, ()=>{
+// app.listen(port, function () {
+//     console.log("Server is running at port:" + port);
+// });
 // }
 
 // main();
