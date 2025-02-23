@@ -194,11 +194,11 @@ const pool = require('../database');
     router.get("/main", async function(req,res){
         try {
     
-        res.render('layouts/main', {
+        res.render('shops/dashboard', {
         });
 
     } catch (error) {
-        console.error("Error fetching shop main record:", error);
+        console.error("Error fetching shop dashboard record:", error);
         res.status(statusCode_500_Internal_Server_Error);
     }
     });
@@ -220,11 +220,39 @@ const pool = require('../database');
     // Implement a Route to Show Orders Records
     router.get("/orders", async function(req,res){
         try {
-            res.redirect('/api/adminshop/main');
-            // res.redirect('http://localhost:3000/api/adminshop/main');
+            res.render('shops/orders', {
+            });
 
     } catch (error) {
-        console.error("Error fetching order record:", error);
+        console.error("Error fetching orders record:", error);
+        res.status(statusCode_500_Internal_Server_Error);
+    }
+    });
+
+    // Implementing Read
+    // Implement a Route to Show Payments Records
+    router.get("/payments", async function(req,res){
+        try {
+    
+        res.render('shops/payments', {
+        });
+
+    } catch (error) {
+        console.error("Error fetching shop payments record:", error);
+        res.status(statusCode_500_Internal_Server_Error);
+    }
+    });
+
+    // Implementing Read
+    // Implement a Route to Show Reports Records
+    router.get("/reports", async function(req,res){
+        try {
+    
+        res.render('shops/reports', {
+        });
+
+    } catch (error) {
+        console.error("Error fetching shop reports record:", error);
         res.status(statusCode_500_Internal_Server_Error);
     }
     });

@@ -1,0 +1,274 @@
+{{#extends "sidebar"}}
+
+{{#block "title"}}Reports{{/block}}
+
+{{!-- <head>
+    <link href="./../../public/css/styles.css" rel="stylesheet" />
+</head> --}}
+
+{{#block "content2"}}
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <!-- Updated Logo and Brand Section -->
+        <a class="navbar-brand ps-3 logo-container" href="#"><img src="./../../img/bells_logo.jpg" alt="BELLS Logo"
+                class="bells-logo">&nbspAI-eShop</a>
+
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+{{/block}}
+
+{{#block "content"}}
+<div id="layoutSidenav_content">
+    <main>
+        <!-- Main Content -->
+        {{!-- <div class="col-md-10 p-4"> --}}
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Reports</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">&#128512 Tagline:</li>
+                        <h4>'Discover amazing products at unbeatable prices!'</h4>
+                    </ol>
+
+                    <!-- Main Content - adjusted width -->
+                    <div class="row">
+                        <div class="col-6">
+                            {{!-- <h5>&#128512 Tagline: 'Discover amazing products at
+                                unbeatable prices!'</h5> --}}
+                            <!-- still thinking what to put in -->
+                        </div>
+                        <div class="col-6 profile-section">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <span class="me-2">Administrator &nbsp &nbsp </span>
+                            {{!-- <span class="text-muted" id="clock">Today : 3 February
+                                2025</span> --}}
+                            <p style="text-align: right;" id="clock"></p>
+                        </div>
+                    </div>
+            
+            <a href="/api/adminshop/main" class="btn btn-outline-primary">Back to Dashboard</a>
+            <h1><i class="fa-solid fa-clipboard-list"></i> AI-eShop Monthly Reports</h1>
+
+            <div class="row">
+                <!-- Stats Cards -->
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="text-muted">Total Sales Revenue</div>
+                                <div class="stats-value">$51,789
+                                </div>
+                            </div>
+                            <i class="fas fa-dollar-sign fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="text-muted">Total Up-to-Date Orders</div>
+                                <div class="stats-value">1,432
+                                </div>
+                            </div>
+                            <i class="fas fa-chart-line fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="text-muted">Monthly Up-to-Date Orders
+                                </div>
+                                <div class="stats-value">456</div>
+                            </div>
+                            <i class="fas fa-receipt fa-2x text-info"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="text-muted">Order Errors</div>
+                                <div class="stats-value">
+                                    13</div>
+                            </div>
+                            <i class="fa-solid fa-clipboard-list fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Cards -->
+                {{!-- <div class="col-md-3 mb-4">
+                    <div class="card dashboard-card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Up-to-Date Orders</h5>
+                            <p class="card-text display-6" id="userCount">1,234</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card dashboard-card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Sales Revenue</h5>
+                            <p class="card-text display-6" id="revenueCount">$45,678</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card dashboard-card bg-warning text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Monthly Up-to-Date Orders</h5>
+                            <p class="card-text display-6" id="salesCount">789</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card dashboard-card bg-danger text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">Order Errors</h5>
+                            <p class="card-text display-6" id="errorCount">12</p>
+                        </div>
+                    </div>
+                </div> --}}
+            </div>
+
+            <!-- Charts and Tables Section -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Recent Website Activity
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activityTable">
+                                    <tr>
+                                        <td>Last User Login</td>
+                                        <td>2:31 PM</td>
+                                        <td><span class="badge bg-success">Success</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Order</td>
+                                        <td>7:59 AM</td>
+                                        <td><span class="badge bg-primary">Completed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Monthly Sales Up-To-Date
+                        </div>
+                        <div class="card-body">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; AI-eShop Website 2025</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+</div>
+{{/block}}
+{{/extends}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="./../../public/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    // Chart.js example
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+                label: 'Performance',
+                data: [1, 15, 12, 12, 11, 15],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        }
+    });
+
+    /* to handle sign out from dashboard back to admin login page by using onclick*/
+    function handleSignOut() {
+        // Clear any stored session data
+        localStorage.clear();
+        sessionStorage.clear();
+        // Redirect to login page
+        // window.location.href = 'index.html';
+        window.location.href = 'http://localhost:5173';
+    }
+
+    function convertUTCDateToLocalDate(date) {
+        let newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+        newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        return newDate;
+    }
+
+    function ticktockClock() {
+        let user_now = Date.now();
+        // console.log('Time1:', user_now);
+        let now_date = new Date(parseInt(user_now));
+        // console.log('Time2:', now_date);
+        let now_datetime = convertUTCDateToLocalDate(new Date(now_date)); // this work
+        // console.log('Time3:', now_datetime);
+        // now_datetime = now_datetime.toLocaleString();
+        console.log('Current Date/Time:', now_datetime);
+        document.getElementById('clock').textContent = `Now: ${now_datetime}`;
+    }
+
+    setInterval(ticktockClock, 1000);
+</script>

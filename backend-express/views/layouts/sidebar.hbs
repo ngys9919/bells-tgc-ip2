@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="/bells_icon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{#block "title"}}{{/block}}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="./../../css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bells-logo {
+            width: 48px;
+            /* Adjust size as needed */
+            height: 48px;
+            border-radius: 5px;
+            /* Optional: if want slightly rounded corners */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: flex;
+            background-color: #c2442b;
+            padding-top: 20px;
+        }
+
+        .sidebar-icon {
+            color: white;
+            padding: 10px;
+            margin: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-icon:hover {
+            background-color: #0f3434;
+            border-radius: 5px;
+        }
+
+        .sidebar-icon i {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .sidebar-icon span {
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Rest of the styles */
+        .stats-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            background-color: rgba(235, 225, 225, 0.413);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 320px;
+            position: relative;
+        }
+
+        .profile-section {
+            text-align: right;
+            padding: 10px;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 16px;
+        }
+
+        .status-cancelled {
+            background-color: #0e0d07;
+            color: #8A6D3B;
+        }
+
+        .status-shipping {
+            background-color: #473f18;
+            color: #8A6D3B;
+        }
+
+        .status-completed {
+            background-color: #DFF0D8;
+            color: #3C763D;
+        }
+
+        .status-processing {
+            background-color: #e9cf4d;
+            color: #edaa38;
+        }
+
+        .status-pending {
+            background-color: #FCF8E3;
+            color: #8A6D3B;
+        }
+
+        .status-created {
+            background-color: #eec50a;
+            color: #352407;
+        }
+    </style>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+    }
+    .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    .status {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    .shipping {
+        background-color: #f2f1ea;
+        color: #8A6D3B;
+    }
+    .completed {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .processing {
+        background-color: #e9cf4d;
+        color: #bf8521;
+    }
+    .pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    .created {
+        background-color: #cce5ff;
+        color: #004085;
+    }
+
+    .promotion-tag {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        background-color: #e9ecef;
+        color: #495057;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+    .btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-view {
+        background-color: #007bff;
+        color: white;
+    }
+    .btn-edit {
+        background-color: #28a745;
+        color: white;
+    }
+</style>
+
+</head>
+
+<body class="sb-nav-fixed">
+    {{#block "content2"}}{{/block}}
+    {{!-- <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <!-- Updated Logo and Brand Section -->
+        <a class="navbar-brand ps-3 logo-container" href="#"><img src="./../../img/bells_logo.jpg" alt="BELLS Logo"
+                class="bells-logo">&nbspAI-eShop</a>
+
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav> --}}
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                {{!-- <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion"> --}}
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="/api/adminshop/main">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="/api/adminshop/orders">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i>
+                                </div>
+                                Orders
+                            </a>
+                            <a class="nav-link" href="/api/adminshop/payments">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i>
+                                </div>
+                                Payments
+                            </a>
+                            <a class="nav-link" href="/api/adminshop/reports">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i>
+                                </div>
+                                Reports
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Layouts
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-sidenav-dark.html">Dark Theme</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Light Theme</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Pages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                        data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                                        aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                                        </div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                        data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                        data-bs-target="#pagesCollapseError" aria-expanded="false"
+                                        aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
+                                        </div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                                        data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="./../../html/charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="./../../html/tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                        <div class="sidebar-icon" onclick="handleSignOut()">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>Signout</span>
+                        </div>
+                    </div>
+
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        admin@aieshop.com.sg
+                    </div>
+                </nav>
+        </div>
+        {{#block "content"}}{{/block}}
+        {{!-- <div id="layoutSidenav_content"> --}}
+            {{!-- <main> --}}
+            {{!-- {{#block "content"}}{{/block}} --}}
+            {{!-- </main> --}}
+            {{!-- <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; AI-eShop Website 2025</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer> --}}
+        {{!-- </div> --}}
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="./../../js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+    crossorigin="anonymous"></script>
+<script src="./../../js/datatables-simple-demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    window.onload = function () {
+        // Line Chart Example
+        const mylinectx = document.getElementById("myLineChart");
+        const myLineChart = new Chart(mylinectx, {
+            type: 'line',
+            data: {
+                labels: ['12AM', '1AM', '2AM', '3AM', '4AM', '5AM', '6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM', '9PM', '10PM', '11PM'],
+                datasets: [{
+                    label: 'Sales ($)',
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(2,117,216,0.2)",
+                    borderColor: "rgba(2,117,216,1)",
+                    pointRadius: 5,
+                    pointBackgroundColor: "rgba(2,117,216,1)",
+                    pointBorderColor: "rgba(255,255,255,0.8)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                    pointHitRadius: 50,
+                    pointBorderWidth: 2,
+                    data: [0, 10, 15, 12, 18, 24, 22, 30, 38, 40, 50, 20, 35, 48, 24, 22, 30, 38],
+                }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 40000,
+                            maxTicksLimit: 5
+                        },
+                        gridLines: {
+                            color: "rgba(0, 0, 0, .125)",
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        // Pie Chart Example
+        const mypiectx = document.getElementById("myPieChart");
+        const myPieChart = new Chart(mypiectx, {
+            type: 'pie',
+            data: {
+                labels: ['AI-Book', 'AI-Image', 'AI-Music', 'AI-Video'],
+                datasets: [{
+                    data: [45, 18, 15, 20],
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+    };
+
+    /* to handle sign out from dashboard back to admin login page by using onclick*/
+    function handleSignOut() {
+        // Clear any stored session data
+        localStorage.clear();
+        sessionStorage.clear();
+        // Redirect to login page
+        // window.location.href = 'index.html';
+        window.location.href = 'http://localhost:5173';
+    }
+
+    // Dynamic data update example
+    function updateDashboard() {
+        // Simulate data updates
+        document.getElementById('salesCount').textContent = '$' + Math.floor(Math.random() * 3000);
+        document.getElementById('ordersCount').textContent = Math.floor(Math.random() * 100);
+        document.getElementById('avgOrderValueCount').textContent = '$' + Math.floor(Math.random() * 200);
+        document.getElementById('qtyPopularCount').textContent = 'AI-Book' + '(' + Math.floor(Math.random() * 50) + ')';
+    }
+
+    // Update dashboard every 5 seconds
+    setInterval(updateDashboard, 5000);
+
+    function convertUTCDateToLocalDate(date) {
+        let newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+        newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        return newDate;
+    }
+
+    function ticktockClock() {
+        let user_now = Date.now();
+        // console.log('Time1:', user_now);
+        let now_date = new Date(parseInt(user_now));
+        // console.log('Time2:', now_date);
+        let now_datetime = convertUTCDateToLocalDate(new Date(now_date)); // this work
+        // console.log('Time3:', now_datetime);
+        // now_datetime = now_datetime.toLocaleString();
+        console.log('Current Date/Time:', now_datetime);
+        document.getElementById('clock').textContent = `Now: ${now_datetime}`;
+    }
+
+    setInterval(ticktockClock, 1000);
+</script>
+
+</html>

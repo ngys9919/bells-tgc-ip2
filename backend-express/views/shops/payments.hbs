@@ -1,6 +1,6 @@
 {{#extends "sidebar"}}
 
-{{#block "title"}}Orders{{/block}}
+{{#block "title"}}Payments{{/block}}
 
 {{!-- <head>
     <link href="./../../public/css/styles.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
         <!-- Main Content -->
         {{!-- <div class="col-md-10 p-4"> --}}
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Orders</h1>
+            <h1 class="mt-4">Payments</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">&#128512 Tagline:</li>
                         <h4>'Discover amazing products at unbeatable prices!'</h4>
@@ -73,9 +73,9 @@
                         </div>
                     </div>
     <a href="/api/adminshop/main" class="btn btn-outline-primary">Back to Dashboard</a>
-
+    
 <div class="container">
-<h1><i class="fa-solid fa-list"></i> AI-eShop Orders List</h1>
+<h1><i class="fa-solid fa-gear"></i> AI-eShop Payments List</h1>
 {{!-- <a href="/api/adminshop/main" class="btn btn-outline-primary">Back to Dashboard</a> --}}
 <table>
     <thead>
@@ -92,51 +92,6 @@
     </thead>
     <tbody>
         <tr>
-            <td>#1239</td>
-            <td>AI-Video</td>
-            <td>蛋炒饭 <span class="promotion-tag">Sale Item</span></td>
-            <td>19:05:40</td>
-            <td>$0.39</td>
-            <td>Eric Ng</td>
-            <td><span class="status created">New Order</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1235</td>
-            <td>AI-Book</td>
-            <td>AI Crash Course <span class="promotion-tag">Popular Item</span></td>
-            <td>17:09:31</td>
-            <td>$48.99</td>
-            <td>Andrew Ng</td>
-            <td><span class="status pending">Pending</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1236</td>
-            <td>AI-Image</td>
-            <td>glowing train <span class="promotion-tag">Special Item</span></td>
-            <td>17:09:31</td>
-            <td>$4.99</td>
-            <td>Ng Yew Seng</td>
-            <td><span class="status pending">Pending</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
             <td>#1237</td>
             <td>AI-Video</td>
             <td>蛋炒饭 <span class="promotion-tag">Sale Item</span></td>
@@ -152,66 +107,6 @@
             </td>
         </tr>
         <tr>
-            <td>#1238</td>
-            <td>AI-Image</td>
-            <td>regal woman<span class="promotion-tag"></span></td>
-            <td>02:52:54</td>
-            <td>$2.99</td>
-            <td>Andrew Ng</td>
-            <td><span class="status processing">Processing</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1240</td>
-            <td>AI-Video</td>
-            <td>西海情歌 <span class="promotion-tag"></span></td>
-            <td>19:36:47</td>
-            <td>$2.99</td>
-            <td>Eric Ng</td>
-            <td><span class="status cancelled">Cancelled</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1241</td>
-            <td>AI-Music</td>
-            <td>A is for Amazing <span class="promotion-tag">Popular Item</span></td>
-            <td>19:36:47</td>
-            <td>$0.99</td>
-            <td>Felix</td>
-            <td><span class="status cancelled">Cancelled</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1242</td>
-            <td>AI-Book</td>
-            <td>Learn AI-Assisted Python Programming with GitHub Copilot: With GitHub Copilot and ChatGPT <span class="promotion-tag">Popular Item</span></td>
-            <td>21:37:48</td>
-            <td>$39.99</td>
-            <td>Eric Ng</td>
-            <td><span class="status shipping">Shipping</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
             <td>#1243</td>
             <td>AI-Music</td>
             <td>Do, Re, Mi, Fa, Sol, La, Ti, Do (Remastered) <span class="promotion-tag">Special Item</span></td>
@@ -219,53 +114,6 @@
             <td>$1.99</td>
             <td>Mabel</td>
             <td><span class="status completed">Completed</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1244</td>
-            <td>AI-Book</td>
-            <td>AI Crash Course <span class="promotion-tag">Popular Item</span></td>
-            <td>02:13:06</td>
-            <td>$48.99</td>
-            <td>Eric Ng Yew Seng</td>
-            <td><span class="status processing">Processing</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1245</td>
-            <td>AI-Book</td>
-            <td>225 AI Powered Prompts:: Boost Your Business 
-                with Digital Products, Landing Pages, and
-                Social Media Ideas<span class="promotion-tag"></span></td>
-            <td>19:51:17</td>
-            <td>$34.47</td>
-            <td>Andrew Ng</td>
-            <td><span class="status pending">Pending</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>
-                    <button class="btn btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>#1251</td>
-            <td>AI-Book</td>
-            <td>Learn Ai-Assisted Python Programming, Second Edition <span class="promotion-tag">Popular Item</span></td>
-            <td>19:14:41</td>
-            <td>$67.39</td>
-            <td>Eric Ng</td>
-            <td><span class="status cancelled">Cancelled</span></td>
             <td>
                 <div class="action-buttons">
                     <button class="btn btn-view"><i class="fa-solid fa-eye"></i> View</button>

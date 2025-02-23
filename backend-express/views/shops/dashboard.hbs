@@ -1,113 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{{#extends "sidebar"}}
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Favicon-->
-    <link rel="shortcut icon" type="image/x-icon" href="/bells_icon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{#block "title"}}{{/block}}</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <link href="./../../css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <style>
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+{{#block "title"}}Dashboard{{/block}}
 
-        .bells-logo {
-            width: 48px;
-            /* Adjust size as needed */
-            height: 48px;
-            border-radius: 5px;
-            /* Optional: if want slightly rounded corners */
-        }
+{{!-- <head>
+    <link href="./../../public/css/styles.css" rel="stylesheet" />
+</head> --}}
 
-        /* Sidebar */
-        .sidebar {
-            height: flex;
-            background-color: #c2442b;
-            padding-top: 20px;
-        }
-
-        .sidebar-icon {
-            color: white;
-            padding: 10px;
-            margin: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: background-color 0.3s;
-        }
-
-        .sidebar-icon:hover {
-            background-color: #0f3434;
-            border-radius: 5px;
-        }
-
-        .sidebar-icon i {
-            width: 20px;
-            margin-right: 10px;
-        }
-
-        .sidebar-icon span {
-            color: white;
-            font-size: 16px;
-        }
-
-        /* Rest of the styles */
-        .stats-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .stats-value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .chart-container {
-            background-color: rgba(235, 225, 225, 0.413);
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            height: 320px;
-            position: relative;
-        }
-
-        .profile-section {
-            text-align: right;
-            padding: 10px;
-        }
-
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 16px;
-        }
-
-        .status-completed {
-            background-color: #DFF0D8;
-            color: #3C763D;
-        }
-
-        .status-preparing {
-            background-color: #FCF8E3;
-            color: #8A6D3B;
-        }
-    </style>
-</head>
-
-<body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+{{#block "content2"}}
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <!-- Updated Logo and Brand Section -->
         <a class="navbar-brand ps-3 logo-container" href="#"><img src="./../../img/bells_logo.jpg" alt="BELLS Logo"
@@ -141,118 +41,9 @@
             </li>
         </ul>
     </nav>
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                {{!-- <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion"> --}}
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i>
-                                </div>
-                                Dashboard
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-list"></i>
-                                </div>
-                                Orders
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i>
-                                </div>
-                                Payments
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i>
-                                </div>
-                                Reports
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-sidenav-dark.html">Dark Theme</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Theme</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                                data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                        data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                        aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
-                                        </div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                        data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                        data-bs-target="#pagesCollapseError" aria-expanded="false"
-                                        aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i>
-                                        </div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
-                                        data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="./../../html/charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="./../../html/tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                        <div class="sidebar-icon" onclick="handleSignOut()">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>Signout</span>
-                        </div>
-                    </div>
+{{/block}}
 
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        admin@aieshop.com.sg
-                    </div>
-                </nav>
-        </div>
-        {{!-- <header>
-            <h1>My Web App</h1>
-        </header>
-        <div class="container">
-            {{#block "content"}}{{/block}}
-        </div> --}}
+{{#block "content"}}
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -458,7 +249,7 @@
                                         <td>AI Crash Course</td>
                                         <td>$48.99</td>
                                         <td>Andrew Ng</td>
-                                        <td><span class="status-badge status-preparing">Pending</span>
+                                        <td><span class="status-badge status-pending">Pending</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -471,7 +262,7 @@
                                         <td>glowing train</td>
                                         <td>$4.99</td>
                                         <td>Ng Yew Seng</td>
-                                        <td><span class="status-badge status-completed">Pending</span>
+                                        <td><span class="status-badge status-pending">Pending</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -497,7 +288,7 @@
                                         <td>regal woman</td>
                                         <td>$2.99</td>
                                         <td>Andrew Ng</td>
-                                        <td><span class="status-badge status-preparing">Processing</span>
+                                        <td><span class="status-badge status-processing">Processing</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -510,7 +301,7 @@
                                         <td>蛋炒饭</td>
                                         <td>$0.39</td>
                                         <td>Eric Ng</td>
-                                        <td><span class="status-badge status-completed">Created</span>
+                                        <td><span class="status-badge status-created">Created</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -536,7 +327,7 @@
                                         <td>A is for Amazing</td>
                                         <td>$0.99</td>
                                         <td>Felix</td>
-                                        <td><span class="status-badge status-preparing">Cancelled</span>
+                                        <td><span class="status-badge status-cancelled">Cancelled</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -551,7 +342,7 @@
                                             ChatGPT</td>
                                         <td>$69.71</td>
                                         <td>Felix</td>
-                                        <td><span class="status-badge status-completed">Pending</span>
+                                        <td><span class="status-badge status-pending">Pending</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -578,7 +369,7 @@
                                         <td>AI Crash Course</td>
                                         <td>$48.99</td>
                                         <td>Eric Ng Yew Seng</td>
-                                        <td><span class="status-badge status-preparing">Processing</span>
+                                        <td><span class="status-badge status-processing">Processing</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -593,7 +384,7 @@
                                             Social Media Ideas</td>
                                         <td>$34.47</td>
                                         <td>Andrew Ng</td>
-                                        <td><span class="status-badge status-completed">Pending</span>
+                                        <td><span class="status-badge status-pending">Pending</span>
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary">Details</button>
@@ -618,12 +409,14 @@
                 </div>
             </footer>
         </div>
-</body>
+{{/block}}
+{{/extends}}
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-<script src="./../../js/scripts.js"></script>
+<script src="./../../public/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
     crossorigin="anonymous"></script>
-<script src="./../../js/datatables-simple-demo.js"></script>
+<script src="./../../public/js/datatables-simple-demo.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
     window.onload = function () {
@@ -700,7 +493,7 @@
             }
         });
 
-    };
+    // };
 
     /* to handle sign out from dashboard back to admin login page by using onclick*/
     function handleSignOut() {
@@ -708,7 +501,8 @@
         localStorage.clear();
         sessionStorage.clear();
         // Redirect to login page
-        window.location.href = 'index.html';
+        // window.location.href = 'index.html';
+        window.location.href = 'http://localhost:5173';
     }
 
     // Dynamic data update example
@@ -738,10 +532,10 @@
         // console.log('Time3:', now_datetime);
         // now_datetime = now_datetime.toLocaleString();
         console.log('Current Date/Time:', now_datetime);
-        document.getElementById('clock').textContent = `Current Date/Time: ${now_datetime}`;
+        document.getElementById('clock').textContent = `Now: ${now_datetime}`;
     }
 
     setInterval(ticktockClock, 1000);
+    
+    };
 </script>
-
-</html>
