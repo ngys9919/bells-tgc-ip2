@@ -1,0 +1,11 @@
+@mixin custom-border($color) {
+    border: 1px solid $color;
+}
+
+.divCustom {
+    @include custom-border(red);
+}
+
+.pCustom {
+    @include custom-border(blue);
+}

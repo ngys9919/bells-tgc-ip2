@@ -32,6 +32,16 @@ app.use(easySession.main(session));
 // (2) Middleware for applying logHttpUrl to all routes
 router.use(logHttpUrl);
 
+// GET all Users Profile
+router.get('/', async (req, res) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // POST register a new user
 router.post('/register', async (req, res) => {
   try {

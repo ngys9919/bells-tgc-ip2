@@ -61,6 +61,19 @@ function SuperUser() {
     fetchAdmin();
   }, []);
 
+  // const handleUsersProfile = () => {
+  //   // Redirect to Backend
+  //   // window.location.href = `${import.meta.env.VITE_API_URL}/api/adminshop/main`;
+  //   let usersprofileTypeHeader = <></>;
+  //   usersprofileTypeHeader = (
+  //     <>
+  //     <MyComponent1/>
+  //     <MyComponent2/>
+  //     </>
+  //   );
+  //   return(usersprofileTypeHeader);
+  // };
+
   // API: Handle Backend
   const handleBackendShop = async () => {
     // Redirect to Backend
@@ -89,12 +102,9 @@ function SuperUser() {
  </div>
       { <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rawHTML) }} /> }
       <div className="text-center">
-      <button className="btn btn-success mr-2 my-2" onClick={handleBackendShop}>Proceed to Shop Backend</button>
-      {/* <button className="btn btn-success mr-2 my-2" onClick={handleBackendTalent}>Proceed to Talent Backend</button> */}
-      </div>
-      <div className="text-center">
-      {/* <button className="btn btn-success mr-2 my-2" onClick={handleBackendShop}>Proceed to Shop Backend</button> */}
-      <button className="btn btn-success mr-2 my-2" onClick={handleBackendTalent}>Proceed to Talent Backend</button>
+      <button style={{ margin: '0.5rem', padding: '0.5rem' }} className="btn btn-success mr-2 my-2" onClick={handleBackendShop}>Proceed to Shop Backend</button>
+      <button style={{ margin: '0.5rem', padding: '0.5rem' }} className="btn btn-success mr-2 my-2" onClick={handleBackendTalent}>Proceed to Talent Backend</button>
+      {/* <button style={{ margin: '0.5rem', padding: '0.5rem' }} className="btn btn-success mr-2 my-2" onClick={handleUsersProfile}>Users Profile</button> */}
       </div>
     </div>
     </>

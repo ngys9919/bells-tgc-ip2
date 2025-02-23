@@ -1,5 +1,10 @@
 const pool = require('../database');
 
+async function getAllUsers() {
+  const [rows] = await pool.query('SELECT * FROM aieshop2.users');
+  return rows;
+}
+
 async function getUserByEmail(email) {
   if (!email || typeof email !== 'string') {
     throw new Error('Invalid email');
@@ -96,6 +101,7 @@ async function updateUser(id, { name, email, password, salutation, country, mark
 }
 
 module.exports = {
+  getAllUsers,
   getUserByEmail,
   createUser,
   updateUser

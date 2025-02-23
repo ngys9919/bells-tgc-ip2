@@ -8,6 +8,17 @@ import { useItem } from './ItemStore';
 import { useLoginUsername } from './UserStore';
 import { Link, useLocation } from 'wouter';
 
+import MyComponent1 from './UsersProfile.jsx';
+import MyComponent2 from './UsersProfileInput.jsx';
+
+// use either index.scss or index.sass
+// import './index.scss';
+import './index.sass';
+
+// use either style.scss or style.sass
+import './style.scss';
+// import './style.sass';
+
 function SearchPage() {
 
   const { showMessage } = useFlashMessage();
@@ -789,7 +800,13 @@ function SearchPage() {
             </table>
         {/* </div> */}
       </div>
-
+      
+      <div className="mb-3">
+      <h1 className="text-center mb-4">Complete List of AI-eShop Users</h1>
+      {/* <MyComponent2/> */}
+      <h1>Users Profile</h1>
+      <MyComponent1/>
+      </div>
     </div>
     </>
   );

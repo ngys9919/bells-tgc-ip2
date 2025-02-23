@@ -126,94 +126,112 @@
     </style>
 
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f5f5f5;
-    }
-    .container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    h1 {
-        color: #333;
-        margin-bottom: 20px;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-    th {
-        background-color: #f8f9fa;
-        font-weight: bold;
-    }
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-    .status {
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-size: 14px;
-    }
-    .cancelled {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-    .shipping {
-        background-color: #f2f1ea;
-        color: #8A6D3B;
-    }
-    .completed {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    .processing {
-        background-color: #e9cf4d;
-        color: #bf8521;
-    }
-    .pending {
-        background-color: #fff3cd;
-        color: #856404;
-    }
-    .created {
-        background-color: #cce5ff;
-        color: #004085;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
 
-    .promotion-tag {
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        background-color: #e9ecef;
-        color: #495057;
-    }
-    .action-buttons {
-        display: flex;
-        gap: 10px;
-    }
-    .btn {
-        padding: 6px 12px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .btn-view {
-        background-color: #007bff;
-        color: white;
-    }
-    .btn-edit {
-        background-color: #28a745;
-        color: white;
-    }
-</style>
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .shipping {
+            background-color: #f2f1ea;
+            color: #8A6D3B;
+        }
+
+        .completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .processing {
+            background-color: #e9cf4d;
+            color: #bf8521;
+        }
+
+        .pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .created {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .promotion-tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-view {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
 
 </head>
 
@@ -337,7 +355,7 @@
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            {{!-- <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="./../../html/charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
@@ -345,7 +363,7 @@
                             <a class="nav-link" href="./../../html/tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="sidebar-icon" onclick="handleSignOut()">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -362,8 +380,8 @@
         {{#block "content"}}{{/block}}
         {{!-- <div id="layoutSidenav_content"> --}}
             {{!-- <main> --}}
-            {{!-- {{#block "content"}}{{/block}} --}}
-            {{!-- </main> --}}
+                {{!-- {{#block "content"}}{{/block}} --}}
+                {{!-- </main> --}}
             {{!-- <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
@@ -376,7 +394,7 @@
                     </div>
                 </div>
             </footer> --}}
-        {{!-- </div> --}}
+            {{!-- </div> --}}
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 <script src="./../../js/scripts.js"></script>
