@@ -179,7 +179,35 @@ const root = {
             const [rows] = await pool.query('SELECT * FROM aieshop2.users');
             return rows;
         } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
+            throw new Error('Database query failed for users: ' + error.message);
+        }
+    },
+    orders: async () => {
+        try {
+            const [rows] = await pool.query('SELECT orders.id, users.name, orders.total, orders.status, orders.checkout_session_id, orders.created_at FROM aieshop2.orders JOIN aieshop2.users ON orders.user_id = users.id');
+            return rows;
+        } catch (error) {
+            throw new Error('Database query failed for orders: ' + error.message);
+        }
+    },
+    products: async () => {
+        try {
+            // const [rows] = await pool.query('SELECT * FROM aieshop2.aiproducts');
+            const [rows] = await pool.query(`SELECT ai.id,
+                                    c.type AS type_id,
+                                    ai.productID,
+                                    ai.source_table,
+                                    COALESCE(a.title, i.title, m.title, v.title) AS title
+                                    FROM aieshop2.aiproducts ai
+                                    JOIN aieshop2.category c ON ai.productCodeID = c.id
+                                    LEFT JOIN aieshop2.aibooks a ON ai.source_table = 'aibooks' AND ai.productID = a.id
+                                    LEFT JOIN aieshop2.aiimage i ON ai.source_table = 'aiimage' AND ai.productID = i.id
+                                    LEFT JOIN aieshop2.aimusic m ON ai.source_table = 'aimusic' AND ai.productID = m.id
+                                    LEFT JOIN aieshop2.aivideo v ON ai.source_table = 'aivideo' AND ai.productID = v.id;
+                                  `);
+            return rows;
+        } catch (error) {
+            throw new Error('Database query failed for products: ' + error.message);
         }
     },
 };
@@ -223,7 +251,7 @@ router.get("/sitemap", async function (req, res) {
         });
 
     } catch (error) {
-        console.error("Error fetching tests record:", error);
+        console.error("Error fetching sitemap record:", error);
         res.status(statusCode_500_Internal_Server_Error);
     }
 });
