@@ -44,13 +44,21 @@ export function useLoginUsername() {
     // return storedLoginUsername;
   };
 
-  const getCurrentLoginUsername = () => {
+  const getCurrentLoginUsername2 = () => {
     // console.log(loginUsername);
     return loginUsername;
   };
 
-  return { loginUsername, setLoginUsername, getLoginUsername, setCurrentLoginUsername, storeLoginUsername, getCurrentLoginUsername };
-  // return { loginUsername, setLoginUsername, setDefaultLoginUsername, getCurrentLoginUsername };
+  const getCurrentLoginUsername = () => {
+    const storedLoginUsername = localStorage.getItem('loginUser');
+    // if (storedLoginUsername && !loginUsername) {
+    //   setLoginUsernameAtom(storedLoginUsername);
+    // }
+    return storedLoginUsername;
+  };
+
+  return { loginUsername, setLoginUsername, getLoginUsername, setCurrentLoginUsername, storeLoginUsername, getCurrentLoginUsername, getCurrentLoginUsername2 };
+  // return { loginUsername, setLoginUsername, setDefaultLoginUsername, getCurrentLoginUsername, getCurrentLoginUsername2 };
 }
 
 export function usePreviousLoginUser() {

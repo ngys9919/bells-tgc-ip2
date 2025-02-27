@@ -55,7 +55,8 @@ export const useCart = () => {
           });
       } catch (error) {
           console.error("Error updating cart:", error);
-          showMessage('Error updating cart!', 'error');
+          // Todo: This appear too frequent. Temporary commented out!
+          // showMessage('Error updating cart!', 'error');
       } finally {
           setIsLoading(false);
       }

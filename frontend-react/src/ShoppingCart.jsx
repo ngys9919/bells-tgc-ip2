@@ -8,9 +8,10 @@ import { useLoginUsername } from './UserStore';
 const ShoppingCart = () => {
   // const isFirstRender = useRef(true); // Track first render
 
-  const { getCurrentLoginUsername } = useLoginUsername();
-      
+  const { getCurrentLoginUsername2, getCurrentLoginUsername } = useLoginUsername();
+
   const  loginUsername = getCurrentLoginUsername();
+  // const  loginUsername = getCurrentLoginUsername2();
   // console.log(loginUsername);
 
   // const { cart, getCartTotal, modifyQuantity, removeFromCart, setCartContent } = useCart();

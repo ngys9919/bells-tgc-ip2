@@ -5,8 +5,9 @@ import { useProduct } from './ProductStore';
 import { Link, useLocation } from 'wouter';
 
 function Navbar() {
-  const { getCurrentLoginUsername } = useLoginUsername();
+  const { getCurrentLoginUsername2, getCurrentLoginUsername } = useLoginUsername();
   const loginUsername = getCurrentLoginUsername();
+  // const loginUsername = getCurrentLoginUsername2();
   // const { getPreviousLoginUser } = usePreviousLoginUser();
   // const loginUsername = getPreviousLoginUser();
 
@@ -18,9 +19,9 @@ function Navbar() {
   const { getCart } = useCart();
 
   const { getProduct, setCurrentProduct } = useProduct();
-  
+
   const product = getProduct(); // Retrieve product from the store
-  
+
   const [isNavbarShowing, setIsNavbarShowing] = useState(false);
   // returns the current URL
   const [location, setLocation] = useLocation();
@@ -62,7 +63,7 @@ function Navbar() {
   let url;
 
   let y = document.getElementById("loginlogout");
-  if (loginUsername === "Guest") {    
+  if (loginUsername === "Guest") {
     if (y)
       y.innerHTML = "Login";
   } else {
@@ -70,7 +71,7 @@ function Navbar() {
       y.innerHTML = "Logout";
   }
 
-  
+
 
   const isActiveLink = () => {
     // console.log(loginUsername);
@@ -79,11 +80,11 @@ function Navbar() {
     } else {
       url = "/logout";
     }
-    
+
     if (location == url) {
-        return "nav-link active"; // active is the class that set highlighting
+      return "nav-link active"; // active is the class that set highlighting
     } else {
-        return "nav-link";
+      return "nav-link";
     }
   }
 
@@ -106,21 +107,45 @@ function Navbar() {
     } else {
       // logout
       if (cart.length !== 0) {
-        if (confirm("Are you sure? You still have shopping cart not yet checkout!")) {
-          console.log("logout: You pressed OK!");
-          setLocation('/logout');
-        } else {
-          console.log("logout: You pressed Cancel!");
-          setLocation('/cart');
-        }       
+        // if (confirm("Are you sure? You still have shopping cart not yet checkout!")) {
+        //   console.log("logout: You pressed OK!");
+        //   setLocation('/logout');
+        // } else {
+        //   console.log("logout: You pressed Cancel!");
+        //   setLocation('/cart');
+        // }
+
+        // A confirm dialog, with a function attached to the "Confirm"-button
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You still have shopping cart not yet checkout!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, please proceed!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your shopping cart has been removed.",
+              icon: "success"
+            });
+            console.log("logout: You pressed confirmButton!");
+            setLocation('/logout');
+          } else {
+            console.log("logout: You pressed cancelButton!");
+            setLocation('/cart');
+          }
+        });
       } else {
-        setLocation('/logout');  
+        setLocation('/logout');
       }
     }
   }
 
   let z = document.getElementById("superuser");
-  if (loginSuperUser == "true") {    
+  if (loginSuperUser == "true") {
     if (z)
       z.innerHTML = "Admin";
   } else {
@@ -135,11 +160,11 @@ function Navbar() {
     } else {
       url = "";
     }
-    
+
     if (location == url) {
-        return "nav-link active"; // active is the class that set highlighting
+      return "nav-link active"; // active is the class that set highlighting
     } else {
-        return "nav-link";
+      return "nav-link";
     }
   }
 
@@ -150,13 +175,13 @@ function Navbar() {
       setLocation('/admin');
     } else {
       // SuperUser logout
-      setLocation('/');  
+      setLocation('/');
     }
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <div className="container px-4 px-lg-5">
+      <div className="container px-4 px-lg-5">
         <Link href="/" className="navbar-brand" onClick={turnoffDropdown}>AI-eShop</Link>
         <button
           className="navbar-toggler"
@@ -173,61 +198,61 @@ function Navbar() {
               </Link>
             </li>
             {/* <li className="nav-item"> */}
-              {/* <Link href="/products" className={`nav-link ${location === '/products' ? 'active' : ''}`}> */}
-                {/* Books */}
-              {/* </Link> */}
+            {/* <Link href="/products" className={`nav-link ${location === '/products' ? 'active' : ''}`}> */}
+            {/* Books */}
+            {/* </Link> */}
             {/* </li> */}
             <li className="nav-item dropdown">
-    <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClick} aria-expanded="false">AI-Books</a>
-    <ul className={`dropdown-menu ${showDropdown ? "show" : ""}`} aria-labelledby="navbarDropdown">
-        <li>
-          {/* <a class="dropdown-item" href="#!">All Products</a> */}
-          <Link href="/products" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
-            All Products
-          </Link>
-        </li>
-        <li><hr className="dropdown-divider" /></li>
-        <li>
-          {/* <a class="dropdown-item" href="#!">Popular Items</a> */}
-          <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
-            Popular Items
-          </Link>
-        </li>
-        <li>
-          {/* <a class="dropdown-item" href="#!">New Arrivals</a> */}
-          <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
-            New Arrivals
-          </Link>
-        </li>
-    </ul>
-</li>
+              <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClick} aria-expanded="false">AI-Books</a>
+              <ul className={`dropdown-menu ${showDropdown ? "show" : ""}`} aria-labelledby="navbarDropdown">
+                <li>
+                  {/* <a class="dropdown-item" href="#!">All Products</a> */}
+                  <Link href="/products" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
+                    All Products
+                  </Link>
+                </li>
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+                  {/* <a class="dropdown-item" href="#!">Popular Items</a> */}
+                  <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
+                    Popular Items
+                  </Link>
+                </li>
+                <li>
+                  {/* <a class="dropdown-item" href="#!">New Arrivals</a> */}
+                  <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClickBooksProducts}>
+                    New Arrivals
+                  </Link>
+                </li>
+              </ul>
+            </li>
 
-<li className="nav-item dropdown">
-    <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClickImage} aria-expanded="false">AI-Image</a>
-    <ul className={`dropdown-menu ${showDropdownImage ? "show" : ""}`} aria-labelledby="navbarDropdown">
-        <li>
-          {/* <a class="dropdown-item" href="#!">All Products</a> */}
-          <Link href="/products" className="dropdown-item" onClick={handleButtonClickImageProducts}>
-            All Products
-          </Link>
-        </li>
-        <li><hr className="dropdown-divider" /></li>
-        <li>
-          {/* <a class="dropdown-item" href="#!">Popular Items</a> */}
-          <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClickImageProducts}>
-            Popular Items
-          </Link>
-        </li>
-        <li>
-          {/* <a class="dropdown-item" href="#!">New Arrivals</a> */}
-          <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClickImageProducts}>
-            New Arrivals
-          </Link>
-        </li>
-    </ul>
-</li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" onClick={handleButtonClickImage} aria-expanded="false">AI-Image</a>
+              <ul className={`dropdown-menu ${showDropdownImage ? "show" : ""}`} aria-labelledby="navbarDropdown">
+                <li>
+                  {/* <a class="dropdown-item" href="#!">All Products</a> */}
+                  <Link href="/products" className="dropdown-item" onClick={handleButtonClickImageProducts}>
+                    All Products
+                  </Link>
+                </li>
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+                  {/* <a class="dropdown-item" href="#!">Popular Items</a> */}
+                  <Link href="/productsPopular" className="dropdown-item" onClick={handleButtonClickImageProducts}>
+                    Popular Items
+                  </Link>
+                </li>
+                <li>
+                  {/* <a class="dropdown-item" href="#!">New Arrivals</a> */}
+                  <Link href="/productsNewArrivals" className="dropdown-item" onClick={handleButtonClickImageProducts}>
+                    New Arrivals
+                  </Link>
+                </li>
+              </ul>
+            </li>
 
-<li className="nav-item">
+            <li className="nav-item">
               <Link href="/productsmusic" className={`nav-link ${location === '/productsmusic' ? 'active' : ''}`} onClick={turnoffDropdown}>
                 AI-Music
               </Link>
@@ -263,10 +288,10 @@ function Navbar() {
           </ul>
 
           <ul className="navbar-nav me-2 mb-2 mb-lg-0">
-          <li className="nav-item">
+            <li className="nav-item">
               <Link href="#" className={isActiveSuperUserLink()} id="superuser" onClick={superuserClick}></Link>
-          </li>
-          <li className="nav-item">
+            </li>
+            <li className="nav-item">
               <Link href="/register" className={`nav-link ${location === '/register' ? 'active' : ''}`} onClick={turnoffDropdown}>
                 Register
               </Link>
@@ -279,28 +304,28 @@ function Navbar() {
                 Login
               </Link> */}
               {/* <Link href={`${((loginUsername === "Guest") || (loginUsername === "null")) ?  "/login" : "/logout"}`} className={isActiveLink()} id="loginlogout" onClick={loginlogoutClick}> */}
-                {/* Login */}
+              {/* Login */}
               {/* </Link> */}
               <Link href="#" className={isActiveLink()} id="loginlogout" onClick={loginlogoutClick}></Link>
             </li>
-            
-          {/* <li className="nav-item">
+
+            {/* <li className="nav-item">
               <Link href="/cart" className={`nav-link ${location === '/cart' ? 'active' : ''}`}>
                 Cart
               </Link>
             </li> */}
-        </ul>
-            <form className="d-flex">
-    {/* <button className="btn btn-outline-dark" type="submit" onClick={handleCartBtnClick}> */}
-    <button className="btn btn-outline-dark" type="button" onClick={handleCartBtnClick}>
-        <i className="bi-cart-fill me-1"></i>
-        Cart
-        <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.reduce((total, item) => total + item.quantity, 0)}</span>
-    </button>
-</form>
-<span style={{ marginLeft: spacing + 'em'}} className="bg-dark text-white me-1 mb-2 mb-lg-0">&emsp;{loginUsername}&emsp;</span>  
+          </ul>
+          <form className="d-flex">
+            {/* <button className="btn btn-outline-dark" type="submit" onClick={handleCartBtnClick}> */}
+            <button className="btn btn-outline-dark" type="button" onClick={handleCartBtnClick}>
+              <i className="bi-cart-fill me-1"></i>
+              Cart
+              <span className="badge bg-dark text-white ms-1 rounded-pill">{cart.reduce((total, item) => total + item.quantity, 0)}</span>
+            </button>
+          </form>
+          <span style={{ marginLeft: spacing + 'em' }} className="bg-dark text-white me-1 mb-2 mb-lg-0">&emsp;{loginUsername}&emsp;</span>
         </div>
-        
+
       </div>
     </nav>
   );
