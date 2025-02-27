@@ -11,14 +11,6 @@ import { Link, useLocation } from 'wouter';
 import MyComponent1 from './UsersProfile.jsx';
 import MyComponent2 from './UsersProfileInput.jsx';
 
-// use either index.scss or index.sass
-// import './index.scss';
-import './index.sass';
-
-// use either style.scss or style.sass
-import './style.scss';
-// import './style.sass';
-
 function SearchPage() {
 
   const { showMessage } = useFlashMessage();

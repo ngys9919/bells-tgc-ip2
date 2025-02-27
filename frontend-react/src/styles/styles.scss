@@ -1,0 +1,23 @@
+// styles.scss
+
+// Using @import has deprecated warning:
+// Deprecation Warning [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+// Importing mixins for reuse
+// @import "./mixins"; // Adjust path as necessary based on your project structure
+
+
+// Replacing @import with @use for better handling of mixins
+@use "./mixins" as *; // This imports all mixins, variables, etc. from mixins.scss
+
+.divCustom {
+    @include custom-border(red); // Uses the mixin to apply a red border
+    margin: 20px;
+    background-color: #fff;
+}
+
+.pCustom {
+    @include custom-border(blue); // Uses the mixin to apply a blue border
+    font-size: 14px;
+    color: #222;
+}

@@ -1,6 +1,45 @@
 import React from 'react';
 import axios from 'axios';
 
+// 1. This is new format:
+// In your configuration file (e.g., vite.config.js)
+// import { defineConfig } from 'vite';
+
+// export default defineConfig({
+//   css: {
+//     preprocessorOptions: {
+//       sass: {
+//         additionalData: `
+//           $br: 25px;  // This will apply globally to all .sass files
+//         `,
+//       },
+//       scss: {
+//         additionalData: `
+//           @use "./src/styles/mixins.scss";  // Make sure path is correct
+//         `,
+//       },
+//     },
+//   },
+// });
+
+// In your component file (e.g., MyComponent1.js)
+import './styles/index.sass';  // Import Sass file for global styles
+import './styles/styles.scss';  // Import SCSS file for specific styles
+
+// 2. This is old format. It has deprecated code warning as follows:
+// Deprecation [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+// In your configuration file (e.g., vite.config.js)
+// No requirement.
+
+// In your component file (e.g., MyComponent1.js)
+// use either index.scss or index.sass (say, index.sass)
+// import './index.scss';
+// import './index.sass';
+// use either style.scss or style.sass (say, style.scss)
+// import './style.scss';
+// import './style.sass';
+
 import avatar from './assets/avatar.png'
 
 class MyComponent1 extends React.Component {

@@ -1,0 +1,9 @@
+// mixins.scss
+
+// Mixin for custom border with color
+@mixin custom-border($color) {
+    border: 1px solid $color;
+    padding: 8px;
+    border-radius: 5px;
+}
+  

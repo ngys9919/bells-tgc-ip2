@@ -27,4 +27,18 @@ export default defineConfig({
     },
   },
   base: '/',  // Ensure relative URLs are used
+  css: {
+    preprocessorOptions: {
+      sass: {
+        additionalData: `
+          $br: 25px;  // This will apply globally to all .sass files
+        `,
+      },
+      scss: {
+        additionalData: `
+          @use "./src/styles/mixins.scss";  // Make sure path is correct
+        `,
+      },
+    },
+  },
 })
