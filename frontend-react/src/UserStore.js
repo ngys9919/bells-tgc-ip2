@@ -50,7 +50,7 @@ export function useLoginUsername() {
   };
 
   const getCurrentLoginUsername = () => {
-    const storedLoginUsername = localStorage.getItem('loginUser');
+    const storedLoginUsername = localStorage.getItem('loginUser') || 'Guest';
     // if (storedLoginUsername && !loginUsername) {
     //   setLoginUsernameAtom(storedLoginUsername);
     // }
